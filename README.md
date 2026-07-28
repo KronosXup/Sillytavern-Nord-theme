@@ -7,7 +7,9 @@ Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。
 - 遵循 [Nord](https://www.nordtheme.com/) 官方设计哲学：clean/uncluttered、flat 纯色无渐变
 - Polar Night 深底 + Snow Storm 浅前景
 - Frost 冰青（nord8 `#88c0d0`）作主强调色
-- Aurora 极光作语义强调：红=危险、黄=警告、绿=成功、紫=信息
+- Aurora 极光作语义态：红=错误、黄=警告、绿=成功（紫=数字/字面量，仅语法高亮）；info 用 frost 雾蓝 nord9
+- 字体与分层取自官网设计系统：Rubik（UI，中文回落 Noto Sans SC）+ Source Code Pro（等宽）、双向明度分层（浮起/下沉）、发丝线回归（nord2/nord3，官方 passive border）、浮层极微阴影、easeOutCubic 动效
+- 小锐角（3px），不用大圆角
 
 ## 令牌架构
 
