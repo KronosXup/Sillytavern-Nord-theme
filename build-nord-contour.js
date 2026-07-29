@@ -101,6 +101,17 @@ body {
 .recentChat:hover, .character_select:hover, .inline-drawer-header:hover, .toast:hover {
   box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
 }
+/* Nord 官网小按钮 hover：边框+字色→frost8 */
+.menu_button {
+  transition: border-color 400ms ease-in-out, color 400ms ease-in-out, background-color 400ms ease-in-out !important;
+}
+.menu_button:hover {
+  border-color: #88c0d0 !important;
+  color: #88c0d0 !important;
+}
+.menu_button:hover .fa-solid, .menu_button:hover .fa-regular, .menu_button:hover i {
+  color: #88c0d0 !important;
+}
 .welcomeHeaderLogo {
   content: url("${logoUri}") !important;
   width: 40px !important;
