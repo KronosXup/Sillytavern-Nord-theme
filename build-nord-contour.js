@@ -89,7 +89,7 @@ body {
   color: #e5e9f0 !important;
 }
 #right-nav-panel, #left-nav-panel, #character_popup, #dialogue_popup, .popup, .draggable, #WorldInfo, #floatingPrompt {
-  background-color: rgba(59,66,82,0.45) !important;
+  background-color: #3b4252 !important;
   border: 1px solid rgba(216,222,233,0.08) !important;
   box-shadow: 0 12px 36px rgba(0,0,0,0.35) !important;
 }
