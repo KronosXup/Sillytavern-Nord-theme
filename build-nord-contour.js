@@ -101,10 +101,12 @@ body {
 .recentChat:hover, .character_select:hover, .inline-drawer-header:hover {
   box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
 }
+.welcomeHeaderLogo {
   content: url("${logoUri}") !important;
   width: 40px !important;
   height: 40px !important;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
 }
 `;
 
