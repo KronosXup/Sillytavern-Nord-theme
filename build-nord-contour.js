@@ -101,6 +101,8 @@ body {
 .recentChat:hover, .character_select:hover, .toast:hover {
   box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
 }
+/* 标题hover去高亮，只保留阴影加重 */
+.inline-drawer-header:hover .inline-drawer-icon { color: var(--text-dim) !important; }
 /* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color) */
 .menu_button {
   transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out !important;
