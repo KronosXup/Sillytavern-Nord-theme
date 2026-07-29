@@ -112,7 +112,7 @@ body {
 .menu_button .fa-solid, .menu_button .fa-regular, .menu_button i {
   transition: color 200ms ease-in-out !important;
 }
-.menu_button:hover .fa-solid, .menu_button:hover .fa-regular, .menu_button:hover i {
+.menu_button:hover .fa-solid, .menu_button:hover .fa-regular, .menu_button:hover i, .menu_button:hover span {
   color: #88c0d0 !important;
 }
 .welcomeHeaderLogo {
