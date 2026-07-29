@@ -94,11 +94,11 @@ body {
   box-shadow: 0 12px 36px rgba(0,0,0,0.35) !important;
 }
 /* Nord 官网 Card hover：轻影抬深影 */
-.recentChat, .character_select, .inline-drawer-header, .toast {
+.recentChat, .character_select, .toast {
   box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
   transition: box-shadow 400ms ease-in-out, background-color 400ms ease-in-out !important;
 }
-.recentChat:hover, .character_select:hover, .inline-drawer-header:hover, .toast:hover {
+.recentChat:hover, .character_select:hover, .toast:hover {
   box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
 }
 /* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color) */
