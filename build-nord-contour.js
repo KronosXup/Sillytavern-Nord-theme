@@ -70,7 +70,7 @@ body {
 }
 #chat, #sheld { background-color: transparent !important; background-image: url("${bgUri}") !important; background-attachment: fixed !important; background-repeat: no-repeat !important; background-size: cover !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
-.mes, .character_select, .entity_block, .wide100p {
+.mes {
   background-color: rgba(46,52,64,0.08) !important;
   border: 1px solid rgba(216,222,233,0.05) !important;
   border-radius: var(--r) !important;
