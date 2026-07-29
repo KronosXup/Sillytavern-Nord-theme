@@ -262,14 +262,8 @@ for (const fa in M) {
   const svg = fs.readFileSync(path.join(REMIX_BASE, rel), 'utf8');
   const uri = 'data:image/svg+xml,' + encodeURIComponent(svg);
 
-  let color, hover = false;
-  if (fa === 'fa-paper-plane') {
-    color = 'var(--on-accent,#2e3440)';
-  } else if (TOOLBAR_HOVER.has(fa)) {
-    color = TOOLBAR; hover = true;
-  } else {
-    color = 'currentColor';
-  }
+  let color = 'currentColor';
+  if (fa === 'fa-paper-plane') color = 'var(--on-accent,#2e3440)';
 
   let sel;
   if (fa.startsWith('fa-brands.fa-')) {
@@ -278,18 +272,25 @@ for (const fa in M) {
     sel = '.' + fa + '::before';
   }
 
-  let rule = sel + '{content:""!important;display:inline-block!important;width:1.1em!important;height:1.1em!important;'+
-    'background-color:' + color + '!important;'+
-    'mask-image:url("' + uri + '")!important;-webkit-mask-image:url("' + uri + '")!important;'+
-    'mask-size:contain!important;-webkit-mask-size:contain!important;'+
-    'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;'+
+  let rule = sel + '{' +
+    'content:""!important;display:inline-block!important;' +
+    'width:1.1em!important;height:1.1em!important;' +
+    'background-color:' + color + '!important;' +
+    'mask-image:url("' + uri + '")!important;' +
+    '-webkit-mask-image:url("' + uri + '")!important;' +
+    'mask-size:contain!important;-webkit-mask-size:contain!important;' +
+    'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;' +
     'mask-position:center!important;-webkit-mask-position:center!important;';
-  if (hover) rule += 'transition:background-color 200ms ease-in-out!important;';
+  if (TOOLBAR_HOVER.has(fa)) {
+    rule += 'transition:background-color 200ms ease-in-out!important;';
+  }
   rule += '}';
   blocks.push(rule);
 
-  if (hover) {
-    blocks.push('.menu_button:hover ' + sel + '{background-color:' + ACCENT + '!important}');
+  if (TOOLBAR_HOVER.has(fa)) {
+    blocks.push('.menu_button:hover ' + sel + ',.drawer-toggle:hover ' + sel + ',' +
+      '.drawer-icon:hover ' + sel + ',.interactable:hover ' + sel +
+      '{background-color:' + ACCENT + '!important}');
   }
 }
 
@@ -299,35 +300,36 @@ blocks.push('#send_but:hover .fa-paper-plane::before{background-color:#2e3440!im
 // fa-undo 别名组
 const undoSvg = fs.readFileSync(path.join(REMIX_BASE, 'Arrows/arrow-go-back-fill.svg'), 'utf8');
 const undoUri = 'data:image/svg+xml,' + encodeURIComponent(undoSvg);
-blocks.push('.fa-arrow-left-rotate::before,.fa-arrow-rotate-back::before,.fa-arrow-rotate-backward::before,.fa-arrow-rotate-left::before{'+
-  'content:""!important;display:inline-block!important;width:1.1em!important;height:1.1em!important;'+
-  'background-color:#d8dee9!important;'+
-  'mask-image:url("' + undoUri + '")!important;-webkit-mask-image:url("' + undoUri + '")!important;'+
-  'mask-size:contain!important;-webkit-mask-size:contain!important;'+
-  'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;'+
-  'mask-position:center!important;-webkit-mask-position:center!important;'+
+blocks.push('.fa-arrow-left-rotate::before,.fa-arrow-rotate-back::before,.fa-arrow-rotate-backward::before,.fa-arrow-rotate-left::before{' +
+  'content:""!important;display:inline-block!important;width:1.1em!important;height:1.1em!important;' +
+  'background-color:currentColor!important;' +
+  'mask-image:url("' + undoUri + '")!important;-webkit-mask-image:url("' + undoUri + '")!important;' +
+  'mask-size:contain!important;-webkit-mask-size:contain!important;' +
+  'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;' +
+  'mask-position:center!important;-webkit-mask-position:center!important;' +
   'transition:background-color 200ms ease-in-out!important;}');
-blocks.push('.menu_button:hover .fa-arrow-left-rotate::before,.menu_button:hover .fa-arrow-rotate-back::before,.menu_button:hover .fa-arrow-rotate-backward::before,.menu_button:hover .fa-arrow-rotate-left::before{background-color:' + ACCENT + '!important}');
+blocks.push('.menu_button:hover .fa-arrow-left-rotate::before,.menu_button:hover .fa-arrow-rotate-back::before,.menu_button:hover .fa-arrow-rotate-backward::before,.menu_button:hover .fa-arrow-rotate-left::before,' +
+  '.drawer-toggle:hover .fa-arrow-left-rotate::before,.drawer-toggle:hover .fa-arrow-rotate-back::before,.drawer-toggle:hover .fa-arrow-rotate-backward::before,.drawer-toggle:hover .fa-arrow-rotate-left::before,' +
+  '.interactable:hover .fa-arrow-left-rotate::before,.interactable:hover .fa-arrow-rotate-back::before,.interactable:hover .fa-arrow-rotate-backward::before,.interactable:hover .fa-arrow-rotate-left::before{background-color:' + ACCENT + '!important}');
 
-// wifi 断开红色状态
+// wifi 断开状态红色
 const wifiSvg = fs.readFileSync(path.join(REMIX_BASE, 'Device/wifi-fill.svg'), 'utf8');
 const wifiUri = 'data:image/svg+xml,' + encodeURIComponent(wifiSvg);
-blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:#bf616a!important;'+
+blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:#bf616a!important;' +
   'mask-image:url("' + wifiUri + '")!important;-webkit-mask-image:url("' + wifiUri + '")!important;}');
 
 console.log('CSS rules:', blocks.length);
 
-const remixCSS = '/* ============================================================\n * Remix Icon fill 图标替换（' + Object.keys(M).length + ' FA 类名 → mask-image SVG）\n * 24×24 viewBox, fill-current, 锐利几何实心替代 FA 厚重圆润\n * 颜色：顶栏 #d8dee9 hover→#88c0d0，发送键 --on-accent，状态 currentColor\n * ============================================================ */\n' + blocks.join('\n');
+const remixCSS = '/* ============================================================\n * Remix Icon fill 图标替换（' + Object.keys(M).length + ' FA 类名 → mask-image SVG）\n * 24×24 viewBox, fill-current, 锐利几何实心替代 FA 厚重圆润\n * 颜色：背景色贯穿色（默认继承父色，hover 时父元素 color 变 frost8 → background-color 跟随）\n * hover 选择器：.menu_button:hover,.drawer-toggle:hover,.drawer-icon:hover,.interactable:hover → #88c0d0\n * ============================================================ */\n' + blocks.join('\n');
 
-// 关键：在 baseCSS 后追加，不替换
 const finalCSS = baseCSS + '\n\n' + remixCSS;
 const out = { ...cont, name: 'Nord-Contour', custom_css: finalCSS };
 fs.writeFileSync(CONT, JSON.stringify(out, null, 2), 'utf8');
 
-// 验证
 const chk = JSON.parse(fs.readFileSync(CONT, 'utf8'));
 console.log('round-trip:', chk.custom_css === finalCSS ? 'OK' : 'FAIL');
 console.log('name:', chk.name);
-console.log('total css:', finalCSS.length, 'chars (base', baseCSS.length, '+ remix', remixCSS.length, ')');
+console.log('total:', finalCSS.length, 'chars (base', baseCSS.length, '+ remix', remixCSS.length, ')');
 console.log('Contour preserved:', finalCSS.indexOf('wavy concentric') >= 0 && finalCSS.indexOf('0 10px 20px 2px') >= 0 && finalCSS.indexOf('welcomeHeaderLogo') >= 0);
 console.log('Remix added:', finalCSS.indexOf('mask-image') >= 0);
+console.log('Wider hover rules:', blocks.filter(b => b.includes('.drawer-toggle:hover')).length, 'toggle-hover blocks');
