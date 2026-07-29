@@ -93,7 +93,14 @@ body {
   border: 1px solid rgba(216,222,233,0.08) !important;
   box-shadow: 0 12px 36px rgba(0,0,0,0.35) !important;
 }
-.welcomeHeaderLogo {
+/* Nord 官网 Card hover：轻影抬深影 */
+.recentChat, .character_select, .inline-drawer-header {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
+  transition: box-shadow 400ms ease-in-out, background-color 400ms ease-in-out !important;
+}
+.recentChat:hover, .character_select:hover, .inline-drawer-header:hover {
+  box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
+}
   content: url("${logoUri}") !important;
   width: 40px !important;
   height: 40px !important;
