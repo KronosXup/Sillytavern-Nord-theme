@@ -70,12 +70,17 @@ body {
 }
 #chat, #sheld { background-color: transparent !important; background-image: url("${bgUri}") !important; background-attachment: fixed !important; background-repeat: no-repeat !important; background-size: cover !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
-.mes {
-  background-color: rgba(46,52,64,0.85) !important;
+.mes, .mes.last_mes {
+  background-color: rgba(46,52,64,0.60) !important;
   border: 1px solid rgba(216,222,233,0.05) !important;
   border-radius: var(--r) !important;
 }
-.mes.last_mes { background-color: rgba(46,52,64,0.92) !important; }
+.mes_text q, q {
+  background-color: rgba(143,188,187,0.09) !important;
+  border-left: 2px solid var(--nord7) !important;
+  border-radius: 0 3px 3px 0 !important;
+  padding: 1px 5px 1px 4px !important;
+}
 .ch_name { color: #bf616a !important; }              /* aurora 红 nord11 */
 .tag {
   background-color: rgba(180,142,173,0.12) !important;  /* aurora 紫 nord15 */
