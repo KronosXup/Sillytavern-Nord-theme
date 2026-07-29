@@ -71,11 +71,11 @@ body {
 #chat, #sheld { background-color: transparent !important; background-image: url("${bgUri}") !important; background-attachment: fixed !important; background-repeat: no-repeat !important; background-size: cover !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
 .mes {
-  background-color: rgba(46,52,64,0.08) !important;
+  background-color: rgba(46,52,64,0.85) !important;
   border: 1px solid rgba(216,222,233,0.05) !important;
   border-radius: var(--r) !important;
 }
-.mes.last_mes { background-color: rgba(46,52,64,0.14) !important; }
+.mes.last_mes { background-color: rgba(46,52,64,0.92) !important; }
 .ch_name { color: #bf616a !important; }              /* aurora 红 nord11 */
 .tag {
   background-color: rgba(180,142,173,0.12) !important;  /* aurora 紫 nord15 */
