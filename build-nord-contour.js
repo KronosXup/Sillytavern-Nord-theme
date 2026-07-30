@@ -74,7 +74,11 @@ body {
   background-color: rgba(46,52,64,0.60) !important;
   border: 1px solid rgba(216,222,233,0.05) !important;
   border-radius: var(--r) !important;
+  padding: 14px 16px !important;
+  margin-bottom: 12px !important;
 }
+.character_select { padding: 10px !important; }
+.inline-drawer-header { padding: 10px 14px !important; }
 .mes_text q, q {
   background-color: rgba(143,188,187,0.09) !important;
   border-left: 2px solid var(--nord7) !important;
