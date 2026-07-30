@@ -80,11 +80,10 @@ body {
 .character_select { padding: 10px !important; }
 .inline-drawer-header { padding: 10px 14px !important; }
 .mes_text q, q {
-  background-color: #3b4252 !important;
-  padding: 1px 4px !important;
-  border-radius: 2px !important;
-  -webkit-box-decoration-break: clone !important;
-  box-decoration-break: clone !important;
+  text-decoration: underline !important;
+  text-decoration-color: #8fbcbb !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 3px !important;
 }
 .ch_name { color: #bf616a !important; }              /* aurora 红 nord11 */
 .tag {
