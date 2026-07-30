@@ -131,7 +131,7 @@ m('fa-robot', 'smart_toy');
 m('fa-magic-wand-sparkles', 'wand_stars'); m('fa-wand-magic', 'wand_stars'); m('fa-wand-magic-sparkles', 'wand_stars');
 m('fa-note-sticky', 'sticky_note_2'); m('fa-sticky-note', 'sticky_note_2');
 m('fa-notes-medical', 'medical_information'); m('fa-file-invoice', 'receipt');
-m('fa-toggle-on', 'toggle_on'); m('fa-toggle-off', 'toggle_off');
+m('fa-toggle-on', 'toggle_on-fill'); m('fa-toggle-off', 'toggle_off'); // 开=实心fill、关=空心
 m('fa-check-to-slot', 'task_alt');
 m('fa-face-smile', 'mood'); m('fa-smile', 'mood'); m('fa-grin', 'mood'); m('fa-surprise', 'mood');
 m('fa-frown', 'sentiment_dissatisfied'); m('fa-meh', 'sentiment_neutral');
