@@ -79,12 +79,6 @@ body {
 }
 .character_select { padding: 10px !important; }
 .inline-drawer-header { padding: 10px 14px !important; }
-.mes_text q, q {
-  background-color: var(--nord1) !important;
-  border: none !important;
-  border-radius: 3px !important;
-  padding: 2px 6px !important;
-}
 .ch_name { color: #bf616a !important; }              /* aurora 红 nord11 */
 .tag {
   background-color: rgba(180,142,173,0.12) !important;  /* aurora 紫 nord15 */
