@@ -4,7 +4,8 @@ const SRC = 'F:/sillytavern-themes/nord-theme/themes/Nord-Dark.json';
 const OUT = 'F:/sillytavern-themes/nord-theme/themes/Nord-Contour.json';
 const base = JSON.parse(fs.readFileSync(SRC, 'utf8'));
 
-// 两角 wavy concentric：16 顶点 Catmull-Rom 平滑，每层同形状放大
+// 两角等高线极光：每角一朵独立的"花"，各自锚定视口角（右上/左下），
+// 双图层背景，与屏幕宽高比无关（单图 cover 会把竖版 SVG 放大 9 倍、把另一角推出屏外）
 const makeSmooth = (cx, cy, r, seed) => {
   const w = [1.0, 1.08, 0.93, 1.06, 0.95, 1.09, 0.92, 1.07, 0.96, 1.08, 0.94, 1.05, 0.97, 1.06, 0.93, 1.04];
   const n = 16;
@@ -26,21 +27,25 @@ const makeSmooth = (cx, cy, r, seed) => {
   return d;
 };
 
-const lb = (r) => makeSmooth(20, 720, r, 0);
-const rt = (r) => makeSmooth(407, 10, r, 3);
-
-const bgSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 427 722' preserveAspectRatio='xMidYMid slice'>
-  <rect width='427' height='722' fill='%232e3440'/>
-  <path d='${lb(320)}' fill='%235e81ac' opacity='0.30'/>
-  <path d='${lb(220)}' fill='%2381a1c1' opacity='0.45'/>
-  <path d='${lb(140)}' fill='%235e81ac' opacity='0.65'/>
-  <path d='${lb(80)}'  fill='%2381a1c1' opacity='0.85'/>
-  <path d='${rt(320)}' fill='%2388c0d0' opacity='0.30'/>
-  <path d='${rt(220)}' fill='%238fbcbb' opacity='0.45'/>
-  <path d='${rt(140)}' fill='%2388c0d0' opacity='0.65'/>
-  <path d='${rt(80)}'  fill='%238fbcbb' opacity='0.85'/>
-</svg>`;
-const bgUri = 'data:image/svg+xml,' + encodeURIComponent(bgSvg).replace(/%2523/g, '%23');
+// 每朵 6 层同心环：核心最亮，外圈渐隐
+const ringOp = [0.85, 0.62, 0.42, 0.25, 0.13, 0.06];
+const ringR  = [70, 120, 180, 250, 330, 420];
+const toUri = (svg) => 'data:image/svg+xml,' + encodeURIComponent(svg).replace(/%2523/g, '%23');
+// 一朵花：锚点 (ax,ay) 在角落，色对 (cA,cB) 交替，光晕 id 防冲突
+const flower = (ax, ay, cA, cB, gid) => {
+  const rings = ringR.map((r, i) => `<path d='${makeSmooth(ax, ay, r, 3)}' fill='${i % 2 ? cB : cA}' opacity='${ringOp[i]}'/>`).join('');
+  return toUri(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'>
+  <defs><radialGradient id='${gid}' gradientUnits='userSpaceOnUse' cx='${ax}' cy='${ay}' r='420'>
+    <stop offset='0' stop-color='${cA}' stop-opacity='0.30'/>
+    <stop offset='0.6' stop-color='${cA}' stop-opacity='0.10'/>
+    <stop offset='1' stop-color='${cA}' stop-opacity='0'/>
+  </radialGradient></defs>
+  <rect width='500' height='500' fill='url(%23${gid})'/>
+  ${rings}
+</svg>`);
+};
+const trUri = flower(480, 20, '%2388c0d0', '%238fbcbb', 'gTR');  /* 右上：nord8/nord7 冰青 */
+const blUri = flower(20, 480, '%235e81ac', '%2381a1c1', 'gBL');  /* 左下：nord10/nord9 深蓝 */
 
 // logo：简洁冰晶菱形 + nord8 线条
 const logoSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
@@ -55,53 +60,55 @@ const logoUri = 'data:image/svg+xml,' + encodeURIComponent(logoSvg).replace(/%25
 const append = `
 /* ============================================================
  * Nord-Contour 纹理 + UI 透明化 + logo
- * 背景：两角 wavy concentric（左下 nord10/nord9、右上 nord8/nord7），
- *       每层同形状放大、Catmull-Rom 平滑，两角同色系(frost)起点；
- *       中心由两层 nord0 构成结构感。
+ * 背景：两角等高线极光——两朵独立的"花"各锚视口一角（双图层 background，与宽高比无关），
+ *       右上 nord8/nord7 冰青、左下 nord10/nord9 深蓝，核心鲜亮、外圈渐隐，正文区保持 nord0；
+ *       只注入 body，#bg1 自定义背景图不被遮盖。
  * aurora 点缀：角色名红 nord11、标签紫 nord15。
- * UI 透明化：消息/聊表半透浮在纹理上，面板半透玻璃，顶栏/输入栏也透。
+ * UI 透明化：消息/聊表半透浮在纹理上，顶栏/发送栏也透；
+ *       设置菜单控件保持实底（玻璃化会丢辨识度，只给发送栏）。
  * ============================================================ */
 body {
   background-color: #2e3440 !important;
-  background-image: url("${bgUri}") !important;
+  background-image: url("${trUri}"), url("${blUri}") !important;
+  background-position: right top, left bottom !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-size: 640px 640px, 640px 640px !important;
   background-attachment: fixed !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
 }
-#chat, #sheld { background-color: transparent !important; background-image: url("${bgUri}") !important; background-attachment: fixed !important; background-repeat: no-repeat !important; background-size: cover !important; border: none !important; box-shadow: none !important; }
+#chat, #sheld { background-color: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
 .mes, .mes.last_mes {
   background-color: rgba(46,52,64,0.60) !important;
   border: 1px solid rgba(216,222,233,0.05) !important;
-  border-radius: var(--r) !important;
+  border-radius: var(--radius) !important;
   padding: 14px 16px !important;
   margin-bottom: 12px !important;
 }
 .character_select { padding: 10px !important; }
-.inline-drawer-header { padding: 10px 14px !important; }
+.inline-drawer-header { padding: 6px 14px !important; }
 .mes_text q, q {
-  text-decoration: underline !important;
-  text-decoration-color: #8fbcbb !important;
-  text-decoration-thickness: 1px !important;
-  text-underline-offset: 3px !important;
+  quotes: none !important;
+  color: #8fbcbb !important;
+  font-weight: 500 !important;
 }
-.ch_name { color: #bf616a !important; }              /* aurora 红 nord11 */
+/* ch_name 回落基线 nord6 亮白（aurora 红与"强调色只给交互"的纪律冲突，已撤回） */
 .tag {
   background-color: rgba(180,142,173,0.12) !important;  /* aurora 紫 nord15 */
   color: #b48ead !important;
   border: 1px solid rgba(180,142,173,0.25) !important;
 }
 #send_form, #top-settings-holder { background-color: rgba(59,66,82,0.38) !important; border: 1px solid rgba(216,222,233,0.06) !important; }
-.text_pole, #send_textarea, select {
+#send_form .text_pole, #send_textarea {
   background-color: rgba(46,52,64,0.30) !important;
   border: 1px solid rgba(216,222,233,0.05) !important;
   color: #e5e9f0 !important;
 }
-#right-nav-panel, #left-nav-panel, #character_popup, #dialogue_popup, .popup, .draggable, #WorldInfo, #floatingPrompt {
+#character_popup, #dialogue_popup, .popup, .draggable, #floatingPrompt {
   background-color: #3b4252 !important;
   border: 1px solid rgba(216,222,233,0.08) !important;
   box-shadow: 0 12px 36px rgba(0,0,0,0.35) !important;
 }
+/* 抽屉三兄弟（WorldInfo/左右 nav-panel）不归浮层：回基线 shadow-raised 轻影，与其它抽屉一致 */
 /* Nord 官网 Card hover：轻影抬深影 */
 .recentChat, .character_select, .inline-drawer-header, .toast {
   box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
@@ -113,18 +120,22 @@ body {
 /* 标题hover去高亮：覆盖酒馆原生 style.css 5437 行的 brightness(150%) */
 .inline-drawer-header:hover { filter: brightness(100%) !important; }
 .inline-drawer-header:hover .inline-drawer-icon { color: var(--text-dim) !important; }
-/* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color) */
+/* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color)；
+   边界：active/selected（已是冰青底，再染图标会融底）与 red_button（红底）不参与 */
 .menu_button {
   transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out !important;
 }
-.menu_button:hover {
+.menu_button:not(.active):not(.selected):not(.red_button):hover {
   border-color: #88c0d0 !important;
   color: #88c0d0 !important;
 }
 .menu_button .fa-solid, .menu_button .fa-regular, .menu_button i {
   transition: color 200ms ease-in-out !important;
 }
-.menu_button:hover .fa-solid, .menu_button:hover .fa-regular, .menu_button:hover i, .menu_button:hover span {
+.menu_button:not(.active):not(.selected):not(.red_button):hover .fa-solid,
+.menu_button:not(.active):not(.selected):not(.red_button):hover .fa-regular,
+.menu_button:not(.active):not(.selected):not(.red_button):hover i,
+.menu_button:not(.active):not(.selected):not(.red_button):hover span {
   color: #88c0d0 !important;
 }
 .welcomeHeaderLogo {
@@ -144,5 +155,5 @@ console.log('name:', chk.name);
 console.log('css chars:', css.length);
 console.log('has wavy concentric:', css.includes('makeSmooth') || (css.includes('Catmull') || css.includes('W1.0,1.08')));
 console.log('has logo:', css.includes('welcomeHeaderLogo') && css.includes('88c0d0'));
-console.log('has aurora ch_name #bf616a:', css.includes('#bf616a'));
+console.log('ch_name 红已撤(应为 false):', css.includes('#bf616a'));
 console.log('has transparent UI:', css.includes('rgba(46,52,64,0.08)') && css.includes('rgba(59,66,82,0.38)'));
