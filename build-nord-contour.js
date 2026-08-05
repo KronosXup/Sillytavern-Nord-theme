@@ -98,8 +98,9 @@ body {
   color: var(--nord15) !important;
   border: 1px solid color-mix(in srgb, var(--nord15) 25%, transparent) !important;
 }
-/* 输入区拍平：外层 form 透明不叠底，输入框用 base 的 bg-2 实底+frost焦点环（单框，不套娃玻璃） */
-#send_form { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+/* 输入区：发送栏整条垫 bg-1 面板实底（浮起托底），输入框在其上用 bg-2——两阶明度差拉开边界，
+   不套娃玻璃（form 不再透明裸透纹理，否则 bg-2 框融进 nord0 画布显脏/像没底） */
+#send_form { background-color: var(--bg-1) !important; border: 1px solid var(--line-1) !important; border-radius: var(--radius) !important; box-shadow: var(--shadow-raised) !important; }
 #top-settings-holder { background-color: color-mix(in srgb, var(--bg-1) 38%, transparent) !important; border: 1px solid color-mix(in srgb, var(--text) 6%, transparent) !important; }
 #character_popup, #dialogue_popup, .popup, .draggable, #floatingPrompt {
   background-color: var(--bg-1) !important;
