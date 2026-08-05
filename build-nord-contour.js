@@ -78,7 +78,7 @@ body {
 #chat, #sheld { background-color: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
 .mes, .mes.last_mes {
-  background-color: color-mix(in srgb, var(--bg-0) 60%, transparent) !important;
+  background-color: color-mix(in srgb, var(--bg-0) 45%, transparent) !important;
   border: 1px solid color-mix(in srgb, var(--text) 5%, transparent) !important;
   border-radius: var(--radius) !important;
   padding: 14px 16px !important;
