@@ -68,7 +68,7 @@ const append = `
  *       设置菜单控件保持实底（玻璃化会丢辨识度，只给发送栏）。
  * ============================================================ */
 body {
-  background-color: #2e3440 !important;
+  background-color: var(--bg-0) !important;
   background-image: url("${trUri}"), url("${blUri}") !important;
   background-position: right top, left bottom !important;
   background-repeat: no-repeat, no-repeat !important;
@@ -78,8 +78,8 @@ body {
 #chat, #sheld { background-color: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
 .mes, .mes.last_mes {
-  background-color: rgba(46,52,64,0.60) !important;
-  border: 1px solid rgba(216,222,233,0.05) !important;
+  background-color: color-mix(in srgb, var(--bg-0) 60%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--text) 5%, transparent) !important;
   border-radius: var(--radius) !important;
   padding: 14px 16px !important;
   margin-bottom: 12px !important;
@@ -88,24 +88,24 @@ body {
 .inline-drawer-header { padding: 6px 14px !important; }
 .mes_text q, q {
   quotes: none !important;
-  color: #8fbcbb !important;
+  color: var(--nord7) !important;
   font-weight: 500 !important;
 }
 /* ch_name 回落基线 nord6 亮白（aurora 红与"强调色只给交互"的纪律冲突，已撤回） */
 .tag {
-  background-color: rgba(180,142,173,0.12) !important;  /* aurora 紫 nord15 */
-  color: #b48ead !important;
-  border: 1px solid rgba(180,142,173,0.25) !important;
+  background-color: color-mix(in srgb, var(--nord15) 12%, transparent) !important;  /* aurora 紫 nord15 */
+  color: var(--nord15) !important;
+  border: 1px solid color-mix(in srgb, var(--nord15) 25%, transparent) !important;
 }
-#send_form, #top-settings-holder { background-color: rgba(59,66,82,0.38) !important; border: 1px solid rgba(216,222,233,0.06) !important; }
+#send_form, #top-settings-holder { background-color: color-mix(in srgb, var(--bg-1) 38%, transparent) !important; border: 1px solid color-mix(in srgb, var(--text) 6%, transparent) !important; }
 #send_form .text_pole, #send_textarea {
-  background-color: rgba(46,52,64,0.30) !important;
-  border: 1px solid rgba(216,222,233,0.05) !important;
-  color: #e5e9f0 !important;
+  background-color: color-mix(in srgb, var(--bg-0) 30%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--text) 5%, transparent) !important;
+  color: var(--text-hover) !important;
 }
 #character_popup, #dialogue_popup, .popup, .draggable, #floatingPrompt {
-  background-color: #3b4252 !important;
-  border: 1px solid rgba(216,222,233,0.08) !important;
+  background-color: var(--bg-1) !important;
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent) !important;
   box-shadow: 0 12px 36px rgba(0,0,0,0.35) !important;
 }
 /* 抽屉三兄弟（WorldInfo/左右 nav-panel）不归浮层：回基线 shadow-raised 轻影，与其它抽屉一致 */
@@ -126,8 +126,8 @@ body {
   transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out !important;
 }
 .menu_button:not(.active):not(.selected):not(.red_button):hover {
-  border-color: #88c0d0 !important;
-  color: #88c0d0 !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
 }
 .menu_button .fa-solid, .menu_button .fa-regular, .menu_button i {
   transition: color 200ms ease-in-out !important;
@@ -136,7 +136,7 @@ body {
 .menu_button:not(.active):not(.selected):not(.red_button):hover .fa-regular,
 .menu_button:not(.active):not(.selected):not(.red_button):hover i,
 .menu_button:not(.active):not(.selected):not(.red_button):hover span {
-  color: #88c0d0 !important;
+  color: var(--accent) !important;
 }
 .welcomeHeaderLogo {
   content: url("${logoUri}") !important;

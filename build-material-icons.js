@@ -8,7 +8,8 @@ const path = require('path');
 
 const MS_BASE = 'C:/temp/ms/node_modules/@material-symbols/svg-400/sharp/';
 const CONT = 'F:/sillytavern-themes/nord-theme/themes/Nord-Contour.json';
-const ACCENT = '#88c0d0';
+// hover 强调走语义令牌（:root --accent），不再硬编码 hex——令牌化后 accent 单点可换
+const ACCENT = 'var(--accent)';
 
 // 读当前 Contour(已含 Nord-Dark base + Contour 纹理/hover/logo，不含旧图标块)
 const cont = JSON.parse(fs.readFileSync(CONT, 'utf8'));
@@ -181,14 +182,15 @@ if (missing.length) {
 
 // ── 生成 CSS ──
 const blocks = [];
+const hoverSels = [];   // 收集所有图标 ::before 选择器，末尾合并成一条共享 hover 规则
 for (const fa in M) {
   const ms = M[fa];
   const svg = fs.readFileSync(path.join(MS_BASE, ms + '.svg'), 'utf8');
   const uri = 'data:image/svg+xml,' + encodeURIComponent(svg);
 
   let color = 'currentColor';
-  if (fa === 'fa-paper-plane') color = 'var(--on-accent,#2e3440)';
-  if (fa === 'fa-plug-circle-exclamation') color = 'var(--danger,#bf616a)'; // 未连接：power 变红
+  if (fa === 'fa-paper-plane') color = 'var(--on-accent)';
+  if (fa === 'fa-plug-circle-exclamation') color = 'var(--danger)'; // 未连接：power 变红
 
   let sel;
   if (fa.startsWith('fa-brands.fa-')) {
@@ -208,25 +210,25 @@ for (const fa in M) {
     'mask-position:center!important;-webkit-mask-position:center!important;' +
     'transition:background-color 200ms ease-in-out!important;}');
 
-  blocks.push('.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover ' + sel + ',.drawer-toggle:hover ' + sel + ',' +
-    '.drawer-icon:hover ' + sel + ',.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover ' + sel +
-    '{background-color:' + ACCENT + '!important}');
+  // fa-paper-plane 发送键常态用 --on-accent（已是冰青底上深色），hover 不再染 accent（会融底）
+  if (fa !== 'fa-paper-plane') hoverSels.push(sel);
 }
 
-// 发送键 hover
-blocks.push('#send_but:hover .fa-paper-plane::before{background-color:#2e3440!important}');
+// 发送键 hover（常态已是 --on-accent 深色，hover 再压深一档到画布色）
+blocks.push('#send_but:hover .fa-paper-plane::before{background-color:var(--bg-0)!important}');
 
 // 实心星：收藏激活态换 fill（fav_on / ch_fav_icon / group_fav_icon）
 const starFillSvg = fs.readFileSync(path.join(MS_BASE, 'star-fill.svg'), 'utf8');
 const starFillUri = 'data:image/svg+xml,' + encodeURIComponent(starFillSvg);
 blocks.push('.fa-star.fav_on::before,.ch_fav_icon.fa-star::before,.group_fav_icon.fa-star::before{' +
   'mask-image:url("' + starFillUri + '")!important;-webkit-mask-image:url("' + starFillUri + '")!important;' +
-  'background-color:var(--nord13,#ebcb8b)!important;}');
+  'background-color:var(--warn)!important;}');
 
-// fa-undo 别名组（FA 同一字形多个别名 class）
+// fa-undo 别名组（FA 同一字形多个别名 class）——base 规则照推，hover 选择器并进共享池
 const undoSvg = fs.readFileSync(path.join(MS_BASE, 'undo.svg'), 'utf8');
 const undoUri = 'data:image/svg+xml,' + encodeURIComponent(undoSvg);
-blocks.push('.fa-arrow-left-rotate::before,.fa-arrow-rotate-back::before,.fa-arrow-rotate-backward::before,.fa-arrow-rotate-left::before{' +
+const undoAliases = ['.fa-arrow-left-rotate::before', '.fa-arrow-rotate-back::before', '.fa-arrow-rotate-backward::before', '.fa-arrow-rotate-left::before'];
+blocks.push(undoAliases.join(',') + '{' +
   'content:""!important;display:inline-block!important;width:1.1em!important;height:1.1em!important;' +
   'background-color:currentColor!important;' +
   'mask-image:url("' + undoUri + '")!important;-webkit-mask-image:url("' + undoUri + '")!important;' +
@@ -234,15 +236,20 @@ blocks.push('.fa-arrow-left-rotate::before,.fa-arrow-rotate-back::before,.fa-arr
   'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;' +
   'mask-position:center!important;-webkit-mask-position:center!important;' +
   'transition:background-color 200ms ease-in-out!important;}');
-blocks.push('.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover .fa-arrow-left-rotate::before,.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover .fa-arrow-rotate-back::before,.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover .fa-arrow-rotate-backward::before,.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover .fa-arrow-rotate-left::before,' +
-  '.drawer-toggle:hover .fa-arrow-left-rotate::before,.drawer-toggle:hover .fa-arrow-rotate-back::before,.drawer-toggle:hover .fa-arrow-rotate-backward::before,.drawer-toggle:hover .fa-arrow-rotate-left::before,' +
-  '.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover .fa-arrow-left-rotate::before,.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover .fa-arrow-rotate-back::before,.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover .fa-arrow-rotate-backward::before,.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover .fa-arrow-rotate-left::before{background-color:' + ACCENT + '!important}');
+hoverSels.push(...undoAliases);
 
 // wifi 断开状态红色
 const wifiSvg = fs.readFileSync(path.join(MS_BASE, 'wifi.svg'), 'utf8');
 const wifiUri = 'data:image/svg+xml,' + encodeURIComponent(wifiSvg);
-blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:#bf616a!important;' +
+blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:var(--danger)!important;' +
   'mask-image:url("' + wifiUri + '")!important;-webkit-mask-image:url("' + wifiUri + '")!important;}');
+
+// ── 共享 hover 规则（一条替代原先 247 条 per-icon 重复声明）──
+const HOVER_CTX = ['.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover', '.drawer-toggle:hover', '.drawer-icon:hover', '.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover'];
+const hoverCombined = [];
+for (const s of hoverSels) for (const ctx of HOVER_CTX) hoverCombined.push(ctx + ' ' + s);
+blocks.push('/* 图标 hover 染 accent（共享一条，accent 语义令牌单点可换；active/selected/red_button/tag 边界不染） */\n' +
+  hoverCombined.join(',\n') + '{background-color:' + ACCENT + '!important}');
 
 console.log('CSS rules:', blocks.length);
 
@@ -250,7 +257,8 @@ const msCSS = '/* ============================================================\n
 ' * Material Symbols Sharp 图标替换（' + Object.keys(M).length + ' FA 类名 → mask-image SVG）\n' +
 ' * 细描边+尖角收尾，贴合 Nord 冰/棱角气质；960 网格 viewBox\n' +
 ' * 颜色=父级 currentColor 贯穿；未映射 FA 类（品牌/杂项）保留 FA 原生\n' +
-' * hover 边界：普通按钮/顶栏/抽屉→#88c0d0；active/selected/red_button/tag 不染\n' +
+' * hover 边界：普通按钮/顶栏/抽屉→var(--accent)；active/selected/red_button/tag 不染\n' +
+' * 令牌化：hover 合并为末尾一条共享规则（原 247 条 per-icon 重复声明收敛），accent 单点可换\n' +
 ' * ============================================================ */\n' + blocks.join('\n');
 
 const finalCSS = baseCSS + '\n\n' + msCSS;
