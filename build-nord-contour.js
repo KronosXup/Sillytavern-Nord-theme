@@ -47,13 +47,22 @@ const flower = (ax, ay, cA, cB, gid) => {
 const trUri = flower(480, 20, '%2388c0d0', '%238fbcbb', 'gTR');  /* 右上：nord8/nord7 冰青 */
 const blUri = flower(20, 480, '%235e81ac', '%2381a1c1', 'gBL');  /* 左下：nord10/nord9 深蓝 */
 
-// logo：简洁冰晶菱形 + nord8 线条
+// logo：雪花冰晶（六角放射 + 分枝），nord8 主臂 + nord7 分枝
 const logoSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
-  <rect width='64' height='64' fill='none'/>
-  <polygon points='32,4 52,32 32,60 12,32' fill='none' stroke='%2388c0d0' stroke-width='2.5' stroke-linejoin='round'/>
-  <polygon points='32,14 44,32 32,50 20,32' fill='none' stroke='%238fbcbb' stroke-width='1.5' stroke-linejoin='round' opacity='0.7'/>
-  <line x1='32' y1='4' x2='32' y2='60' stroke='%235e81ac' stroke-width='1' opacity='0.4'/>
-  <line x1='12' y1='32' x2='52' y2='32' stroke='%235e81ac' stroke-width='1' opacity='0.4'/>
+  <g stroke='%2388c0d0' stroke-width='2.4' stroke-linecap='round' fill='none'>
+    <line x1='32' y1='10' x2='32' y2='54'/>
+    <line x1='32' y1='10' x2='32' y2='54' transform='rotate(60 32 32)'/>
+    <line x1='32' y1='10' x2='32' y2='54' transform='rotate(120 32 32)'/>
+  </g>
+  <g stroke='%238fbcbb' stroke-width='1.6' stroke-linecap='round' fill='none'>
+    <path d='M 27 16 L 32 21 L 37 16'/>
+    <path d='M 27 48 L 32 43 L 37 48'/>
+    <path d='M 27 16 L 32 21 L 37 16' transform='rotate(60 32 32)'/>
+    <path d='M 27 48 L 32 43 L 37 48' transform='rotate(60 32 32)'/>
+    <path d='M 27 16 L 32 21 L 37 16' transform='rotate(120 32 32)'/>
+    <path d='M 27 48 L 32 43 L 37 48' transform='rotate(120 32 32)'/>
+  </g>
+  <circle cx='32' cy='32' r='3' fill='%238fbcbb'/>
 </svg>`;
 const logoUri = 'data:image/svg+xml,' + encodeURIComponent(logoSvg).replace(/%2523/g, '%23');
 
@@ -145,7 +154,95 @@ body {
 }
 `;
 
-const css = base.custom_css + append;
+/* 移动端头部三行（max-width:899.98px）：
+ *   行1  名字 + 锚点图标（inline 跟名字后）
+ *   行2  时间戳 + ?模型图标（图标在时间戳后；用户消息无图标，时间戳始终 left:0 不留空）
+ *   行3  #id / token / 响应时间（mesAvatarWrapper 底部 flex 横排，自动排开，:empty 自动收）
+ * 头像 40px 左上单列占行1-2，编辑按钮右上，正文通栏。
+ * 尺寸全部走 --mb-* 变量，改 --mb-avatar 一处联动。 */
+const mobileHeader = `
+@media (max-width: 899.98px) {
+  #chat .mes {
+    --mb-avatar: 40px;   /* 头像边长 */
+    --mb-row: 20px;      /* 名字/时间戳行高 */
+    --mb-meta: 16px;     /* 计数器行高 */
+    --mb-head: calc(var(--mb-avatar) + 4px + var(--mb-meta));  /* 头部总高 */
+    position: relative !important;
+    display: block !important;
+    padding: 10px 12px !important;
+    box-sizing: border-box !important;
+  }
+  /* 头像列容器：全宽，计数器在底部 flex 横排（左 padding 让出头像列，上 padding 把计数器压到行3） */
+  #chat .mes .mesAvatarWrapper {
+    position: absolute !important;
+    top: 10px !important; left: 12px !important; right: 12px !important;
+    width: auto !important; min-width: 0 !important; height: var(--mb-head) !important;
+    display: flex !important; flex-direction: row !important; align-items: flex-start !important; column-gap: 8px !important;
+    padding: calc(var(--mb-avatar) + 4px) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
+    pointer-events: none !important; z-index: 5 !important;
+  }
+  #chat .mes .mesAvatarWrapper .avatar {
+    position: absolute !important; top: 0 !important; left: 0 !important;
+    width: var(--mb-avatar) !important; height: var(--mb-avatar) !important;
+    min-width: 0 !important; min-height: 0 !important; margin: 0 !important; pointer-events: auto !important;
+  }
+  #chat .mes .mesAvatarWrapper .avatar img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+  /* 计数器三件套：行3 flex 子项，顺序 #id → token → 响应时间 */
+  #chat .mes .mesAvatarWrapper .mesIDDisplay,
+  #chat .mes .mesAvatarWrapper .mes_timer,
+  #chat .mes .mesAvatarWrapper .tokenCounterDisplay {
+    position: static !important; display: inline-flex !important; align-items: center !important;
+    height: var(--mb-meta) !important; margin: 0 !important; padding: 0 !important; background: none !important;
+    font-size: calc(var(--mainFontSize) * 0.8) !important; line-height: 1 !important; white-space: nowrap !important;
+    color: var(--text-dim) !important; pointer-events: auto !important;
+  }
+  #chat .mes .mesAvatarWrapper .mesIDDisplay { order: 0 !important; }
+  #chat .mes .mesAvatarWrapper .tokenCounterDisplay { order: 1 !important; }
+  #chat .mes .mesAvatarWrapper .mes_timer { order: 2 !important; }
+  #chat .mes .mesAvatarWrapper .mes_timer:empty,
+  #chat .mes .mesAvatarWrapper .tokenCounterDisplay:empty { display: none !important; }
+  /* 正文通栏，贴头部 */
+  #chat .mes .mes_block { display: block !important; width: 100% !important; padding: var(--mb-head) 0 0 0 !important; box-sizing: border-box !important; }
+  /* ch_name：行1+行2 定位上下文 */
+  #chat .mes .ch_name {
+    position: absolute !important; top: 10px !important;
+    left: calc(12px + var(--mb-avatar) + 10px) !important; right: 12px !important;
+    height: var(--mb-avatar) !important; display: block !important;
+    overflow: visible !important; border: none !important; margin: 0 !important; padding: 0 !important;
+  }
+  #chat .mes .ch_name > .flex-container.flex1, #chat .mes .ch_name > .flex1 { position: static !important; display: block !important; height: 100% !important; }
+  #chat .mes .ch_name .alignItemsBaseline { display: contents !important; }
+  /* 行1：名字 + 锚点图标 */
+  #chat .mes .ch_name .name_text {
+    position: absolute !important; top: 0 !important; left: 0 !important; height: var(--mb-row) !important;
+    display: flex !important; align-items: center !important;
+    max-width: calc(100% - 6em) !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;
+  }
+  #chat .mes .ch_name .name_text .sp-anchor-btn {
+    position: static !important; display: inline-flex !important; align-items: center !important;
+    margin-left: 4px !important; width: 1em !important; height: 1em !important; flex: 0 0 auto !important;
+  }
+  /* 行2：时间戳（left:0，用户消息无图标不留空）+ ?模型图标（时间戳后） */
+  #chat .mes .ch_name .timestamp {
+    position: absolute !important; top: var(--mb-row) !important; left: 0 !important; height: var(--mb-row) !important;
+    display: inline-flex !important; align-items: center !important;
+    font-size: calc(var(--mainFontSize) * 0.8) !important; opacity: 0.7 !important; white-space: nowrap !important;
+  }
+  #chat .mes .ch_name .timestamp-icon {
+    position: absolute !important; top: var(--mb-row) !important; left: 118px !important; height: var(--mb-row) !important;
+    width: 12px !important; display: inline-flex !important; align-items: center !important;
+    opacity: 0.7 !important; color: var(--text-dim) !important;
+  }
+  /* 操作按钮：右上 */
+  #chat .mes .ch_name .mes_buttons {
+    position: absolute !important; top: 0 !important; right: 0 !important;
+    display: flex !important; align-items: center !important; height: var(--mb-avatar) !important; z-index: 6 !important;
+  }
+  #chat .mes .swipeRightBlock, #chat .mes .swipe_left { display: none !important; }
+}
+`;
+
+const css = base.custom_css + append + mobileHeader;
 const out = { ...base, name: 'Nord-Contour', custom_css: css };
 fs.writeFileSync(OUT, JSON.stringify(out, null, 2), 'utf8');
 const chk = JSON.parse(fs.readFileSync(OUT, 'utf8'));
