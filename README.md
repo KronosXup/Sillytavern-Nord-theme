@@ -22,8 +22,8 @@ Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。
 
 ## 主题线
 
-- **Nord-Dark**：基线主题（v3），纯色明度分层 + 发丝线结构
-- **Nord-Contour**：主线，`build-nord-contour.js` 由 Nord-Dark 生成：两角 wavy concentric 纹理 + 玻璃 UI + aurora 点缀 + Remix 图标替换（`build-remix-icons.js`，FA→Remix mask-image）
+- **Nord-Contour**：主线。已自立门户——基座冻结在 `src/contour-base.json`，构建链 `build-nord-contour.js`（纹理/logo/玻璃 UI/移动端头部）→ `build-material-icons.js`（FA→Material Symbols Sharp mask-image 图标包）
+- **Nord-Dark**：废案基线（v3），仅存档，构建链不再引用
 - **Nord-Sharp**：冷锐卡片实验，已搁置
 
 ## 后续计划

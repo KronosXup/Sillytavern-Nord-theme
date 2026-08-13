@@ -1,6 +1,7 @@
 // Nord-Contour v2：两角 wavy concentric 纹理（等高线替掉）+ logo + 玻璃 UI
+// 基座：src/contour-base.json（冻结自 Nord-Dark v3；Dark 已是废案，Contour 自立门户，不再依赖 themes/Nord-Dark.json）
 const fs = require('fs');
-const SRC = 'F:/sillytavern-themes/nord-theme/themes/Nord-Dark.json';
+const SRC = 'F:/sillytavern-themes/nord-theme/src/contour-base.json';
 const OUT = 'F:/sillytavern-themes/nord-theme/themes/Nord-Contour.json';
 const base = JSON.parse(fs.readFileSync(SRC, 'utf8'));
 
