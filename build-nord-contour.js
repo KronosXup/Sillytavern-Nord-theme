@@ -89,6 +89,11 @@ body {
 /* sheld 整体罩 50% bg-0 一层纱：消息卡/输入栏浮在同一层底上，纹理只剩边缘隐约。
    rgba 在前兜底——老手机浏览器不认 color-mix 会整条丢弃，得留一条能解析的 */
 #sheld { background-color: rgba(46,52,64,0.5) !important; background-color: color-mix(in srgb, var(--bg-0) 50%, transparent) !important; background-image: none !important; border: none !important; box-shadow: none !important; }
+/* 移动端蒙版落到 #chat + #form_sheld（移植 Gruvbox 结构：ST 移动端关掉桌面罩层机制，蒙版得直接糊滚动区） */
+@media screen and (max-width: 1000px) {
+  #chat { background-color: rgba(46,52,64,0.5) !important; background-color: color-mix(in srgb, var(--bg-0) 50%, transparent) !important; }
+  #form_sheld { background-color: rgba(46,52,64,0.5) !important; background-color: color-mix(in srgb, var(--bg-0) 50%, transparent) !important; }
+}
 .welcomePanel { background-color: transparent !important; }
 .mes, .mes.last_mes {
   background-color: color-mix(in srgb, var(--bg-0) 45%, transparent) !important;
