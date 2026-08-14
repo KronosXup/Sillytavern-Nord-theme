@@ -119,11 +119,21 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   align-items: center !important;
   justify-content: center !important;
 }
+/* 菜单图标不参与共享 hover 染 accent（build-material-icons 的 .interactable:hover 分支会命中
+ * 菜单项 .list-group-item.interactable，hover 时图标全变冰青——菜单图标跟随文字色即可）。
+ * id 选择器压过共享规则（1,1,1 > 0,3,1） */
+#extensionsMenu .fa-solid::before,
+#extensionsMenu .extensionsMenuExtensionButton::before,
+#options .fa-solid::before {
+  background-color: currentColor !important;
+}
 /* 部分插件（如词汇映射）插裸 div 行，不走 list-group-item，酒馆基础样式只给它们
- * align-items:baseline——SVG 替换图标无字体基线会相对文字上浮；统一改居中对齐 */
+ * align-items:baseline——SVG 替换图标无字体基线会相对文字上浮；统一改居中对齐。
+ * 且裸 div 也有 ST 原生 opacity:0.5 hover 才 1，一并钉死 */
 #extensionsMenu > .extension_container > div,
 #extensionsMenu > div:not(.extension_container) {
   align-items: center !important;
+  opacity: 1 !important;
 }
 #options .options-content a:hover,
 #extensionsMenu .list-group-item:not(.sp-btn-generating):hover {
