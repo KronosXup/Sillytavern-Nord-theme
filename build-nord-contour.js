@@ -308,6 +308,14 @@ const aFixes = `
 .editable-slider-notification { z-index: 20; background-color: transparent; pointer-events: none; }
 /* A11 问号帮助链接(.topRightInset)置顶：同为 absolute+z-auto，被滚动内容按钮排盖住点不到，提到提示条之上。 */
 .topRightInset { z-index: 21; }
+/* A13 base-select 弹层滚动条融入：透明轨道 + Nord 细 thumb，hover 亮一阶。仅鼠标设备+支持的浏览器。 */
+@media (hover: hover) and (pointer: fine) {
+  ::picker(select) { scrollbar-color: var(--bg-3) transparent; scrollbar-width: thin; }
+  ::picker(select)::-webkit-scrollbar { width: 6px; }
+  ::picker(select)::-webkit-scrollbar-track { background: transparent; }
+  ::picker(select)::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
+  ::picker(select)::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+}
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
