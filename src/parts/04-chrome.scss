@@ -78,9 +78,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   border-radius: var(--radius) !important;
   font-family: var(--font-sans) !important;
 }
-/* 菜单项统一：正文色 + 无边框（options 原生项带 accent 色和 border，统一去掉） */
+/* 菜单项统一：正文色 + 无边框（options 原生项带 accent 色和 border，统一去掉）。
+ * :not(.sp-btn-generating) 排除构画插件生成态——插件自己的霓虹呼吸灯色（同权 !important，
+ * 主题后加载会压掉它，必须放行） */
 #options .options-content a,
-#extensionsMenu .list-group-item {
+#extensionsMenu .list-group-item:not(.sp-btn-generating) {
   color: var(--text) !important;
   border: none !important;
   border-radius: calc(var(--radius) - 1px) !important;
@@ -117,7 +119,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   align-items: center !important;
 }
 #options .options-content a:hover,
-#extensionsMenu .list-group-item:hover {
+#extensionsMenu .list-group-item:not(.sp-btn-generating):hover {
   background-color: var(--bg-2) !important;
   color: var(--text-hi) !important;
 }
