@@ -208,3 +208,39 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   color: color-mix(in srgb, var(--text) 82%, transparent) !important;
 }
 
+/* ---钉底按钮排·桌面（移植 Gruvbox mode0，桌面 ch_name 原生静态与 Gruvbox 同构，全套可照搬）---
+ * 铁律：不钉死钮排高度（防 overflow 挤滚动条）；编辑排 display:none 不带 !important（防常显）；位置无条件分支 */
+@media screen and (min-width: 900px) {
+  /* mes_block 做定位上下文；正文底留白 62px 装下钉底行，媒体/文件包装同抬（均 Gruvbox 原值） */
+  #chat .mes .mes_block { position: relative !important; }
+  #chat .mes .mes_text { padding-bottom: 62px !important; }
+  #chat .mes .mes_media_wrapper:not(:empty),
+  #chat .mes .mes_file_wrapper:not(:empty) { padding-bottom: 36px !important; }
+  /* 普通操作钮排：钉底部右下角 */
+  #chat .mes .ch_name .mes_buttons {
+    position: absolute !important; top: auto !important; bottom: 6px !important;
+    right: calc(2px + 0.5em) !important; left: auto !important; z-index: 30 !important;
+  }
+  /* 编辑态钮排：同位钉底；默认藏（ST 写内联 display:flex 时属性选择器接回） */
+  #chat .mes .mes_edit_buttons {
+    float: none !important; position: absolute !important; bottom: 6px !important;
+    right: calc(2px + 0.5em) !important; margin: 0 !important; z-index: 30 !important;
+    display: none;
+  }
+  #chat .mes .mes_edit_buttons[style*="flex"],
+  #chat .mes .mes_edit_buttons[style*="inline-flex"] { display: flex !important; }
+  /* 编辑态：名字行普通按钮让位（ST 内联藏，这里兜底）；正文底距加大装方钮排 */
+  #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
+  #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 64px !important; }
+  /* swipe 与钮排同一行（Gruvbox 04-chat 机关）：右块 row-reverse 横排→[箭头][counter] 并排同底缘；
+   * 覆盖 08 的定高/居中：counter 改回 auto 高、子项 flex-end，两箭头底缘都是 6px 同高 */
+  #chat .mes .swipeRightBlock {
+    flex-direction: row-reverse !important; align-items: flex-end !important;
+    bottom: 6px !important;
+  }
+  #chat .mes .swipe_right,
+  #chat .mes .swipes-counter { align-self: flex-end !important; }
+  #chat .mes .swipes-counter { height: auto !important; margin: 0 !important; padding: 2px 5px !important; }
+  #chat .mes .swipe_left { bottom: 6px !important; }
+}
+
