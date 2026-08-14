@@ -86,6 +86,8 @@ body {
   background-attachment: fixed !important;
 }
 #chat { background-color: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important; }
+/* 聊天流底锚定：内容不满一屏时消息贴着输入栏顶（flex 列里首个子项 margin-top:auto），超出正常滚动 */
+#chat > :first-child { margin-top: auto !important; }
 /* sheld 整体罩 50% bg-0 一层纱：消息卡/输入栏浮在同一层底上，纹理只剩边缘隐约。
    rgba 在前兜底——老手机浏览器不认 color-mix 会整条丢弃，得留一条能解析的 */
 #sheld { background-color: rgba(46,52,64,0.5) !important; background-color: color-mix(in srgb, var(--bg-0) 50%, transparent) !important; background-image: none !important; border: none !important; box-shadow: none !important; }
