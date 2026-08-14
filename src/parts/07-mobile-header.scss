@@ -78,5 +78,5 @@
     position: absolute !important; top: 0 !important; right: 0 !important;
     display: flex !important; align-items: center !important; height: var(--mb-avatar) !important; z-index: 6 !important;
   }
-  #chat .mes .swipeRightBlock, #chat .mes .swipe_left { display: none !important; }
+  /* swipe 保持原生绝对定位（左下/右下角，锚 .mes）：之前隐藏属误设计，移动端没有 swipe 切换不合理 */
 }
