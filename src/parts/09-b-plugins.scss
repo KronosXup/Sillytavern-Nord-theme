@@ -55,8 +55,9 @@
 }
 
 /* ---B1 柏宝书（BaiBai-Book）：楼内摘要面板留白/对齐（不装插件零命中）---
- * PC/移动隔离：PC 端钮排+swipe 同排一行（44px 够）；移动端 swipe+钮排两行（96px） */
-#chat .mes:has(.bbs-fp-host) .mes_block { padding-bottom: 44px !important; }
+ * PC/移动隔离：PC 端钮排(39px)+swipe(6px)两行 78px；移动端两行 96px。
+ * 跟随 03-chat 桌面留白（78px）与 07 移动端留白联动 */
+#chat .mes:has(.bbs-fp-host) .mes_block { padding-bottom: 78px !important; }
 @media screen and (max-width: 899.98px) {
   #chat .mes:has(.bbs-fp-host) .mes_block { padding-bottom: 96px !important; }
 }
