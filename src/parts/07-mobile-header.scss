@@ -98,10 +98,10 @@
   /* 正文常态底留白 44px（一排钮 ~36px+间距），编辑态 92px（方钮排窄屏可绕两行 ~86px） */
   #chat .mes .mes_text { padding-bottom: 44px !important; }
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 92px !important; }
-  /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 与编辑钮排同排 */
+  /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 编辑态隐藏（无切换意义） */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
-  #chat .mes:has(.edit_textarea) .swipeRightBlock { bottom: 6px !important; }
-  #chat .mes:has(.edit_textarea) .swipe_left { bottom: 6px !important; }
+  #chat .mes:has(.edit_textarea) .swipeRightBlock { display: none !important; }
+  #chat .mes:has(.edit_textarea) .swipe_left { display: none !important; }
   /* 编辑钮排：钉消息右下角；默认藏（ST 写内联 display:flex 时属性选择器接回，防常显），
    * 方钮统一 order 排序；不钉死排高（防滚动条） */
   #chat .mes .mes_edit_buttons {
