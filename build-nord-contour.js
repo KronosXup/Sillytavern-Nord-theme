@@ -291,6 +291,13 @@ const aFixes = `
 /* A3 位置下拉宽度兜底：原生 .widthNatural 把宽度 unset，下拉缩成选中值内容宽忽宽忽窄；
  * min-width 卡 8.5em 稳定主标签，尾巴(@D)交给原生 select 省略号自截；max-width:100% 防窄屏溢出。 */
 .world_entry select[name="position"] { min-width: 8.5em !important; max-width: 100% !important; }
+/* A4 多世界书选择器窄屏防溢出：#world_info 按最长书名 min-content 定宽且 flex 项 min-width:auto 不收，
+ * 面板被顶得比屏宽、条目右侧操作图标被裁出屏外。容器 min-width:0 + select flex:1 1 0 + select2 兜底。 */
+@media screen and (max-width: 1000px) {
+  #wiTopBlock #WIMultiSelector { min-width: 0 !important; overflow: hidden !important; }
+  #WIMultiSelector #world_info { flex: 1 1 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
+  #WIMultiSelector .select2-container { max-width: 100% !important; }
+}
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
