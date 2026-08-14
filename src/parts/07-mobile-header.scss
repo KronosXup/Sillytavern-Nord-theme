@@ -67,20 +67,19 @@
     line-height: 1 !important;
   }
   #chat .mes .ch_name .name_text .sp-anchor-btn svg { display: block !important; }
-  /* 行2：时间戳（left:0，用户消息无图标不留空）+ 模型图标（svg.timestamp-icon 是 .timestamp 的
-   * 子元素，insertIcon 注入）。图标 absolute 锚在容器右缘（容器 shrink-to-fit=时间戳文本宽），
-   * translateX 推到文本后 4px——不写死 left（长时间戳不压）、不依赖 static 流式（真机 WebView
-   * 下 svg 流式渲染不稳定，曾两次不可见） */
+  /* 行2：时间戳 + 模型图标。svg.timestamp-icon 是 .timestamp 的【下一个兄弟】
+   * （Luker insertOrReplaceSVG: mes.find('.timestamp').after(image)），不是子元素——
+   * 不能锚容器定位。两兄弟都改流内 + ch_name padding-top 把流推到行2（行1 name_text
+   * absolute 不占流），inline 并排天然不重叠；padding 不影响 absolute 的钮排/锚点 */
+  #chat .mes .ch_name { padding-top: calc(var(--mb-row) + var(--mb-gap)) !important; }
   #chat .mes .ch_name .timestamp {
-    position: absolute !important; top: calc(var(--mb-row) + var(--mb-gap)) !important; left: 0 !important; height: var(--mb-row) !important;
-    display: inline-flex !important; align-items: center !important;
+    position: static !important; display: inline-flex !important; align-items: center !important;
     font-size: calc(var(--mainFontSize) * 0.8) !important; opacity: 0.7 !important; white-space: nowrap !important;
   }
   #chat .mes .ch_name .timestamp-icon {
-    position: absolute !important; top: 2px !important; right: 0 !important; left: auto !important;
-    transform: translateX(calc(100% + 4px)) !important;
+    position: static !important; display: inline !important;
     width: 12px !important; height: calc(var(--mb-row) * 0.8) !important;
-    display: inline !important; opacity: 0.7 !important;
+    margin-left: 4px !important; opacity: 0.7 !important;
   }
   /* 操作按钮：钉消息底部右下角（ch_name top+bottom 双锚延伸到消息底，钮排 bottom 相对 ch_name 底=消息底） */
   #chat .mes .ch_name .mes_buttons {
