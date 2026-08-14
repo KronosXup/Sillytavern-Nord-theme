@@ -189,7 +189,7 @@ for (const fa in M) {
   const uri = 'data:image/svg+xml,' + encodeURIComponent(svg);
 
   let color = 'currentColor';
-  if (fa === 'fa-paper-plane') color = 'var(--on-accent)';
+  if (fa === 'fa-paper-plane') color = 'var(--accent)'; // 发送键 ghost 化：frost 描边图标
   if (fa === 'fa-plug-circle-exclamation') color = 'var(--danger)'; // 未连接：power 变红
 
   let sel;
@@ -210,12 +210,12 @@ for (const fa in M) {
     'mask-position:center!important;-webkit-mask-position:center!important;' +
     'transition:background-color 200ms ease-in-out!important;}');
 
-  // fa-paper-plane 发送键常态用 --on-accent（已是冰青底上深色），hover 不再染 accent（会融底）
+  // fa-paper-plane 发送键常态 accent，hover 也走 accent（ghost 底上不融底），不共享 hover 规则
   if (fa !== 'fa-paper-plane') hoverSels.push(sel);
 }
 
-// 发送键 hover（常态已是 --on-accent 深色，hover 再压深一档到画布色）
-blocks.push('#send_but:hover .fa-paper-plane::before{background-color:var(--bg-0)!important}');
+// 发送键 hover：ghost 底上图标保持 accent（底色淡染由基座 #send_but:hover 负责）
+blocks.push('#send_but:hover .fa-paper-plane::before{background-color:var(--accent)!important}');
 
 // 实心星：收藏激活态换 fill（fav_on / ch_fav_icon / group_fav_icon）
 const starFillSvg = fs.readFileSync(path.join(MS_BASE, 'star-fill.svg'), 'utf8');
