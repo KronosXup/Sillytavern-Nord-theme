@@ -70,10 +70,15 @@ input[list]::-webkit-calendar-picker-indicator { display: none !important; }
 /* A16 删除模式勾选框钉右上：批量删除时勾框不进文档流，不挤消息头名字/计数器。容器 pointer-events 穿透，input 可点。 */
 .mes .for_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; width: auto !important; height: auto !important; z-index: 30 !important; pointer-events: none !important; }
 .mes input[type="checkbox"].del_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; margin: 0 !important; z-index: 31 !important; pointer-events: auto !important; }
-/* A17 swipe 计数器与箭头视觉中线对齐：counter 不再撑高块，自身相对箭头居中。 */
+/* A17 swipe 计数器与箭头视觉中线对齐：counter 钉固定高（=原生 15px+5px 预留总量），
+ * 使右箭头底部位置确定，不随字体/auto 高漂移；药丸内容垂直居中。 */
 .swipeRightBlock { align-items: center !important; justify-content: flex-end !important; }
-.swipes-counter { height: auto !important; line-height: 1 !important; margin: 0 !important; padding: 2px 5px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; align-self: center !important; }
+.swipes-counter { height: 20px !important; line-height: 1 !important; margin: 0 !important; padding: 0 5px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; align-self: center !important; }
 .swipe_right { align-self: center !important; }
+/* A17 后续：左右箭头同底缘。原生 swipe_left 钉 calc(counter高+counter距)=20px 与右块预留对齐，
+ * A17 早期把 counter 改 auto 高零 margin 后预留值失真 → 两箭头高度不一致；
+ * 现 counter 钉回 20px（右箭头底=20px），左箭头同值钉死，两侧都由确定值驱动。 */
+.swipe_left { bottom: 20px !important; }
 /* A18 iOS 抽屉修正：Safari 专有特性检测，不匹配则整条失效（桌面/安卓零副作用）。
  * 修 iOS 上扩展抽屉被 Safari 顶栏挤歪：宽度钉 100dvw、top 对齐 ST 顶栏高度变量。 */
 @supports (-webkit-touch-callout: none) {
