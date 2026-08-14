@@ -282,7 +282,9 @@ blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color
   'mask-image:url("' + wifiUri + '")!important;-webkit-mask-image:url("' + wifiUri + '")!important;}');
 
 // ── 共享 hover 规则（一条替代原先 247 条 per-icon 重复声明）──
-const HOVER_CTX = ['.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover', '.drawer-toggle:hover', '.drawer-icon:hover', '.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):hover'];
+// .interactable 分支排除菜单（#extensionsMenu/#options）——菜单项是 .interactable，hover 时
+// 图标会被染 accent，而菜单 hover 已有自身背景/文字变色，图标该跟随文字色
+const HOVER_CTX = ['.menu_button:not(.active):not(.selected):not(.red_button):not(.fav_on):hover', '.drawer-toggle:hover', '.drawer-icon:hover', '.interactable:not(.tag):not(.active):not(.selected):not(.fav_on):not(:is(#extensionsMenu *, #options *)):hover'];
 const hoverCombined = [];
 for (const s of hoverSels) for (const ctx of HOVER_CTX) hoverCombined.push(ctx + ' ' + s);
 blocks.push('/* 图标 hover 染 accent（共享一条，accent 语义令牌单点可换；active/selected/red_button/tag 边界不染） */\n' +
