@@ -79,4 +79,30 @@
     display: flex !important; align-items: center !important; height: var(--mb-avatar) !important; z-index: 6 !important;
   }
   /* swipe 保持原生绝对定位（左下/右下角，锚 .mes）：之前隐藏属误设计，移动端没有 swipe 切换不合理 */
+
+  /* ---编辑态钉底按钮排（移植 Gruvbox）：编辑钮整行钉消息右下角，不 float 不占文档流--- */
+  /* 正文底留白给钉底按钮排让位；媒体/文件包装跟在正文后同样抬高 */
+  #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 60px !important; }
+  #chat .mes .mes_text:has(.edit_textarea) ~ .mes_media_wrapper { padding-bottom: 24px !important; }
+  /* 编辑钮排：默认藏（ST 展开时写内联 display:flex，属性选择器接回），方钮统一 order 排序 */
+  #chat .mes .mes_edit_buttons {
+    float: none !important; clear: both !important;
+    position: absolute !important; bottom: 6px !important; right: 0 !important; z-index: 30 !important;
+    display: none;
+    flex-direction: row !important; flex-wrap: wrap !important; justify-content: flex-end !important; align-items: center !important;
+    gap: 6px !important; width: max-content !important; max-width: 100% !important;
+    margin: 0 !important; padding: 4px 4px 4px 0 !important; box-sizing: border-box !important; overflow: visible !important;
+  }
+  #chat .mes .mes_edit_buttons[style*="flex"],
+  #chat .mes .mes_edit_buttons[style*="inline-flex"] { display: flex !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_done { order: 1 !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_copy { order: 2 !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_cancel { order: 3 !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_up { order: 4 !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_down { order: 5 !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_delete { order: 6 !important; }
+  #chat .mes .mes_edit_buttons .mes_edit_add_reasoning { order: 7 !important; }
+  /* swipe 让位钉底钮排：左右各下移一行，不压按钮 */
+  #chat .mes:has(.edit_textarea) .swipeRightBlock { bottom: -24px !important; }
+  #chat .mes:has(.edit_textarea) .swipe_left { bottom: -24px !important; }
 }
