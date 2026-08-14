@@ -90,18 +90,18 @@
   }
   #chat .mes .ch_name .mes_buttons .mes_button,
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
-  /* swipe：下移到消息外底部（不压钉底钮排），恢复 pointer-events 可点 */
-  #chat .mes .swipeRightBlock { bottom: -30px !important; pointer-events: auto !important; }
-  #chat .mes .swipe_left { bottom: -30px !important; pointer-events: auto !important; }
+  /* swipe：只在 last_mes 出现，与钉底钮排同排同高（bottom:6px），不出消息外 */
+  #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; }
+  #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
   /* 正文常态底留白 44px（一排钮 ~36px+间距），编辑态 92px（方钮排窄屏可绕两行 ~86px） */
   #chat .mes .mes_text { padding-bottom: 44px !important; }
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 92px !important; }
-  /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 暂挪到消息外不压方钮排 */
+  /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 与编辑钮排同排 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
-  #chat .mes:has(.edit_textarea) .swipeRightBlock { bottom: -30px !important; }
-  #chat .mes:has(.edit_textarea) .swipe_left { bottom: -30px !important; }
+  #chat .mes:has(.edit_textarea) .swipeRightBlock { bottom: 6px !important; }
+  #chat .mes:has(.edit_textarea) .swipe_left { bottom: 6px !important; }
   /* 编辑钮排：钉消息右下角；默认藏（ST 写内联 display:flex 时属性选择器接回，防常显），
    * 方钮统一 order 排序；不钉死排高（防滚动条） */
   #chat .mes .mes_edit_buttons {
