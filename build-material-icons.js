@@ -176,6 +176,40 @@ m('fa-people-arrows', 'group');
 m('fa-left-long', 'arrow_back');
 m('fa-pie-chart', 'pie_chart');
 
+// ── 补漏（对照 Gruvbox 261 图标清单，Nord 缺的 41 个真实缺口；discord/github 品牌保留 FA）──
+m('fa-arrow-down-1-9', 'arrow_downward_alt'); m('fa-arrow-down-9-1', 'arrow_downward_alt');
+m('fa-arrow-right-to-bracket', 'login'); m('fa-arrows-alt', 'open_in_full');
+m('fa-book-bookmark', 'bookmark_added');   // 柏宝书入口
+m('fa-broom', 'clean_hands');              // MS 无 broom，语义最近
+m('fa-cake-candles', 'cake');
+m('fa-calendar', 'calendar_month'); m('fa-calendar-alt', 'calendar_month');
+m('fa-calendar-check', 'calendar_clock'); m('fa-calendar-days', 'calendar_month');  // 构画入口
+m('fa-champagne-glasses', 'celebration');
+m('fa-circle-dot', 'pending'); m('fa-circle-half-stroke', 'brightness_4');
+m('fa-clock', 'schedule');
+m('fa-crosshairs', 'center_focus_strong');  // MS 无 crosshair，取瞄准语义
+m('fa-diagram-project', 'account_tree');
+m('fa-floppy-disk', 'save');
+m('fa-forward', 'fast_forward');
+m('fa-ghost', 'sentiment_satisfied');       // 隐藏助手入口，语义最近
+m('fa-globe-asia', 'language');
+m('fa-grip-lines', 'view_carousel');        // MS 无 grip-lines，取横条语义
+m('fa-i-cursor', 'text_fields');
+m('fa-layer-group', 'layers');
+m('fa-location-crosshairs', 'location_searching'); m('fa-location-dot', 'my_location');
+m('fa-markdown', 'description');
+m('fa-masks-theater', 'theater_comedy');
+m('fa-mobile-screen-button', 'mobile_2');
+m('fa-passport', 'maps_ugc');              // MS 无 passport，取通行证语义
+m('fa-pen', 'draw');                        // MS 无 pen，draw 最近（fa-pen 是旧别名）
+m('fa-rotate-left', 'rotate_left'); m('fa-rotate-right', 'rotate_right');
+m('fa-route', 'route');                     // 追踪激活来源
+m('fa-scroll', 'history_edu');
+m('fa-shuffle', 'sync');                    // MS 无 shuffle，sync 语义最近
+m('fa-up-right-and-down-left-from-center', 'contract');
+m('fa-user-secret', 'badge');               // AI 帮答入口，取身份语义
+m('fa-user-tie', 'verified_user');
+
 // 校验所有映射的 svg 存在
 const missing = Object.entries(M).filter(([, ms]) => !fs.existsSync(path.join(MS_BASE, ms + '.svg')));
 if (missing.length) {
