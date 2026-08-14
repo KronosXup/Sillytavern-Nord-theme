@@ -62,14 +62,13 @@
 /* 构画盒住 mes_text 内末尾、bbs 卡是兄弟跟在后面：夹在中间的正文 62px 底留白成空档，
  * 后面有 bbs 卡时归零（按钮排留白已由卡下 44/92px 接管）；无 bbs 卡的普通消息不碰 */
 #chat .mes:has(.bbs-fp-host) .mes_text:has(> .sp-inline-box:last-child) { padding-bottom: 0 !important; }
-/* 移动端两卡对齐：正文不对称 padding 让构画盒窄 8px，负外边距撑到正文边缘与 bbs 卡同宽
- * （复刻 PC 观感；无 relative/transform 无裁切风险） */
-@media screen and (max-width: 1000px) {
-  #chat .mes:has(.bbs-fp-host) .mes_text > .sp-inline-box:last-child {
-    margin-left: -6px !important;
-    margin-right: -2px !important;
-  }
+/* 桌面端：正文有 --mes-right-spacing 右留白而 bbs 卡是 mes_block 兄弟没吃到，
+ * 卡片右缘比正文长一截；同量内收对齐内容缘（移动端 Nord 正文已通栏零 padding，不参与） */
+@media screen and (min-width: 1001px) {
+  #chat .mes .bbs-fp-host { margin-right: var(--mes-right-spacing) !important; }
 }
+/* 注：Gruvbox 的移动端负外边距对齐（-6px/-2px）不搬——那是补 Gruvbox 正文不对称 padding 的，
+ * Nord 移动端正文已通栏零 padding，负边距只会把构画盒推出 overflow 裁剪线导致两边被截 */
 
 /* ---B2 构画（SevenDaysCal）桌面端：收藏按钮绝对定位到名字右侧，不参与行盒计算---
  * 移动端已由 07-mobile-header 三行布局接管（static 随行内联），此处只补桌面 */
