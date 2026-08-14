@@ -326,6 +326,11 @@ const aFixes = `
 .swipeRightBlock { align-items: center !important; justify-content: flex-end !important; }
 .swipes-counter { height: auto !important; line-height: 1 !important; margin: 0 !important; padding: 2px 5px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; align-self: center !important; }
 .swipe_right { align-self: center !important; }
+/* A18 iOS 抽屉修正：Safari 专有特性检测，不匹配则整条失效（桌面/安卓零副作用）。
+ * 修 iOS 上扩展抽屉被 Safari 顶栏挤歪：宽度钉 100dvw、top 对齐 ST 顶栏高度变量。 */
+@supports (-webkit-touch-callout: none) {
+  .drawer-content:not(#left-nav-panel):not(#right-nav-panel) { max-width: 100dvw; top: var(--topBarBlockSize); }
+}
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
