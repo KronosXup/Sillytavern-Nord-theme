@@ -1,58 +1,22 @@
 /* ---滚动条：幽灵化 6px 半透明雪色，平时几乎隐形，hover 才显形---
- * ★ 特别注意：不写全局 ::-webkit-scrollbar width —— 全局 !important 会压掉插件自己的
- * 滚动条设计（构画侧边栏 width:0 被盖回 6px 出滚动条）。只定向控制主题自己的滚动容器 +
- * ST 原生大面板，颜色幽灵化；插件滚动条放行。 */
-/* 主题/ST 面板滚动条定向：聊天列表、设置面板、世界书、代码块、推理块等主要滚动容器 */
+ * ★ 照 Gruvbox：全局 ::-webkit-scrollbar 不加 !important——插件自己的滚动条设计
+ * （构画侧边栏 width:0 等）同权后加载即可盖过，ST 面板走主题 6px，互不冲突。
+ * 之前全局 width:6px !important 压插件出丑滚动条；定向化又漏掉容器露出 ST 原生白条。 */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 16%, transparent);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent) 55%, transparent); }
+::-webkit-scrollbar-corner { background: transparent; }
+/* 主题/ST 面板滚动条定向收细：聊天列表、设置面板、世界书等主要滚动容器 */
 #chat, #left-nav-panel, #right-nav-panel, #top-settings-holder,
 .drawer-content, #WorldInfo, #extensions_settings, #extensions_settings2,
 .popup, #character_popup, #dialogue_popup, #floatingPrompt,
-.list-group, .mes_list, #rm_print_characters_block, #recent_chats,
-code.hljs, .mes_reasoning, .mes_reasoning_details .reasoning_edit_textarea {
+.list-group, .mes_list, #rm_print_characters_block, #recent_chats {
   scrollbar-width: thin !important;
 }
-#chat::-webkit-scrollbar, #left-nav-panel::-webkit-scrollbar, #right-nav-panel::-webkit-scrollbar,
-#top-settings-holder::-webkit-scrollbar, .drawer-content::-webkit-scrollbar,
-#WorldInfo::-webkit-scrollbar, #extensions_settings::-webkit-scrollbar, #extensions_settings2::-webkit-scrollbar,
-.popup::-webkit-scrollbar, #character_popup::-webkit-scrollbar, #dialogue_popup::-webkit-scrollbar,
-#floatingPrompt::-webkit-scrollbar, .list-group::-webkit-scrollbar, .mes_list::-webkit-scrollbar,
-#rm_print_characters_block::-webkit-scrollbar, #recent_chats::-webkit-scrollbar,
-code.hljs::-webkit-scrollbar, .mes_reasoning::-webkit-scrollbar,
-.mes_reasoning_details .reasoning_edit_textarea::-webkit-scrollbar {
-  width: 6px !important; height: 6px !important;
-}
-/* 轨道垫一层半透明 nord0：全透明会把背景纹理透出来，与面板形成割裂列（定向轨道色） */
-#chat::-webkit-scrollbar-track, #left-nav-panel::-webkit-scrollbar-track, #right-nav-panel::-webkit-scrollbar-track,
-#top-settings-holder::-webkit-scrollbar-track, .drawer-content::-webkit-scrollbar-track,
-#WorldInfo::-webkit-scrollbar-track, #extensions_settings::-webkit-scrollbar-track, #extensions_settings2::-webkit-scrollbar-track,
-.popup::-webkit-scrollbar-track, #character_popup::-webkit-scrollbar-track, #dialogue_popup::-webkit-scrollbar-track,
-#floatingPrompt::-webkit-scrollbar-track, .list-group::-webkit-scrollbar-track, .mes_list::-webkit-scrollbar-track,
-#rm_print_characters_block::-webkit-scrollbar-track, #recent_chats::-webkit-scrollbar-track,
-code.hljs::-webkit-scrollbar-track, .mes_reasoning::-webkit-scrollbar-track,
-.mes_reasoning_details .reasoning_edit_textarea::-webkit-scrollbar-track {
-  background: color-mix(in srgb, var(--bg-0) 35%, transparent) !important;
-}
-#chat::-webkit-scrollbar-thumb, #left-nav-panel::-webkit-scrollbar-thumb, #right-nav-panel::-webkit-scrollbar-thumb,
-#top-settings-holder::-webkit-scrollbar-thumb, .drawer-content::-webkit-scrollbar-thumb,
-#WorldInfo::-webkit-scrollbar-thumb, #extensions_settings::-webkit-scrollbar-thumb, #extensions_settings2::-webkit-scrollbar-thumb,
-.popup::-webkit-scrollbar-thumb, #character_popup::-webkit-scrollbar-thumb, #dialogue_popup::-webkit-scrollbar-thumb,
-#floatingPrompt::-webkit-scrollbar-thumb, .list-group::-webkit-scrollbar-thumb, .mes_list::-webkit-scrollbar-thumb,
-#rm_print_characters_block::-webkit-scrollbar-thumb, #recent_chats::-webkit-scrollbar-thumb,
-code.hljs::-webkit-scrollbar-thumb, .mes_reasoning::-webkit-scrollbar-thumb,
-.mes_reasoning_details .reasoning_edit_textarea::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--text) 16%, transparent) !important;
-  border-radius: 3px !important;
-}
-#chat::-webkit-scrollbar-thumb:hover, #left-nav-panel::-webkit-scrollbar-thumb:hover, #right-nav-panel::-webkit-scrollbar-thumb:hover,
-#top-settings-holder::-webkit-scrollbar-thumb:hover, .drawer-content::-webkit-scrollbar-thumb:hover,
-#WorldInfo::-webkit-scrollbar-thumb:hover, #extensions_settings::-webkit-scrollbar-thumb:hover, #extensions_settings2::-webkit-scrollbar-thumb:hover,
-.popup::-webkit-scrollbar-thumb:hover, #character_popup::-webkit-scrollbar-thumb:hover, #dialogue_popup::-webkit-scrollbar-thumb:hover,
-#floatingPrompt::-webkit-scrollbar-thumb:hover, .list-group::-webkit-scrollbar-thumb:hover, .mes_list::-webkit-scrollbar-thumb:hover,
-#rm_print_characters_block::-webkit-scrollbar-thumb:hover, #recent_chats::-webkit-scrollbar-thumb:hover,
-code.hljs::-webkit-scrollbar-thumb:hover, .mes_reasoning::-webkit-scrollbar-thumb:hover,
-.mes_reasoning_details .reasoning_edit_textarea::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--accent) 55%, transparent) !important;
-}
-::-webkit-scrollbar-corner { background: transparent !important; }
 /* 构画插件侧边栏自带 scrollbar-width:none/width:0 藏滚动条（44px 窄栏保持干净），放行 */
 .sp-sidebar-tabs:not(.sp-sidebar-util) { scrollbar-width: none !important; }
 .sp-sidebar-tabs:not(.sp-sidebar-util)::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
