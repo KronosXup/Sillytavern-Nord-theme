@@ -192,7 +192,7 @@ m('fa-crosshairs', 'center_focus_strong');  // MS 无 crosshair，取瞄准语�
 m('fa-diagram-project', 'account_tree');
 m('fa-floppy-disk', 'save');
 m('fa-forward', 'fast_forward');
-// fa-ghost 不映射：MS 无幽灵图标，隐藏助手入口保留 FA 原生幽灵字形（笑脸语义不对）
+m('fa-ghost', 'visibility_off');           // 隐藏楼层（AI 不读防超上下文）：FA 幽灵字形过高拉歪整列，取"不可见"语义
 m('fa-globe-asia', 'language');
 m('fa-grip-lines', 'view_carousel');        // MS 无 grip-lines，取横条语义
 m('fa-i-cursor', 'text_fields');
