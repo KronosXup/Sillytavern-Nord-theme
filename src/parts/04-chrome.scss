@@ -69,8 +69,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
 .toast-warning .toast-title { color: var(--warn) !important; }
 .toast-info .toast-title { color: var(--info) !important; }
 
-/* ---选项菜单/扩展菜单统一：nord0 底 + 发丝线边 + 正文色，两菜单外观一致--- */
-#options, .options-content,
+/* ---选项菜单/扩展菜单统一：nord0 底 + 发丝线边 + 正文色，两菜单外观一致---
+ * 边框只给内容框（.options-content / #extensionsMenu）——#options 是定位壳不带框，
+ * 否则 options 菜单外层壳+内层内容双框，extensionsMenu 单框，观感不一致 */
+#options { background-color: var(--bg-0) !important; color: var(--text) !important; }
+.options-content,
 #extensionsMenu, #extensionsMenu .options-content {
   background-color: var(--bg-0) !important;
   color: var(--text) !important;
