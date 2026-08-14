@@ -107,6 +107,7 @@ body {
   padding: 14px 16px !important;
   margin-bottom: 12px !important;
 }
+.mes.last_mes { margin-bottom: 0 !important; }  /* 最后一条贴输入栏顶，零间距 */
 /* inline 头像（hotswap 顶栏/内联小头像）豁免 padding：否则 10px padding 把50px容器内容盒挤成30px，图显小（大框包小图） */
 .character_select:not(.inline_avatar) { padding: 10px !important; }
 .inline-drawer-header { padding: 6px 14px !important; }
