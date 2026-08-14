@@ -67,15 +67,18 @@
     line-height: 1 !important;
   }
   #chat .mes .ch_name .name_text .sp-anchor-btn svg { display: block !important; }
-  /* 行2：时间戳（left:0，用户消息无图标不留空）+ ?模型图标（时间戳后） */
+  /* 行2：时间戳（left:0，用户消息无图标不留空）+ 模型图标（svg.timestamp-icon 是 .timestamp 的
+   * 子元素，insertIcon 注入——保持容器内流式紧跟文本，不写死 left：时间戳长度可变，
+   * 写死 left:118px 在长时间戳（如"2026年8月15日 02:36"）下会压到文本上） */
   #chat .mes .ch_name .timestamp {
     position: absolute !important; top: calc(var(--mb-row) + var(--mb-gap)) !important; left: 0 !important; height: var(--mb-row) !important;
-    display: inline-flex !important; align-items: center !important;
+    display: inline-flex !important; align-items: center !important; gap: 4px !important;
     font-size: calc(var(--mainFontSize) * 0.8) !important; opacity: 0.7 !important; white-space: nowrap !important;
   }
   #chat .mes .ch_name .timestamp-icon {
-    position: absolute !important; top: calc(var(--mb-row) + var(--mb-gap)) !important; left: 118px !important; height: var(--mb-row) !important;
-    width: 12px !important; display: inline-flex !important; align-items: center !important;
+    position: static !important; top: auto !important; left: auto !important;
+    width: 12px !important; height: calc(var(--mb-row) * 0.8) !important; flex: none !important;
+    display: inline-flex !important; align-items: center !important;
     opacity: 0.7 !important; color: var(--text-dim) !important;
   }
   /* 操作按钮：钉消息底部右下角（ch_name top+bottom 双锚延伸到消息底，钮排 bottom 相对 ch_name 底=消息底） */
