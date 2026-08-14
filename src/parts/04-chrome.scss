@@ -9,6 +9,10 @@
 ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent) 55%, transparent) !important; }
 ::-webkit-scrollbar-corner { background: transparent !important; }
 * { scrollbar-color: color-mix(in srgb, var(--text) 16%, transparent) color-mix(in srgb, var(--bg-0) 35%, transparent) !important; scrollbar-width: thin !important; }
+/* 构画插件侧边栏自带 scrollbar-width:none/width:0 藏滚动条（44px 窄栏保持干净），
+ * 主题全局 ::-webkit-scrollbar !important 把它盖回 6px 了——压回隐藏，插件的滚动设计优先 */
+.sp-sidebar-tabs:not(.sp-sidebar-util) { scrollbar-width: none !important; }
+.sp-sidebar-tabs:not(.sp-sidebar-util)::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
 
 /* ---选区：官方 = nord2 底 + nord6 字--- */
 ::selection { background: var(--selection-bg) !important; color: var(--selection-fg) !important; }
