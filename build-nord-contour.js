@@ -180,11 +180,11 @@ const mobileHeader = `
     top: 10px !important; left: 12px !important; right: 12px !important;
     width: auto !important; min-width: 0 !important; height: var(--mb-head) !important;
     display: flex !important; flex-direction: row !important; align-items: flex-start !important; column-gap: 8px !important;
-    padding: calc(var(--mb-avatar) + var(--mb-gap)) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
+    padding: calc(var(--mb-avatar) + 2px) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
     pointer-events: none !important; z-index: 5 !important;
   }
   #chat .mes .mesAvatarWrapper .avatar {
-    position: absolute !important; top: 0 !important; left: 0 !important;
+    position: absolute !important; top: 2px !important; left: 0 !important;
     width: var(--mb-avatar) !important; height: var(--mb-avatar) !important;
     min-width: 0 !important; min-height: 0 !important; margin: 0 !important; pointer-events: auto !important;
   }
