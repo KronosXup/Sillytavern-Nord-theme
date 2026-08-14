@@ -124,6 +124,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
 #extensionsMenu .list-group-item:not(.sp-btn-generating):hover {
   background-color: var(--bg-2) !important;
   color: var(--text-hi) !important;
+  text-decoration: none !important; /* 盖掉全局 a:hover underline（菜单项是 a 元素会被命中） */
 }
 
 /* ---头像：纯圆角，不描边；img 撑满容器+object-fit:cover 强制裁切---
