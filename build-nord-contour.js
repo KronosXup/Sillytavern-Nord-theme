@@ -288,6 +288,9 @@ const aFixes = `
 @supports (field-sizing: content) {
   .world_entry textarea[name="comment"] { field-sizing: content; height: auto !important; }
 }
+/* A3 位置下拉宽度兜底：原生 .widthNatural 把宽度 unset，下拉缩成选中值内容宽忽宽忽窄；
+ * min-width 卡 8.5em 稳定主标签，尾巴(@D)交给原生 select 省略号自截；max-width:100% 防窄屏溢出。 */
+.world_entry select[name="position"] { min-width: 8.5em !important; max-width: 100% !important; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
