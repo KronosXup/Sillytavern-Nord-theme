@@ -1,0 +1,25 @@
+{
+  "name": "nord-theme",
+  "version": "1.0.0",
+  "description": "Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。",
+  "main": "build-material-icons.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "verify": "node scripts/build.js --verify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KronosXup/Sillytavern-Nord-theme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/KronosXup/Sillytavern-Nord-theme/issues"
+  },
+  "homepage": "https://github.com/KronosXup/Sillytavern-Nord-theme#readme",
+  "devDependencies": {
+    "sass": "^1.102.0"
+  }
+}
