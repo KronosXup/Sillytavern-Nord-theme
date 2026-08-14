@@ -1,0 +1,119 @@
+/* ============================================================
+ * Nord-Contour 纹理 + UI 透明化 + logo
+ * 背景：两角等高线极光——两朵独立的"花"各锚视口一角（双图层 background，与宽高比无关），
+ *       右上 nord8/nord7 冰青、左下 nord10/nord9 深蓝，核心鲜亮、外圈渐隐，正文区保持 nord0；
+ *       只注入 body，#bg1 自定义背景图不被遮盖。
+ * aurora 点缀：角色名红 nord11、标签紫 nord15。
+ * UI 透明化：消息/聊表半透浮在纹理上，顶栏/发送栏也透；
+ *       设置菜单控件保持实底（玻璃化会丢辨识度，只给发送栏）。
+ * ============================================================ */
+body {
+  background-color: var(--bg-0) !important;
+  background-image: url("__TEXTURE_TR__"), url("__TEXTURE_BL__") !important;
+  background-position: right top, left bottom !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-size: 640px 640px, 640px 640px !important;
+  background-attachment: fixed !important;
+}
+#chat { background-color: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important; }
+/* 聊天流底锚定：内容不满一屏时消息贴着输入栏顶（flex 列里首个子项 margin-top:auto），超出正常滚动 */
+#chat > :first-child { margin-top: auto !important; }
+/* sheld 整体罩 50% bg-0 一层纱：消息卡/输入栏浮在同一层底上，纹理只剩边缘隐约。
+   rgba 在前兜底——老手机浏览器不认 color-mix 会整条丢弃，得留一条能解析的 */
+#sheld { background-color: rgba(46,52,64,0.5) !important; background-color: color-mix(in srgb, var(--bg-0) 50%, transparent) !important; background-image: none !important; border: none !important; box-shadow: none !important; }
+/* 移动端蒙版落到 #chat + #form_sheld（移植 Gruvbox 结构：ST 移动端关掉桌面罩层机制，蒙版得直接糊滚动区），移动端单独 60% */
+@media screen and (max-width: 1000px) {
+  #chat { background-color: rgba(46,52,64,0.6) !important; background-color: color-mix(in srgb, var(--bg-0) 60%, transparent) !important; }
+  #form_sheld { background-color: rgba(46,52,64,0.6) !important; background-color: color-mix(in srgb, var(--bg-0) 60%, transparent) !important; }
+  /* 底缝修复：原生给 sheld 写死 height:calc(100dvh - 36px)，浏览器UI伸缩/dvh不支持时就漏底缝；
+     改 auto + 上下锚定（top 沿用原生 var(--topBarBlockSize)），永远拉到屏幕底 */
+  #sheld { height: auto !important; min-height: 0 !important; max-height: none !important; bottom: 0 !important; }
+}
+.welcomePanel { background-color: transparent !important; }
+.mes, .mes.last_mes {
+  background-color: color-mix(in srgb, var(--bg-0) 45%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--text) 5%, transparent) !important;
+  border-radius: var(--radius) !important;
+  padding: 14px 16px !important;
+  margin-bottom: 12px !important;
+}
+.mes.last_mes { margin-bottom: 0 !important; }  /* 最后一条贴输入栏顶，零间距 */
+/* inline 头像（hotswap 顶栏/内联小头像）豁免 padding：否则 10px padding 把50px容器内容盒挤成30px，图显小（大框包小图） */
+.character_select:not(.inline_avatar) { padding: 10px !important; }
+.inline-drawer-header { padding: 6px 14px !important; }
+.mes_text q, q {
+  quotes: none !important;
+  color: var(--nord7) !important;
+  font-weight: 500 !important;
+}
+/* ch_name 回落基线 nord6 亮白（aurora 红与"强调色只给交互"的纪律冲突，已撤回） */
+.tag {
+  background-color: color-mix(in srgb, var(--nord15) 12%, transparent) !important;  /* aurora 紫 nord15 */
+  color: var(--nord15) !important;
+  border: 1px solid color-mix(in srgb, var(--nord15) 25%, transparent) !important;
+}
+/* 输入区：发送栏整条垫 bg-1 面板实底（浮起托底），输入框在其上用 bg-2——两阶明度差拉开边界。
+   面板不画边框，靠 bg-1 底色+轻影与 chat 区分界；顶边发丝线贴 chat 下缘会横成一道突兀亮线（“缺一块”观感） */
+#send_form { background-color: var(--bg-1) !important; border: none !important; border-radius: var(--radius) !important; box-shadow: var(--shadow-raised) !important; }
+/* textarea：下沉底铺满、不留边框；聚焦高亮全扔（frost-ring/原生 outline 都关）。
+   ST 原生 clip-path（脚本进度条）会裁顶边 5px，一并关 */
+#send_textarea {
+  background-color: var(--bg-sunken) !important;
+  border: 1px solid transparent !important;  /* 占位防聚焦抖动 */
+  border-radius: var(--radius) !important;
+  clip-path: none !important;
+  transition: border-color .14s var(--ease-out) !important;
+}
+/* 聚焦发丝线：只转 frost 细边，不要光环/outline */
+#send_textarea:focus, #send_textarea:focus-visible {
+  border-color: var(--accent) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+#send_form:has(#send_textarea:focus-visible) { outline: none !important; border-color: transparent !important; }
+/* 输入栏贴底（移植 Gruvbox）：sheld 钉底 + 去 form_sheld 原生 margin(1px/桌面4px) + PWA 底部预留清零 */
+#sheld { bottom: 0 !important; }
+#form_sheld { margin: 0 !important; padding-bottom: 0 !important; }
+body.PWA #sheld { padding-bottom: 0 !important; }
+#top-settings-holder { background-color: color-mix(in srgb, var(--bg-1) 38%, transparent) !important; border: 1px solid color-mix(in srgb, var(--text) 6%, transparent) !important; }
+#character_popup, #dialogue_popup, .popup, .draggable, #floatingPrompt {
+  background-color: var(--bg-1) !important;
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent) !important;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.35) !important;
+}
+/* 抽屉三兄弟（WorldInfo/左右 nav-panel）不归浮层：回基线 shadow-raised 轻影，与其它抽屉一致 */
+/* Nord 官网 Card hover：轻影抬深影 */
+.recentChat, .character_select, .inline-drawer-header, .toast {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
+  transition: box-shadow 400ms ease-in-out, background-color 400ms ease-in-out !important;
+}
+.recentChat:hover, .character_select:hover, .inline-drawer-header:hover, .toast:hover {
+  box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
+}
+/* 标题hover去高亮：覆盖酒馆原生 style.css 5437 行的 brightness(150%) */
+.inline-drawer-header:hover { filter: brightness(100%) !important; }
+.inline-drawer-header:hover .inline-drawer-icon { color: var(--text-dim) !important; }
+/* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color)；
+   边界：active/selected（已是冰青底，再染图标会融底）与 red_button（红底）不参与 */
+.menu_button {
+  transition: border-color 200ms ease-in-out, color 200ms ease-in-out, background-color 200ms ease-in-out !important;
+}
+.menu_button:not(.active):not(.selected):not(.red_button):hover {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.menu_button .fa-solid, .menu_button .fa-regular, .menu_button i {
+  transition: color 200ms ease-in-out !important;
+}
+.menu_button:not(.active):not(.selected):not(.red_button):hover .fa-solid,
+.menu_button:not(.active):not(.selected):not(.red_button):hover .fa-regular,
+.menu_button:not(.active):not(.selected):not(.red_button):hover i,
+.menu_button:not(.active):not(.selected):not(.red_button):hover span {
+  color: var(--accent) !important;
+}
+.welcomeHeaderLogo {
+  content: url("__LOGO_URI__") !important;
+  width: 40px !important;
+  height: 40px !important;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}

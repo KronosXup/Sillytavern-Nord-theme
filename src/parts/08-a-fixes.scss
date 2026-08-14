@@ -1,0 +1,48 @@
+/* A2 世界书标题防截断：从角色卡跳转时条目在抽屉隐藏半动画态渲染，JS 量 scrollHeight 得零，长标题锁死单行。
+ * @supports 包裹，不支持的浏览器静默降级。height:auto 洗掉 JS 隐藏态测量的内联死高。 */
+@supports (field-sizing: content) {
+  .world_entry textarea[name="comment"] { field-sizing: content; height: auto !important; }
+}
+/* A3 位置下拉宽度兜底：原生 .widthNatural 把宽度 unset，下拉缩成选中值内容宽忽宽忽窄；
+ * min-width 卡 8.5em 稳定主标签，尾巴(@D)交给原生 select 省略号自截；max-width:100% 防窄屏溢出。 */
+.world_entry select[name="position"] { min-width: 8.5em !important; max-width: 100% !important; }
+/* A4 多世界书选择器窄屏防溢出：#world_info 按最长书名 min-content 定宽且 flex 项 min-width:auto 不收，
+ * 面板被顶得比屏宽、条目右侧操作图标被裁出屏外。容器 min-width:0 + select flex:1 1 0 + select2 兜底。 */
+@media screen and (max-width: 1000px) {
+  #wiTopBlock #WIMultiSelector { min-width: 0 !important; overflow: hidden !important; }
+  #WIMultiSelector #world_info { flex: 1 1 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
+  #WIMultiSelector .select2-container { max-width: 100% !important; }
+}
+/* A8 双滑块圆球可见：input 的 filter:brightness 会建 stacking context，thumb 的 z-index:2 失效，
+ * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
+.doubleRangeInputContainer > input[type="range"],
+.doubleRangeInputContainer > input[type="range"]:hover { filter: none !important; }
+/* A9 滑条帽子圆角补全：ST 默认 7px 7px 0 0 只有上圆角，补成四角全圆（按 Nord 3px）。 */
+.neo-range-slider { border-radius: 3px !important; }
+/* A10 滑块提示条置顶：absolute 钉面板顶但 z-auto，滚动时被按钮排浮层盖住。提层级但不补底色，pointer-events 穿透。 */
+.editable-slider-notification { z-index: 20; background-color: transparent; pointer-events: none; }
+/* A11 问号帮助链接(.topRightInset)置顶：同为 absolute+z-auto，被滚动内容按钮排盖住点不到，提到提示条之上。 */
+.topRightInset { z-index: 21; }
+/* A13 base-select 弹层滚动条融入：透明轨道 + Nord 细 thumb，hover 亮一阶。仅鼠标设备+支持的浏览器。 */
+@media (hover: hover) and (pointer: fine) {
+  ::picker(select) { scrollbar-color: var(--bg-3) transparent; scrollbar-width: thin; }
+  ::picker(select)::-webkit-scrollbar { width: 6px; }
+  ::picker(select)::-webkit-scrollbar-track { background: transparent; }
+  ::picker(select)::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
+  ::picker(select)::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+}
+/* A14 推理块限高+内容滚动（全端 55vh）：长推理不再无限撑开顶满消息流，编辑框同款。 */
+#chat .mes_reasoning { max-height: 55vh !important; overflow-y: auto !important; overscroll-behavior: contain !important; }
+#chat .mes_reasoning_details .reasoning_edit_textarea { max-height: 55vh !important; overflow-y: auto !important; resize: none !important; }
+/* A16 删除模式勾选框钉右上：批量删除时勾框不进文档流，不挤消息头名字/计数器。容器 pointer-events 穿透，input 可点。 */
+.mes .for_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; width: auto !important; height: auto !important; z-index: 30 !important; pointer-events: none !important; }
+.mes input[type="checkbox"].del_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; margin: 0 !important; z-index: 31 !important; pointer-events: auto !important; }
+/* A17 swipe 计数器与箭头视觉中线对齐：counter 不再撑高块，自身相对箭头居中。 */
+.swipeRightBlock { align-items: center !important; justify-content: flex-end !important; }
+.swipes-counter { height: auto !important; line-height: 1 !important; margin: 0 !important; padding: 2px 5px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; align-self: center !important; }
+.swipe_right { align-self: center !important; }
+/* A18 iOS 抽屉修正：Safari 专有特性检测，不匹配则整条失效（桌面/安卓零副作用）。
+ * 修 iOS 上扩展抽屉被 Safari 顶栏挤歪：宽度钉 100dvw、top 对齐 ST 顶栏高度变量。 */
+@supports (-webkit-touch-callout: none) {
+  .drawer-content:not(#left-nav-panel):not(#right-nav-panel) { max-width: 100dvw; top: var(--topBarBlockSize); }
+}
