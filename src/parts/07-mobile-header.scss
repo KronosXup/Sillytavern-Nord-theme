@@ -76,7 +76,7 @@
   }
   /* 操作按钮：钉消息底部右下角（ch_name top+bottom 双锚延伸到消息底，钮排 bottom 相对 ch_name 底=消息底） */
   #chat .mes .ch_name .mes_buttons {
-    position: absolute !important; top: auto !important; bottom: 6px !important; right: 0 !important;
+    position: absolute !important; top: auto !important; bottom: 50px !important; right: 0 !important;
     left: auto !important; width: auto !important; max-width: none !important; height: auto !important;
     display: flex !important; flex-wrap: nowrap !important; align-items: center !important;
     justify-content: flex-end !important; gap: 4px !important; margin: 0 !important;
@@ -92,10 +92,10 @@
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
   /* swipe：在消息内钮排上方独立一行（Nord 有消息卡背景，不能像 Gruvbox 放消息外悬空）。
      左右箭头同底缘：swipeRight 在 block 内贴底（flex-end），与 swipeLeft 同 bottom 值 */
-  #chat .mes .swipeRightBlock { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; flex-direction: row !important; align-items: flex-end !important; }
+  #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; flex-direction: row !important; align-items: flex-end !important; }
   #chat .mes .swipe_right { align-self: flex-end !important; }
   #chat .mes .swipes-counter { align-self: flex-end !important; }
-  #chat .mes .swipe_left { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; }
+  #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
   /* 正文常态底留白 96px（swipe上行50px+钮排下行6px+两排高~80px），编辑态 92px */
@@ -109,7 +109,7 @@
    * 方钮统一 order 排序；不钉死排高（防滚动条） */
   #chat .mes .mes_edit_buttons {
     float: none !important; clear: both !important;
-    position: absolute !important; bottom: 6px !important; right: 0 !important; z-index: 30 !important;
+    position: absolute !important; bottom: 50px !important; right: 0 !important; z-index: 30 !important;
     display: none;
     flex-direction: row !important; flex-wrap: wrap !important; justify-content: flex-end !important; align-items: center !important;
     gap: 6px !important; width: max-content !important; max-width: 100% !important;
