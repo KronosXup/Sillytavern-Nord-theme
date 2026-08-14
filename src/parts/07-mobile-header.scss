@@ -16,7 +16,7 @@
     top: 10px !important; left: 12px !important; right: 12px !important;
     width: auto !important; min-width: 0 !important; height: var(--mb-head) !important;
     display: flex !important; flex-direction: row !important; align-items: flex-start !important; column-gap: 8px !important;
-    padding: calc(var(--mb-avatar) + 2px) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
+    padding: calc(var(--mb-avatar) + var(--mb-gap) + 8px) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
     pointer-events: none !important; z-index: 5 !important;
   }
   #chat .mes .mesAvatarWrapper .avatar {
