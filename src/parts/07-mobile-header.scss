@@ -92,7 +92,7 @@
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
   /* swipe：在消息内钮排上方独立一行（Nord 有消息卡背景，不能像 Gruvbox 放消息外悬空）。
      左右箭头同底缘：swipeRight 在 block 内贴底（flex-end），与 swipeLeft 同 bottom 值 */
-  #chat .mes .swipeRightBlock { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; align-items: flex-end !important; }
+  #chat .mes .swipeRightBlock { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; flex-direction: row !important; align-items: flex-end !important; }
   #chat .mes .swipe_right { align-self: flex-end !important; }
   #chat .mes .swipes-counter { align-self: flex-end !important; }
   #chat .mes .swipe_left { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; }
