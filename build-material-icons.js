@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const MS_BASE = 'C:/temp/ms/node_modules/@material-symbols/svg-400/sharp/';
-const CONT = 'F:/sillytavern-themes/nord-theme/themes/Nord-Contour.json';
+const CONT = 'F:/sillytavern-themes/nord-theme/themes/Contour-Nord.json';
 // hover 强调走语义令牌（:root --accent），不再硬编码 hex——令牌化后 accent 单点可换
 const ACCENT = 'var(--accent)';
 
@@ -262,7 +262,7 @@ const msCSS = '/* ============================================================\n
 ' * ============================================================ */\n' + blocks.join('\n');
 
 const finalCSS = baseCSS + '\n\n' + msCSS;
-const out = { ...cont, name: 'Nord-Contour', custom_css: finalCSS };
+const out = { ...cont, name: 'Contour-Nord', custom_css: finalCSS };
 fs.writeFileSync(CONT, JSON.stringify(out, null, 2), 'utf8');
 
 const chk = JSON.parse(fs.readFileSync(CONT, 'utf8'));
