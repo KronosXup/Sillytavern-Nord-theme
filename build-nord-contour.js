@@ -304,6 +304,10 @@ const aFixes = `
 .doubleRangeInputContainer > input[type="range"]:hover { filter: none !important; }
 /* A9 滑条帽子圆角补全：ST 默认 7px 7px 0 0 只有上圆角，补成四角全圆（按 Nord 3px）。 */
 .neo-range-slider { border-radius: 3px !important; }
+/* A10 滑块提示条置顶：absolute 钉面板顶但 z-auto，滚动时被按钮排浮层盖住。提层级但不补底色，pointer-events 穿透。 */
+.editable-slider-notification { z-index: 20; background-color: transparent; pointer-events: none; }
+/* A11 问号帮助链接(.topRightInset)置顶：同为 absolute+z-auto，被滚动内容按钮排盖住点不到，提到提示条之上。 */
+.topRightInset { z-index: 21; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
