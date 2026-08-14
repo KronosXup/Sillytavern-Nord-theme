@@ -13,6 +13,17 @@
   #WIMultiSelector #world_info { flex: 1 1 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
   #WIMultiSelector .select2-container { max-width: 100% !important; }
 }
+/* A5 世界书条目头窄屏收缩：标题/select 等子项按内容定宽不肯收缩（flex 项 min-width:auto），
+ * 把右侧交换/复制/删除图标顶出卡片乃至屏幕。直接子项全允收，图标 flex:none 钉死不参与分摊，
+ * select 额外限宽 42% + 省略号截断。 */
+@media screen and (max-width: 1000px) {
+  .world_entry .inline-drawer-header { min-width: 0 !important; }
+  .world_entry .inline-drawer-header > * { min-width: 0 !important; }
+  .world_entry .inline-drawer-header .menu_button,
+  .world_entry .inline-drawer-header .inline-drawer-toggle,
+  .world_entry .inline-drawer-header .killSwitch { flex: none !important; }
+  .world_entry .inline-drawer-header select { max-width: 42% !important; text-overflow: ellipsis !important; }
+}
 /* A8 双滑块圆球可见：input 的 filter:brightness 会建 stacking context，thumb 的 z-index:2 失效，
  * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
 .doubleRangeInputContainer > input[type="range"],
