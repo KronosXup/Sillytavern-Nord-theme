@@ -319,6 +319,9 @@ const aFixes = `
 /* A14 推理块限高+内容滚动（全端 55vh）：长推理不再无限撑开顶满消息流，编辑框同款。 */
 #chat .mes_reasoning { max-height: 55vh !important; overflow-y: auto !important; overscroll-behavior: contain !important; }
 #chat .mes_reasoning_details .reasoning_edit_textarea { max-height: 55vh !important; overflow-y: auto !important; resize: none !important; }
+/* A16 删除模式勾选框钉右上：批量删除时勾框不进文档流，不挤消息头名字/计数器。容器 pointer-events 穿透，input 可点。 */
+.mes .for_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; width: auto !important; height: auto !important; z-index: 30 !important; pointer-events: none !important; }
+.mes input[type="checkbox"].del_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; margin: 0 !important; z-index: 31 !important; pointer-events: auto !important; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
