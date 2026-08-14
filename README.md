@@ -1,4 +1,4 @@
-# Nord-Dark SillyTavern 主题
+# SillyTavern Nord 主题
 
 Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。
 
@@ -18,14 +18,15 @@ Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。
 - 第一层 `--nord0`~`--nord15`：Nord 原子色（固定）
 - 第二层 `--bg`/`--accent`/`--danger` 等：语义令牌（**变体只改这层**）
 
-后续出 frost/aurora 多色变体时，只需改 `--accent` 与 `--accent-deep` 一处。
+## 构建
 
-## 主题线
+主线 **Contour-Nord**：
 
-- **Nord-Contour**：主线。已自立门户——基座冻结在 `src/contour-base.json`，构建链 `build-nord-contour.js`（纹理/logo/玻璃 UI/移动端头部）→ `build-material-icons.js`（FA→Material Symbols Sharp mask-image 图标包）
-- **Nord-Dark**：废案基线（v3），仅存档，构建链不再引用
-- **Nord-Sharp**：冷锐卡片实验，已搁置
+```
+node build-nord-contour.js        # 基座 contour-base.json + 纹理/logo/玻璃 UI/移动端头部 → themes/Contour-Nord.json
+node build-material-icons.js      # 追加 FA→Material Symbols Sharp mask-image 图标包（图标源走 MS_SVG_BASE 环境变量）
+```
 
-## 后续计划
+## 安装
 
-- 主题色变体（aurora-red / aurora-green / aurora-purple 等）
+把 `themes/Contour-Nord.json` 放进 SillyTavern 的 `data/<用户>/themes/`，在设置里选 **Contour-Nord**。
