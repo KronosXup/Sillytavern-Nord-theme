@@ -10,6 +10,8 @@
 }
 ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent) 55%, transparent); }
 ::-webkit-scrollbar-corner { background: transparent; }
+/* Firefox/新 Chromium 用 scrollbar-color 不是 ::-webkit-scrollbar——全局给幽灵色（无 !important 不压插件） */
+* { scrollbar-color: color-mix(in srgb, var(--text) 16%, transparent) transparent; }
 /* 主题/ST 面板滚动条定向收细：聊天列表、设置面板、世界书等主要滚动容器 */
 #chat, #left-nav-panel, #right-nav-panel, #top-settings-holder,
 .drawer-content, #WorldInfo, #extensions_settings, #extensions_settings2,
