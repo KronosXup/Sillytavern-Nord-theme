@@ -239,6 +239,8 @@ const mobileHeader = `
   #chat .mes .mesAvatarWrapper .tokenCounterDisplay:empty { display: none !important; }
   /* 正文通栏，贴头部 */
   #chat .mes .mes_block { display: block !important; width: 100% !important; padding: var(--mb-head) 0 0 0 !important; box-sizing: border-box !important; }
+  /* 正文右侧不留空：覆盖原生/JS 算出来的 padding-right:30px，文字真正通栏 */
+  #chat .mes .mes_text { padding-left: 0 !important; padding-right: 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
   /* ch_name：行1+行2 定位上下文 */
   #chat .mes .ch_name {
     position: absolute !important; top: 10px !important;
