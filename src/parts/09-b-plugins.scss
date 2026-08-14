@@ -63,8 +63,9 @@
  * 后面有 bbs 卡时归零（按钮排留白已由卡下 44/92px 接管）；无 bbs 卡的普通消息不碰 */
 #chat .mes:has(.bbs-fp-host) .mes_text:has(> .sp-inline-box:last-child) { padding-bottom: 0 !important; }
 /* 桌面端：正文有 --mes-right-spacing 右留白而 bbs 卡是 mes_block 兄弟没吃到，
- * 卡片右缘比正文长一截；同量内收对齐内容缘（移动端 Nord 正文已通栏零 padding，不参与） */
-@media screen and (min-width: 1001px) {
+ * 卡片右缘比正文长一截；同量内收对齐内容缘。
+ * 断点必须与 07-mobile-header 正文清零(max-width:899.98px)互补，否则 900~1000px 窗口两头不靠 */
+@media screen and (min-width: 900px) {
   #chat .mes .bbs-fp-host { margin-right: var(--mes-right-spacing) !important; }
 }
 /* 注：Gruvbox 的移动端负外边距对齐（-6px/-2px）不搬——那是补 Gruvbox 正文不对称 padding 的，
