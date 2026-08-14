@@ -125,6 +125,8 @@ body {
   outline: none !important;
 }
 #send_form:has(#send_textarea:focus-visible) { outline: none !important; border-color: transparent !important; }
+/* PWA 输入栏贴底：原生 body.PWA #sheld 预留 max(安全区,15px) 底距，直接去掉让输入栏贴到屏幕底缘 */
+body.PWA #sheld { padding-bottom: 0 !important; }
 #top-settings-holder { background-color: color-mix(in srgb, var(--bg-1) 38%, transparent) !important; border: 1px solid color-mix(in srgb, var(--text) 6%, transparent) !important; }
 #character_popup, #dialogue_popup, .popup, .draggable, #floatingPrompt {
   background-color: var(--bg-1) !important;
