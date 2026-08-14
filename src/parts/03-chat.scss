@@ -177,3 +177,32 @@ code.hljs .hljs-deletion { color: var(--nord11) !important; }
 code.hljs .hljs-emphasis { font-style: italic !important; }
 code.hljs .hljs-strong { font-weight: 700 !important; }
 
+/* ---推理块：默认 grey30 大胶囊改 Nord 细线平面（限高在 08-a-fixes）--- */
+/* 折叠头：透明底 + 发丝线 + 2px 圆角；字降一阶，hover 亮边框/字色（空推理不点不亮） */
+#chat .mes_reasoning_header {
+  background-color: transparent !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: 2px !important;
+  margin: 0.4em 2px !important;
+  padding: 3px 10px !important;
+  padding-right: calc(0.7em + 10px) !important;
+  color: var(--text-dim) !important;
+  transition: border-color .12s var(--ease-out), color .12s var(--ease-out) !important;
+}
+#chat .mes:has(.mes_reasoning:not(:empty)) .mes_reasoning_header:hover {
+  border-color: var(--accent) !important;
+  color: var(--text-hi) !important;
+}
+#chat .mes_reasoning_header .mes_reasoning_arrow { color: inherit !important; }
+/* 展开态：头升一阶，与正文呼应 */
+#chat .mes_reasoning_details[open] > .mes_reasoning_summary .mes_reasoning_header {
+  border-color: var(--line-2) !important;
+  color: var(--text-hi) !important;
+}
+/* 正文：左发丝线钉住层级，字色降一成（color-mix 老浏览器不认则整条丢弃，退回默认色，无损） */
+#chat .mes_reasoning {
+  border-left: 1px solid var(--line-2) !important;
+  padding-left: 14px !important;
+  color: color-mix(in srgb, var(--text) 82%, transparent) !important;
+}
+
