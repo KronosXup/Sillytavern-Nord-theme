@@ -85,8 +85,9 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   border: 1px solid var(--line-1) !important;
   border-radius: var(--radius) !important;
   font-family: var(--font-sans) !important;
-  /* 去掉 ST 原生 transition:all——鼠标划过时背景/颜色变化会全属性过渡，容器位置微变就整体晃动 */
-  transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out) !important;
+  /* 限定过渡防原生 transition:all 晃动——但 hover 过渡本身也产生拖影，
+   * 鼠标快速划过时背景色块流动感像"其它选项在晃"，直接瞬变最干净 */
+  transition: none !important;
 }
 /* 菜单项统一：正文色 + 无边框（options 原生项带 accent 色和 border，统一去掉）。
  * :not(.sp-btn-generating) 排除构画插件生成态——插件自己的霓虹呼吸灯色（同权 !important，
@@ -98,7 +99,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   border-radius: calc(var(--radius) - 1px) !important;
   font-family: var(--font-sans) !important;
   align-items: center !important;
-  transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out) !important; /* 限定过渡，去掉原生 transition:all 防晃动 */
+  transition: none !important; /* 瞬变，去掉原生 transition:all 防晃动 */
 }
 /* 注：不做光学下降补偿——Gruvbox 的 top:1px 是给 Phosphor fill 图标的重心补偿，
  * Nord 用 Material Symbols 描边图标，重心不同不需要 */
