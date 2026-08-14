@@ -208,9 +208,25 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   color: color-mix(in srgb, var(--text) 82%, transparent) !important;
 }
 
-/* ---编辑态钉底按钮排·桌面（移植 Gruvbox mode0）：编辑钮钉消息右下角，不 float 不占文档流；
- * 移动端同款在 07（窄屏断点内），此处只补桌面。普通 mes_buttons 不搬钉底（Nord 头部行设计保留）--- */
+/* ---钉底按钮排·桌面（移植 Gruvbox mode0）：普通/编辑两排都钉消息右下角，不 float 不占文档流；
+ * 移动端同款在 07（窄屏断点内），此处只补桌面 --- */
 @media screen and (min-width: 900px) {
+  /* mes_block 兼做定位上下文（ch_name 原生静态，无需改） */
+  #chat .mes .mes_block { position: relative !important; }
+  /* 正文常态底留白 62px 给钉底钮排+swipe 行让位（同 Gruvbox）；媒体/文件包装同抬 */
+  #chat .mes .mes_text { padding-bottom: 62px !important; }
+  #chat .mes .mes_media_wrapper:not(:empty),
+  #chat .mes .mes_file_wrapper:not(:empty) { padding-bottom: 36px !important; }
+  /* 普通操作钮排：钉底部右下角 */
+  #chat .mes .ch_name .mes_buttons {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 6px !important;
+    right: calc(2px + 0.5em) !important;
+    left: auto !important;
+    z-index: 30 !important;
+  }
+  /* 编辑态按钮排：同位钉底 */
   #chat .mes .mes_edit_buttons {
     float: none !important;
     position: absolute !important;
@@ -221,10 +237,12 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   }
   /* 编辑态：名字行普通按钮让位（ST 用内联 style 藏，这里兜底） */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
-  /* 正文底距加大：钉底钮排（~46px）不压正文框 */
+  /* 编辑态正文底距加大：方钮排（~46px）不压正文框 */
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 64px !important; }
-  /* swipe 计数器块：仅编辑态与钉底钮排同行让位（常态保持 bottom:0，不破坏左右箭头同高） */
-  #chat .mes:has(.edit_textarea) .swipeRightBlock { bottom: 6px !important; }
-  #chat .mes:has(.edit_textarea) .swipe_left { bottom: 26px !important; }
+  /* swipe 避让钉底钮排：右下角已被钮排占，整行迁到左下角空余处：
+   * 左箭头留原生 left:20px，右块排在它右侧（counter+箭头堆叠），
+   * 两箭头底缘都是 26px（左钉 26 / 右块 6+counter 20）仍同高 */
+  #chat .mes .swipeRightBlock { bottom: 6px !important; left: 56px !important; right: auto !important; }
+  #chat .mes .swipe_left { bottom: 26px !important; }
 }
 
