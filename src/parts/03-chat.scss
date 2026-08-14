@@ -235,12 +235,12 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   /* swipe 与钮排同一行（Gruvbox 04-chat 机关）：右块 row-reverse 横排→[箭头][counter] 并排同底缘；
    * 覆盖 08 的定高/居中：counter 改回 auto 高、子项 flex-end，两箭头底缘都是 6px 同高 */
   #chat .mes .swipeRightBlock {
-    flex-direction: row-reverse !important; align-items: flex-end !important;
+    flex-direction: row-reverse !important; align-items: center !important;
     bottom: 6px !important;
   }
   #chat .mes .swipe_right,
-  #chat .mes .swipes-counter { align-self: flex-end !important; }
-  #chat .mes .swipes-counter { height: auto !important; margin: 0 !important; padding: 2px 5px !important; }
+  #chat .mes .swipes-counter { align-self: center !important; }
+  #chat .mes .swipes-counter { height: 25px !important; margin: 0 !important; padding: 0 5px !important; display: inline-flex !important; align-items: center !important; }
   #chat .mes .swipe_left { bottom: 6px !important; }
 }
 
