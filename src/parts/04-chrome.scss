@@ -85,6 +85,36 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   border: none !important;
   border-radius: calc(var(--radius) - 1px) !important;
   font-family: var(--font-sans) !important;
+  align-items: center !important;
+}
+/* 光学修正（照 Gruvbox）：文字行盒下方给下伸字母留余量，字形视觉重心偏盒中心上方，
+ * 数学居中的图标看起来偏高——图标下移 1px 补偿观感（用 relative 不碰 transform，免与 hover 动效冲突） */
+#options .options-content a i.fa-solid,
+#extensionsMenu .fa-solid,
+#extensionsMenu .extensionsMenuExtensionButton {
+  position: relative !important;
+  top: 1px !important;
+}
+/* 图标槽宽统一：酒馆基础规则只给 i 元素定字号（mainFontSize*1.1），插件用 div 当图标时
+ * 字号小 10%，叠加 SVG 视觉宽差异，各行文字左边沿错行约 3px；统一槽宽与字号后严格对齐 */
+#extensionsMenu .fa-solid,
+#extensionsMenu .extensionsMenuExtensionButton {
+  width: 1.25em !important;
+  min-width: 1.25em !important;
+  font-size: calc(var(--mainFontSize) * 1.1) !important;
+  text-align: center !important;
+}
+.list-group-item .fa-solid,
+.extensionsMenuExtensionButton {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+/* 部分插件（如词汇映射）插裸 div 行，不走 list-group-item，酒馆基础样式只给它们
+ * align-items:baseline——SVG 替换图标无字体基线会相对文字上浮；统一改居中对齐 */
+#extensionsMenu > .extension_container > div,
+#extensionsMenu > div:not(.extension_container) {
+  align-items: center !important;
 }
 #options .options-content a:hover,
 #extensionsMenu .list-group-item:hover {
