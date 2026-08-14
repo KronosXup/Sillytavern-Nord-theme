@@ -281,9 +281,11 @@ blocks.push('.fa-star.fav_on::before,.ch_fav_icon.fa-star::before,.group_fav_ico
 blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:var(--danger)!important;' +
   'mask-image:var(' + varNames['wifi'] + ')!important;-webkit-mask-image:var(' + varNames['wifi'] + ')!important;}');
 
-// 创建检查点：ST 点击后加 fa-solid（与 fa-regular 共存）做状态反馈——solid 态换实心旗子
-// （特异性 (0,2,0) 压过公共块/基础引用的 (0,1,0)；fa-regular 态保持描边 flag）
-blocks.push('.fa-solid.fa-flag-checkered::before{mask-image:var(' + varNames['flag-fill'] + ')!important;-webkit-mask-image:var(' + varNames['flag-fill'] + ')!important;}');
+// 检查点状态：无存档点显示创建按钮(mes_create_bookmark, fa-flag-checkered 描边)、
+// 有存档点显示打开按钮(mes_bookmark, fa-solid fa-flag 实心)。
+// 创建按钮 class 里 fa-regular/fa-solid 恒共存，不能拿 fa-solid 当状态判断（曾误覆盖成实心）；
+// 打开按钮专用规则压成 flag-fill（特异性 (0,2,0) 压过 .fa-flag::before 基础描边引用）
+blocks.push('#chat .mes .mes_bookmark::before{mask-image:var(' + varNames['flag-fill'] + ')!important;-webkit-mask-image:var(' + varNames['flag-fill'] + ')!important;}');
 
 // hover 收集：映射图标（发送键不共享）+ undo 别名
 for (const fa in M) if (fa !== 'fa-paper-plane') hoverSels.push(selFor(fa));
