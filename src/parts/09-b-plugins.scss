@@ -64,6 +64,14 @@
 #chat .mes:has(.bbs-fp-host) .mes_text:has(> .sp-inline-box:last-child) { padding-bottom: 0 !important; }
 /* 注：Gruvbox 的移动端负外边距对齐（-6px/-2px）不搬——那是补 Gruvbox 正文不对称 padding 的，
  * Nord 移动端正文已通栏零 padding，负边距只会把构画盒推出 overflow 裁剪线导致两边被截 */
+/* 桌面右缘对齐：bbs shadow 样式表 :host{all:initial} 把 host 打成 display:inline，
+ * margin 不参与块布局，直接写 margin-right 内收无效（前两版误修的根因）；
+ * 先恢复 block，再按正文右留白同量内收，卡右缘对齐构画盒/正文内容缘。
+ * 断点与 07 移动端正文清零(max-width:899.98px)互补 */
+#chat .mes .bbs-fp-host { display: block !important; }
+@media screen and (min-width: 900px) {
+  #chat .mes .bbs-fp-host { margin-right: var(--mes-right-spacing) !important; }
+}
 
 /* ---B2 构画（SevenDaysCal）桌面端：收藏按钮绝对定位到名字右侧，不参与行盒计算---
  * 移动端已由 07-mobile-header 三行布局接管（static 随行内联），此处只补桌面 */
