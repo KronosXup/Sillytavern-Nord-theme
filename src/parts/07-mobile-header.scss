@@ -91,8 +91,8 @@
   #chat .mes .ch_name .mes_buttons .mes_button,
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
   /* swipe：只在 last_mes 出现，与钉底钮排同排同高（bottom:6px），不出消息外 */
-  #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; }
-  #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; }
+  #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; }
+  #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
   /* 正文常态底留白 44px（一排钮 ~36px+间距），编辑态 92px（方钮排窄屏可绕两行 ~86px） */
