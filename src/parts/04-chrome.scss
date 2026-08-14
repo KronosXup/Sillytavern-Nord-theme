@@ -69,6 +69,29 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
 .toast-warning .toast-title { color: var(--warn) !important; }
 .toast-info .toast-title { color: var(--info) !important; }
 
+/* ---选项菜单/扩展菜单统一：nord0 底 + 发丝线边 + 正文色，两菜单外观一致--- */
+#options, .options-content,
+#extensionsMenu, #extensionsMenu .options-content {
+  background-color: var(--bg-0) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: var(--radius) !important;
+  font-family: var(--font-sans) !important;
+}
+/* 菜单项统一：正文色 + 无边框（options 原生项带 accent 色和 border，统一去掉） */
+#options .options-content a,
+#extensionsMenu .list-group-item {
+  color: var(--text) !important;
+  border: none !important;
+  border-radius: calc(var(--radius) - 1px) !important;
+  font-family: var(--font-sans) !important;
+}
+#options .options-content a:hover,
+#extensionsMenu .list-group-item:hover {
+  background-color: var(--bg-2) !important;
+  color: var(--text-hi) !important;
+}
+
 /* ---头像：纯圆角，不描边；img 撑满容器+object-fit:cover 强制裁切---
    ST 原生 cover 挂 body.big-avatars，body 无该 class 时竖版原图 letterbox（img 缩成竖条留白）。
    主题侧兜底，不依赖 body class（与 Gruvbox 同思路） */
