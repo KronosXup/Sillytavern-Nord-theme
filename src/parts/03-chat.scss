@@ -1,0 +1,179 @@
+/* ---聊天区：下沉一阶；消息间发丝线分隔；当前消息 nord2 提亮--- */
+#chat {
+  background-color: var(--bg-sunken) !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+}
+.mes { border-bottom: 1px solid var(--line-0) !important; }
+.last_mes {
+  background-color: var(--bg-2) !important;
+  border-radius: var(--radius) !important;
+}
+.mes_text { color: var(--text) !important; }
+.mes_block, .mes_text p, .mes_text li { color: var(--text) !important; }
+.last_mes .mes_text { color: var(--text) !important; }
+
+/* ---正文格式：frost 阶梯给层级，正文不单调---
+   加粗=亮白 / 斜体=雾蓝 / 加粗斜体=冰绿 / 删除=灰字红线 / 引用=冰绿+淡青底 */
+.mes_text strong, .mes_text b {
+  color: var(--text-hi) !important;
+  font-weight: 700 !important;
+}
+.mes_text em, .mes_text i {
+  color: var(--accent-2) !important;
+}
+.mes_text strong em, .mes_text em strong,
+.mes_text strong i, .mes_text b i,
+.mes_text b em, .mes_text em b {
+  color: var(--nord7) !important;
+}
+/* 删除线：文字压灰，线留一丝 aurora 红（语义：移除） */
+.mes_text del, .mes_text s {
+  color: var(--comment) !important;
+  text-decoration-color: color-mix(in srgb, var(--danger) 55%, transparent) !important;
+}
+/* 引用块：淡青 tonal 底 + 冰绿文字（quote 色不再被正文规则压住） */
+.mes_text blockquote {
+  background: color-mix(in srgb, var(--accent) 6%, transparent) !important;
+  border: none !important;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 40%, transparent) !important;
+  border-radius: 0 var(--radius) var(--radius) 0 !important;
+  padding: 8px 12px !important;
+  margin: 8px 0 !important;
+}
+.mes_text blockquote, .mes_text blockquote p, .mes_text blockquote span {
+  color: var(--nord7) !important;
+}
+/* 标题分级：h1/h2 带发丝底线，h3 纯字，h4+ 降一档 */
+.mes_text h1, .mes_text h2 {
+  color: var(--text-hi) !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--line-0) !important;
+  padding-bottom: 4px !important;
+  margin: 0.9em 0 0.45em !important;
+}
+.mes_text h1 { font-size: 1.45em !important; }
+.mes_text h2 { font-size: 1.25em !important; font-weight: 600 !important; }
+.mes_text h3 {
+  color: var(--text-hi) !important;
+  font-size: 1.12em !important;
+  font-weight: 600 !important;
+  margin: 0.9em 0 0.4em !important;
+}
+.mes_text h4, .mes_text h5, .mes_text h6 {
+  color: var(--text-hover) !important;
+  font-weight: 600 !important;
+  margin: 0.8em 0 0.35em !important;
+}
+
+/* ---代码块：IDE 风——编辑器卡片 + 语言标签栏 + 官方语法色--- */
+/* 编辑器卡片：nord0 底（比聊天沉层亮一阶），等宽，横向滚动不换行 */
+code.hljs {
+  display: block !important;
+  position: relative !important;
+  background-color: var(--bg-0) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+  padding: 12px 40px 12px 14px !important;
+  margin: 8px 0 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.86em !important;
+  line-height: 1.6 !important;
+  tab-size: 4 !important;
+  white-space: pre !important;
+  overflow-x: auto !important;
+}
+/* hljs 语法 span 会被 .mes_text span 全局规则抢成 sans，必须点名夺回等宽 */
+code.hljs, code.hljs span { font-family: var(--font-mono) !important; }
+/* pre 只是外壳时拆壳，卡片统一由 code.hljs 承担 */
+pre:has(> code.hljs) {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+/* 语言标签栏（IDE 编辑器标题栏；ST 用 custom-language-* 标语言） */
+code.hljs[class*="custom-language-"] { padding-top: 32px !important; }
+code.hljs[class*="custom-language-"]::before {
+  content: 'code';
+  position: absolute !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  padding: 5px 14px 6px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--text-dim) !important;
+  border-bottom: 1px solid var(--line-0) !important;
+  white-space: normal !important;
+}
+code.hljs.custom-language-python::before { content: 'python'; }
+code.hljs.custom-language-javascript::before { content: 'javascript'; }
+code.hljs.custom-language-typescript::before { content: 'typescript'; }
+code.hljs.custom-language-json::before { content: 'json'; }
+code.hljs.custom-language-bash::before { content: 'bash'; }
+code.hljs.custom-language-shell::before { content: 'shell'; }
+code.hljs.custom-language-html::before { content: 'html'; }
+code.hljs.custom-language-xml::before { content: 'xml'; }
+code.hljs.custom-language-css::before { content: 'css'; }
+code.hljs.custom-language-scss::before { content: 'scss'; }
+code.hljs.custom-language-c::before { content: 'c'; }
+code.hljs.custom-language-cpp::before { content: 'c++'; }
+code.hljs.custom-language-csharp::before { content: 'c#'; }
+code.hljs.custom-language-java::before { content: 'java'; }
+code.hljs.custom-language-rust::before { content: 'rust'; }
+code.hljs.custom-language-go::before { content: 'go'; }
+code.hljs.custom-language-sql::before { content: 'sql'; }
+code.hljs.custom-language-yaml::before { content: 'yaml'; }
+code.hljs.custom-language-markdown::before { content: 'markdown'; }
+code.hljs.custom-language-lua::before { content: 'lua'; }
+code.hljs.custom-language-php::before { content: 'php'; }
+code.hljs.custom-language-ruby::before { content: 'ruby'; }
+code.hljs.custom-language-perl::before { content: 'perl'; }
+code.hljs.custom-language-r::before { content: 'r'; }
+code.hljs.custom-language-kotlin::before { content: 'kotlin'; }
+code.hljs.custom-language-swift::before { content: 'swift'; }
+code.hljs.custom-language-dockerfile::before { content: 'dockerfile'; }
+code.hljs.custom-language-ini::before { content: 'ini'; }
+code.hljs.custom-language-diff::before { content: 'diff'; }
+code.hljs.custom-language-stscript::before { content: 'stscript'; }
+/* 复制按钮：faint 常态，hover 冰青 */
+code.hljs .code-copy {
+  color: var(--text-dim) !important;
+  opacity: 1 !important;
+  transition: color .12s var(--ease-out) !important;
+}
+code.hljs .code-copy:hover { color: var(--accent) !important; }
+/* 行内代码：小芯片 */
+code:not(.hljs) {
+  background-color: var(--bg-1) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: 3px !important;
+  padding: 0.1em 0.35em !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.86em !important;
+}
+/* hljs 官方语法色（code.hljs 作用域加权，压过 ST bright.min.css） */
+code.hljs .hljs-keyword, code.hljs .hljs-selector-tag, code.hljs .hljs-operator,
+code.hljs .hljs-punctuation, code.hljs .hljs-tag, code.hljs .hljs-name,
+code.hljs .hljs-built_in { color: var(--nord9) !important; }
+code.hljs .hljs-function .hljs-title, code.hljs .hljs-title.function_,
+code.hljs .hljs-section { color: var(--nord8) !important; }
+code.hljs .hljs-title.class_, code.hljs .hljs-type { color: var(--nord7) !important; }
+code.hljs .hljs-string, code.hljs .hljs-template-string,
+code.hljs .hljs-addition { color: var(--nord14) !important; }
+code.hljs .hljs-number, code.hljs .hljs-literal { color: var(--nord15) !important; }
+code.hljs .hljs-attr, code.hljs .hljs-attribute, code.hljs .hljs-variable,
+code.hljs .hljs-constant, code.hljs .hljs-params { color: var(--nord4) !important; }
+code.hljs .hljs-comment, code.hljs .hljs-quote { color: var(--comment) !important; font-style: italic !important; }
+code.hljs .hljs-regexp { color: var(--nord13) !important; }
+code.hljs .hljs-meta { color: var(--nord10) !important; }
+code.hljs .hljs-symbol, code.hljs .hljs-bullet { color: var(--nord12) !important; }
+code.hljs .hljs-deletion { color: var(--nord11) !important; }
+code.hljs .hljs-emphasis { font-style: italic !important; }
+code.hljs .hljs-strong { font-weight: 700 !important; }
+

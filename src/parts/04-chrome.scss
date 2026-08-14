@@ -1,0 +1,193 @@
+/* ---滚动条：幽灵化——6px 半透明雪色，平时几乎隐形，hover 才显形--- */
+::-webkit-scrollbar { width: 6px !important; height: 6px !important; }
+/* 轨道垫一层半透明 nord0：全透明会把背景纹理透出来，与面板形成割裂列 */
+::-webkit-scrollbar-track { background: color-mix(in srgb, var(--bg-0) 35%, transparent) !important; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 16%, transparent) !important;
+  border-radius: 3px !important;
+}
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--accent) 55%, transparent) !important; }
+::-webkit-scrollbar-corner { background: transparent !important; }
+* { scrollbar-color: color-mix(in srgb, var(--text) 16%, transparent) color-mix(in srgb, var(--bg-0) 35%, transparent) !important; scrollbar-width: thin !important; }
+
+/* ---选区：官方 = nord2 底 + nord6 字--- */
+::selection { background: var(--selection-bg) !important; color: var(--selection-fg) !important; }
+/* 表单控件底色本身就是 nord2，选区换冰青实底才分辨得出 */
+textarea::selection, input::selection {
+  background: var(--accent) !important;
+  color: var(--on-accent) !important;
+}
+
+/* ---标签 tag：次级强调 nord9 淡底 + nord9 细边--- */
+.tag {
+  background-color: color-mix(in srgb, var(--accent-2) 14%, transparent) !important;
+  color: var(--accent-2) !important;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 40%, transparent) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+}
+.tag::before { color: var(--accent-2) !important; }
+
+/* ---滑条/勾选/单选--- */
+input[type="range"] {
+  background: var(--bg-2) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: var(--radius) !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+input[type="range"]::-webkit-slider-thumb {
+  background: var(--accent) !important;
+  border: 1px solid var(--accent-3) !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+}
+input[type="range"]::-moz-range-thumb {
+  background: var(--accent) !important;
+  border: 1px solid var(--accent-3) !important;
+  border-radius: 50% !important;
+}
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !important; }
+
+/* ---浮层微阴影--- */
+#character_popup, #dialogue_popup, .popup, .draggable,
+.toast, .toast-container .toast,
+.tooltip, .tooltip-inner {
+  box-shadow: var(--shadow-float) !important;
+}
+
+/* ---弹窗/toastr：nord2 浮层 + 发丝线，语义色染标题--- */
+.toast, .toast-container .toast {
+  background-color: var(--bg-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: var(--radius) !important;
+  text-shadow: none !important;
+}
+.toast-success .toast-title { color: var(--success) !important; }
+.toast-error .toast-title { color: var(--danger) !important; }
+.toast-warning .toast-title { color: var(--warn) !important; }
+.toast-info .toast-title { color: var(--info) !important; }
+
+/* ---头像：纯圆角，不描边；img 撑满容器+object-fit:cover 强制裁切---
+   ST 原生 cover 挂 body.big-avatars，body 无该 class 时竖版原图 letterbox（img 缩成竖条留白）。
+   主题侧兜底，不依赖 body class（与 Gruvbox 同思路） */
+.avatar, .avatar img { border: none !important; border-radius: var(--radius) !important; }
+.avatar img { width: var(--avatar-base-width) !important; height: var(--avatar-base-height) !important; object-fit: cover !important; object-position: center !important; }
+/* hotswap 顶栏/inline 头像：原生 .avatar img 固定 base 尺寸（约30px），容器被 avatars_inline 拉成50→大框包小图。
+   点名撑满容器，specificity 压过原生与 avatars_inline_small 因子规则 */
+.avatar.inline_avatar img, #HotSwapWrapper .avatar img, .hotswap .avatar img { width: var(--avatar-base-width) !important; height: var(--avatar-base-height) !important; object-fit: cover !important; object-position: center !important; }
+
+/* ---顶栏图标：只改颜色与 hover（不沿用 Gruvbox 的 openIcon 满高/topBarIconSize 配方）--- */
+#top-settings-holder .drawer-icon {
+  color: var(--text-dim) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transition: color .14s var(--ease-out) !important;
+}
+#top-settings-holder .drawer-icon:hover { color: var(--text-hi) !important; }
+#top-settings-holder .drawer-icon.openIcon { color: var(--accent) !important; }
+/* Remix/Eva mask 图标 hover 修正：顶栏 hover=白、展开=冰青。
+   ::before 背景色仅适用于挂 mask 的图标（FA 原生字形的 color 与 background-color
+   同色会融成色块——映射表里没有的 FA 类不要加进这组规则） */
+#top-settings-holder .drawer-icon:hover::before,
+#top-settings-holder .drawer-toggle:hover .drawer-icon::before {
+  background-color: var(--text-hi) !important;
+}
+/* 点开立刻变蓝（不等鼠标移开）：优先级必须压过上面的 hover 白 */
+#top-settings-holder .drawer-icon.openIcon::before,
+#top-settings-holder .drawer-toggle:hover .drawer-icon.openIcon::before {
+  background-color: var(--accent) !important;
+}
+/* 顶栏展开线：点击后从中心向段两缘生长，相邻展开的段无缝连成一条。
+   定位上下文挂 drawer-toggle（drawer-content 是它的兄弟不是子代，不吃 absolute 重锚），
+   严禁给 .drawer 加 position:relative——会把 drawer-content 锚到图标段上 */
+#top-settings-holder .drawer-toggle {
+  position: relative !important;
+  width: 100% !important;
+  align-self: stretch !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+#top-settings-holder .drawer-toggle::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 2px !important;
+  background: var(--accent) !important;
+  transform: translateX(-50%) !important;
+  transition: width .22s var(--ease-out) !important;
+}
+#top-settings-holder .drawer:has(.drawer-icon.openIcon) .drawer-toggle::after { width: 100% !important; }
+
+/* ---链接：主强调，hover 加下划线--- */
+a, a:visited { color: var(--accent) !important; text-decoration: none !important; }
+a:hover { text-decoration: underline !important; }
+
+/* ---工具提示 tooltip--- */
+.tooltip, [data-toggle="tooltip"] + .tooltip, .tooltip-inner, .tooltip-arrow {
+  background-color: var(--bg-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: var(--radius) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* ---列表条目：面板内发丝线分隔，hover 升一阶--- */
+.character_div, .character_select,
+#WorldInfo .world_entry,
+.prompt_manager_prompt_entry,
+.world_info_entry {
+  border-bottom: 1px solid var(--line-1) !important;
+  background-color: transparent !important;
+}
+.character_div:hover, .character_select:hover,
+#WorldInfo .world_entry:hover, .world_info_entry:hover {
+  background-color: var(--bg-2) !important;
+}
+
+/* ---分割线--- */
+hr, .drawer-content hr { border: none !important; border-top: 1px solid var(--line-1) !important; }
+.mes hr, .mes_text hr { border: none !important; border-top: 1px solid var(--line-0) !important; }
+
+/* ---设置面板宽松化：留白加大，菜单不局促--- */
+.drawer-content {
+  padding: 12px 14px !important;
+  line-height: 1.7 !important;
+}
+/* 三栏之间拉开 */
+#user-settings-block-content { gap: 18px !important; }
+/* 分区标题上下透气 */
+.standoutHeader, #user-settings-block h4 {
+  margin-top: 16px !important;
+  margin-bottom: 8px !important;
+}
+/* 行内的标题条豁免段顶距：与同行控件起点对齐（宽松化只管堆叠场景） */
+.range-block .standoutHeader { margin-top: 0 !important; }
+/* 折叠分区盒内留白；上直下圆，与标题亮条拼成一件组件 */
+.standoutHeader~.inline-drawer-content {
+  padding: 10px 12px !important;
+  border-radius: 0 0 var(--radius) var(--radius) !important;
+}
+
+/* ---圆角统一：收编 ST 原生 10px 圆角，全主题一档 3px--- */
+.popup .popper-modal, .list-group, .tokenGraph, #cfgConfig,
+.character_select, .suggested_reply, .avatar-container,
+#select_chat_popup, body .ui-widget-content,
+.settingsSectionWrap, .zoomed_avatar img,
+#show_more_messages, .info-block,
+.welcomePanel, .welcomeRecent .recentChatList .recentChat {
+  border-radius: var(--radius) !important;
+}
+
+/* ---引号对话：衬线体拉开与正文无衬线的观感（颜色由变体自定）--- */
+.mes_text q, q { font-family: var(--font-serif) !important; }
+
+/* ---全局克制：去文字阴影/入场动画--- */
+* { text-shadow: none !important; }
+.mes, .drawer-content { animation: none !important; }
+

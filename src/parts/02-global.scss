@@ -1,0 +1,261 @@
+/* ---全局字体（排除图标，避免盖 FA 字形）--- */
+body {
+  background-color: var(--bg-0) !important;
+  color: var(--text) !important;
+  font-family: var(--font-sans) !important;
+}
+input, textarea, select, option,
+button:not(.fa-solid):not(.fa-regular):not([class*="fa-"]),
+.select2-container, .select2-container .select2-selection,
+.text_pole, .widthNatural, #send_textarea, #dialogue_del_mes {
+  font-family: var(--font-sans) !important;
+}
+.mes_text, .mes_text p, .mes_text span,
+.ch_name, .mesIDDisplay, .mes_timer, .tokenCounterDisplay {
+  font-family: var(--font-sans) !important;
+  color: var(--text) !important;
+}
+.ch_name { color: var(--text-hi) !important; font-weight: 600 !important; letter-spacing: 0.01em !important; }
+code, pre, .hljs, .katex { font-family: var(--font-mono) !important; }
+
+/* ---面板/抽屉：nord1 浮起 + nord2 发丝线 + 微浮影（给结构与层次）--- */
+.drawer-content,
+#left-nav-panel, #right-nav-panel,
+#character_popup, #dialogue_popup, .popup,
+#top-settings-holder, #send_form,
+#WorldInfo, #floatingPrompt, .draggable {
+  background-color: var(--bg-1) !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-raised) !important;
+  backdrop-filter: none !important;
+  color: var(--text) !important;
+}
+
+/* WorldInfo 补 0.7px 发丝缝：与用户设置面板(rectTop 34.0)精确齐平；
+   侧栏 fillLeft/fillRight 保持 ST 原生 top:0 贴顶，不动 */
+#WorldInfo {
+  top: calc(var(--topBarBlockSize) + 0.7px) !important;
+}
+
+/* ---标题：nord2 亮条 + 底部 frost 发丝线--- */
+.inline-drawer-header,
+.standoutHeader,
+.drawer-content h3, .drawer-content h4:not(.margin0),
+#character_popup h3, .popup h3 {
+  background: var(--bg-2) !important;
+  color: var(--text-hi) !important;
+  border: none !important;
+  text-shadow: none !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  padding: 6px 12px !important;
+  min-height: 36px !important;
+  box-sizing: border-box !important;
+  border-radius: var(--radius) !important;
+}
+.inline-drawer-header,
+.standoutHeader,
+.drawer-content h3, .drawer-content h4:not(.margin0),
+#character_popup h3, .popup h3 {
+  border-bottom: 1px solid var(--accent) !important;
+}
+.inline-drawer-header .inline-drawer-icon { color: var(--text-dim) !important; transition: color .12s var(--ease-out) !important; }
+.inline-drawer-header:hover .inline-drawer-icon { color: var(--text-hi) !important; }
+
+/* ---按钮：nord2 底 + nord3 细边（可点击感）；hover 升一阶底色；active 转 frost；选中=主强调实底--- */
+.menu_button, .right_menu_button,
+input[type="button"], input[type="submit"] {
+  background-color: var(--bg-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: var(--radius) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  transition: background-color .14s var(--ease-out), color .14s var(--ease-out), border-color .14s var(--ease-out) !important;
+}
+.menu_button:hover, .right_menu_button:hover,
+input[type="button"]:hover, input[type="submit"]:hover {
+  background-color: var(--bg-3) !important;
+  color: var(--text-hi) !important;
+  border-color: var(--accent) !important;
+}
+.menu_button:active, .right_menu_button:active,
+input[type="button"]:active, input[type="submit"]:active {
+  background-color: var(--accent-3) !important;
+  color: var(--nord6) !important;
+  border-color: var(--accent-3) !important;
+}
+.menu_button.active, .menu_button.selected {
+  background-color: var(--accent) !important;
+  color: var(--on-accent) !important;
+  border-color: var(--accent) !important;
+}
+
+/* ---ST 原生状态色恢复：扁平化别压掉语义态---
+   收藏=aurora 黄(ST fav_on 的 golden)、世界书/角色书已链接=冰青(world_set/toggleEnabled)、删除=aurora 红底(red_button) */
+.fav_on { color: var(--nord13) !important; }
+.world_set, .toggleEnabled, .bulk_edit_overlay_active { color: var(--accent) !important; }
+.menu_button.red_button, .red_button {
+  background-color: var(--danger) !important;
+  color: var(--nord6) !important;
+  border-color: var(--danger) !important;
+}
+.menu_button.red_button:hover, .red_button:hover {
+  background-color: var(--danger) !important;
+  color: var(--nord6) !important;
+  border-color: var(--danger) !important;
+}
+
+/* ---主操作（发送/继续）：ghost 图标键——透明底+frost描边图标，hover 淡染12% accent，active 20%--- */
+#send_but, #mes_continue {
+  background-color: transparent !important;
+  color: var(--accent) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--radius) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  transition: background-color .14s var(--ease-out), border-color .14s var(--ease-out) !important;
+}
+#send_but:hover, #mes_continue:hover {
+  background-color: color-mix(in srgb, var(--accent) 12%, transparent) !important;
+  border-color: transparent !important;
+  color: var(--accent) !important;
+}
+#send_but:active, #mes_continue:active {
+  background-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+  border-color: transparent !important;
+  color: var(--accent) !important;
+}
+
+/* ---输入区：nord2 底 + nord3 细边；focus frost 焦点环--- */
+.text_pole, textarea,
+input[type="text"], input[type="password"], input[type="number"],
+#send_textarea, select {
+  background-color: var(--bg-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+  transition: border-color .14s var(--ease-out), box-shadow .14s var(--ease-out) !important;
+}
+.text_pole:focus, textarea:focus,
+input[type="text"]:focus, input[type="password"]:focus,
+input[type="number"]:focus, #send_textarea:focus, select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: var(--frost-ring) !important;
+  outline: none !important;
+}
+.text_pole::placeholder, textarea::placeholder, #send_textarea::placeholder {
+  color: var(--text-dim) !important;
+  opacity: 1 !important;
+}
+select option { background-color: var(--bg-1) !important; color: var(--text) !important; }
+select option:checked { background-color: var(--selection-bg) !important; color: var(--selection-fg) !important; }
+
+/* ---select2 选择框：与输入控件同语言（世界书选择/模型选择等），去掉 ST 原生渐变分层--- */
+.select2-container .select2-selection--single,
+.select2-container .select2-selection--multiple,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+  background-color: var(--bg-2) !important;
+  background-image: none !important;
+  border: 1px solid var(--bg-3) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+  color: var(--text) !important;
+  min-height: 36px !important;
+  box-sizing: border-box !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 34px !important;
+}
+/* 单选框箭头/X 按 34px 内框居中（库默认 26px 是按 28px 框设计的） */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 34px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__clear {
+  height: 34px !important;
+  line-height: 34px !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--multiple {
+  background-color: var(--bg-2) !important;
+  background-image: none !important;
+  border: 1px solid var(--accent) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+}
+.select2-container .select2-selection * { outline: none !important; }
+.select2-container .select2-selection__rendered { color: var(--text) !important; }
+.select2-container .select2-selection__placeholder { color: var(--text-dim) !important; }
+/* 多选框内嵌搜索 textarea：它会被全局 textarea 规则画出第二个框，必须扒光 */
+.select2-container .select2-search__field {
+  color: var(--text) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.select2-dropdown {
+  background-color: var(--bg-1) !important;
+  border: 1px solid var(--bg-3) !important;
+  border-radius: var(--radius) !important;
+  color: var(--text) !important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: var(--selection-bg) !important;
+  color: var(--selection-fg) !important;
+}
+
+/* ===== 桌面端原生下拉弹层接管（base-select，Chrome/Edge 135+）=====
+   仅鼠标设备+支持的浏览器生效；手机/平板保持原生底部面板；
+   Firefox/Safari/旧版整段无效，回落原生弹层（上面 option 规则兜底）。
+   ST 已用 background-image 自画箭头，隐藏 Chrome 的 picker-icon 防双箭头。 */
+@media (hover: hover) and (pointer: fine) {
+  select, ::picker(select) {
+    appearance: base-select;
+  }
+  ::picker(select) {
+    background-color: var(--bg-1);
+    border: 1px solid var(--bg-3);
+    border-radius: var(--radius);
+    padding: 4px;
+    box-shadow: var(--shadow-float);
+  }
+  /* option 样式直接写 option：::picker(select) option 伪元素禁带后代选择器，整条会被丢弃 */
+  select option {
+    border-radius: 2px;
+    padding: 4px 8px;
+    background-color: transparent !important;
+    color: var(--text) !important;
+  }
+  select::picker-icon {
+    display: none;
+  }
+  /* 弹开态高亮：base-select 首次点击焦点进弹层，按钮本体不触发 :focus，
+     用 :open 补开态焦点环（不支持的浏览器整行丢弃，无副作用） */
+  select:open {
+    border-color: var(--accent) !important;
+  }
+  /* 当前值透明底 + ✓ 冰青；高亮只给悬停/键盘焦点（focus-visible 防鼠标点开时的幻影高亮） */
+  select option:checked {
+    background-color: transparent !important;
+    color: var(--text) !important;
+  }
+  select option::checkmark {
+    color: var(--accent);
+  }
+  select option:disabled {
+    opacity: 0.6;
+  }
+  select option:hover,
+  select option:focus-visible {
+    background-color: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+    color: var(--text-hi) !important;
+  }
+}
+

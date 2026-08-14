@@ -1,0 +1,64 @@
+/* ============================================================
+ * Nord-Dark — SillyTavern 主题 v3
+ * 设计语言按官方文档（nordtheme.com/docs/colors-and-palettes）+ 官网设计系统：
+ * - Polar Night 明度分层：nord0 画布 / nord1 浮起（面板）/ nord2 亮阶·组件底·选中 / nord3 导向标记·发丝线
+ * - Snow Storm 文字阶：nord4 正文 / nord5 hover 增亮 / nord6 需更多注意的文字
+ * - Frost 强调级：nord8 主强调（primary action/focus） / nord9 次级 / nord10 三级
+ * - Aurora 语义态：nord11 错误 / nord13 警告 / nord14 成功（nord15 仅数字字面量）
+ * - 官方 passive border = nord1/nord2 发丝线（本主题加回，给结构与设计感）
+ * - 官方选区/高亮 = nord2 底 + nord6 字
+ * 字体：Rubik（UI）+ HarmonyOS Sans SC（中文回落，可读性）+ Source Code Pro（等宽）
+ * 动效：easeOutCubic；圆角 3px（冰/棱角气质）
+ * ============================================================ */
+
+/* ---字体加载--- */
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/rubik@5.0.0/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/rubik@5.0.0/500.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/rubik@5.0.0/600.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/source-code-pro@5.0.0/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@lobehub/webfont-harmony-sans-sc@1.0.0/css/index-full.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.0.0/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5.0.0/500.css');
+
+/* ---Nord 原子色（固定，变体不动这层）--- */
+:root {
+  --nord0:  #2e3440; --nord1:  #3b4252; --nord2:  #434c5e; --nord3:  #4c566a;
+  --nord4:  #d8dee9; --nord5:  #e5e9f0; --nord6:  #eceff4;
+  --nord7:  #8fbcbb; --nord8:  #88c0d0; --nord9:  #81a1c1; --nord10: #5e81ac;
+  --nord11: #bf616a; --nord12: #d08770; --nord13: #ebcb8b; --nord14: #a3be8c; --nord15: #b48ead;
+
+  /* ---语义令牌（变体只改这层）--- */
+  --bg-0:        var(--nord0);   /* 画布 */
+  --bg-1:        var(--nord1);   /* 面板/抽屉（浮起） */
+  --bg-2:        var(--nord2);   /* 组件底/亮阶/选中条 */
+  --bg-3:        var(--nord3);   /* 导向标记/滚动条/强发丝线 */
+  --bg-sunken:   #282e39;       /* 下沉层 darken(nord0) */
+  --line-0:      var(--nord1);  /* 画布级发丝线 */
+  --line-1:      var(--nord2);  /* 面板内发丝线 */
+  --line-2:      var(--nord3);  /* 组件边/强发丝线 */
+  --selection-bg: var(--nord2);
+  --selection-fg: var(--nord6);
+  --text:        var(--nord4);
+  --text-hi:     var(--nord6);
+  --text-hover:  var(--nord5);
+  --text-dim:    color-mix(in srgb, var(--nord4) 65%, transparent);
+  --text-faint:  var(--nord3);
+  --comment:     #616e88;        /* 代码注释：官方 nord3 在 nord0 上太淡，Nord 社区提亮值 */
+  --accent:      var(--nord8);   /* ★ 主强调，变体唯一替换点 */
+  --accent-2:    var(--nord9);
+  --accent-3:    var(--nord10);
+  --on-accent:   var(--nord0);
+  --danger:      var(--nord11);
+  --warn:        var(--nord13);
+  --success:     var(--nord14);
+  --info:        var(--nord9);
+  --frost-ring: 0 0 0 1px var(--accent), 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent); /* frost 焦点环 */
+  --shadow-float: 0 4px 14px rgba(24, 27, 35, 0.4);
+  --shadow-raised: 0 1px 3px rgba(24, 27, 35, 0.3);
+  --ease-out:    cubic-bezier(0.215, 0.61, 0.355, 1);
+  --font-sans: 'Rubik', 'HarmonyOS Sans SC', 'HarmonyOS_Sans_SC', system-ui, -apple-system, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Source Code Pro', 'Cascadia Code', ui-monospace, Menlo, Consolas, monospace;
+  --font-serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;   /* 引号对话衬线 */
+  --radius: 3px;
+}
+
