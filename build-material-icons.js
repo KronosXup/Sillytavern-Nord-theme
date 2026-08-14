@@ -1,8 +1,8 @@
-// Nord-Contour Material Symbols(Sharp 描边) 图标追加构建器
+// Nord Material Symbols(Sharp 描边) 图标追加构建器
 // 从 build-eva-icons.js 换源而来：结构/管线一致，图标源改 @material-symbols/svg-400/sharp。
 // Sharp 细描边+尖角收尾，贴合 Nord 冰/棱角气质；非填充（描边）风格。
 // MS 没有品牌图标（discord/github）与个别杂项，保留 FA 原生兜底。
-// 用法：一般不单独跑——由 scripts/build.js 在 sass 编译后调用（读 themes/Contour-Nord.json、追加图标块、写回）。
+// 用法：一般不单独跑——由 scripts/build.js 在 sass 编译后调用（读 themes/Nord.json、追加图标块、写回）。
 //       单独跑仅用于调试图标块本身（要求 JSON 里已有手写 CSS）。
 const fs = require('fs');
 const path = require('path');
@@ -10,14 +10,14 @@ const path = require('path');
 const ROOT = __dirname;
 // 图标源：本机 @material-symbols/svg-400/sharp 目录。用环境变量覆盖，默认 ../node_modules 下找。
 const MS_BASE = process.env.MS_SVG_BASE || path.join(ROOT, 'node_modules/@material-symbols/svg-400/sharp/');
-const CONT = path.join(ROOT, 'themes/Contour-Nord.json');
+const CONT = path.join(ROOT, 'themes/Nord.json');
 // hover 强调走语义令牌（:root --accent），不再硬编码 hex——令牌化后 accent 单点可换
 const ACCENT = 'var(--accent)';
 
-// 读当前 Contour(已含 Nord-Dark base + Contour 纹理/hover/logo，不含旧图标块)
+// 读当前产物(已含 Nord-Dark base + 纹理/hover/logo，不含旧图标块)
 const cont = JSON.parse(fs.readFileSync(CONT, 'utf8'));
 const baseCSS = cont.custom_css;
-console.log('base CSS:', baseCSS.length, 'chars (Nord-Dark + Contour)');
+console.log('base CSS:', baseCSS.length, 'chars (Nord-Dark base)');
 
 // ── FA 类名 → Material Symbols 图标名（sharp/<name>.svg）──
 const M = {};
@@ -302,13 +302,13 @@ const msCSS = '/* ============================================================\n
 ' * ============================================================ */\n' + blocks.join('\n');
 
 const finalCSS = baseCSS + '\n\n' + msCSS;
-const out = { ...cont, name: 'Contour-Nord', custom_css: finalCSS };
+const out = { ...cont, name: 'Nord', custom_css: finalCSS };
 fs.writeFileSync(CONT, JSON.stringify(out, null, 2), 'utf8');
 
 const chk = JSON.parse(fs.readFileSync(CONT, 'utf8'));
 console.log('round-trip:', chk.custom_css === finalCSS ? 'OK' : 'FAIL');
 console.log('name:', chk.name);
 console.log('total:', finalCSS.length, 'chars (base', baseCSS.length, '+ ms', msCSS.length, ')');
-console.log('Contour preserved:', finalCSS.includes('welcomeHeaderLogo'));
+console.log('Nord preserved:', finalCSS.includes('welcomeHeaderLogo'));
 console.log('MS added:', finalCSS.includes('mask-image') && finalCSS.includes('Material Symbols Sharp'));
 console.log('mappings:', Object.keys(M).length, '| hover blocks:', blocks.filter(b => b.includes('.drawer-toggle:hover')).length);

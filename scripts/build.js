@@ -1,6 +1,6 @@
-/* Nord-Contour SCSS 构建链：src/parts/*.scss -> sass 编译 -> 纹理/logo 注入 -> Material 图标包 -> 语义对账 -> 写回 JSON
+/* Nord SCSS 构建链：src/parts/*.scss -> sass 编译 -> 纹理/logo 注入 -> Material 图标包 -> 语义对账 -> 写回 JSON
  * 用法:
- *   node scripts/build.js           构建并写入 themes/Contour-Nord.json（对账失败拒绝写）
+ *   node scripts/build.js           构建并写入 themes/Nord.json（对账失败拒绝写）
  *   node scripts/build.js --verify  只对账不写入（拿现产物当基准；实际会先构建再比）
  *   node scripts/build.js --force   跳过对账直接写（有意改样式时用）
  * 环境变量:
@@ -11,7 +11,7 @@ const path = require('path');
 const sass = require('sass');
 const { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'themes', 'Contour-Nord.json');
+const OUT = path.join(ROOT, 'themes', 'Nord.json');
 
 const WRITE = !process.argv.includes('--verify');
 const FORCE = process.argv.includes('--force');
@@ -128,20 +128,20 @@ function ruleSet(css) {
 }
 
 /* ---------- 主流程 ----------
- * 元数据模板：src/contour-base.json 提供 ST 主题的全部非 custom_css 字段（颜色/开关等），
+ * 元数据模板：src/nord-base.json 提供 ST 主题的全部非 custom_css 字段（颜色/开关等），
  * 其 custom_css 字段已弃用（CSS 源在 src/parts/*.scss），构建时以 parts 编译结果覆盖。 */
-const TEMPLATE = path.join(ROOT, 'src', 'contour-base.json');
+const TEMPLATE = path.join(ROOT, 'src', 'nord-base.json');
 const handCSS = injectAssets(compile(loadParts()));
 
-// 基准（写入前的旧产物原文），对账与恢复都要用
-const oldRaw = fs.readFileSync(OUT, 'utf8');
-const oldCss = JSON.parse(oldRaw).custom_css;
+// 基准（写入前的旧产物原文），对账与恢复都要用；首次构建/改名后文件不存在时容错为空
+const oldRaw = (() => { try { return fs.readFileSync(OUT, 'utf8'); } catch { return ''; } })();
+const oldCss = oldRaw ? JSON.parse(oldRaw).custom_css : '';
 
 // 元数据取自模板（custom_css 用新编译的覆盖）
 const baseJson = JSON.parse(fs.readFileSync(TEMPLATE, 'utf8'));
 
 // 写临时 JSON（手写 CSS），跑图标包脚本追加 Material 块（它读 OUT、追加、写回 OUT）
-fs.writeFileSync(OUT, JSON.stringify({ ...baseJson, name: 'Contour-Nord', custom_css: handCSS }, null, 2), 'utf8');
+fs.writeFileSync(OUT, JSON.stringify({ ...baseJson, name: 'Nord', custom_css: handCSS }, null, 2), 'utf8');
 execFileSync('node', [path.join(ROOT, 'build-material-icons.js')], { stdio: 'inherit', env: process.env });
 const finalCss = JSON.parse(fs.readFileSync(OUT, 'utf8')).custom_css;
 

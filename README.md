@@ -20,11 +20,11 @@ Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。
 
 ## 构建
 
-主线 **Contour-Nord**，SCSS 分件结构：
+主线 **Nord**，SCSS 分件结构：
 
 ```
 npm install          # 装 sass（仅首次）
-npm run build        # src/parts/*.scss → sass 编译 → 纹理/logo 注入 → Material 图标包 → 语义对账 → themes/Contour-Nord.json
+npm run build        # src/parts/*.scss → sass 编译 → 纹理/logo 注入 → Material 图标包 → 语义对账 → themes/Nord.json
 npm run verify       # 只对账不写入
 ```
 
@@ -35,4 +35,4 @@ npm run verify       # 只对账不写入
 
 ## 安装
 
-把 `themes/Contour-Nord.json` 放进 SillyTavern 的 `data/<用户>/themes/`，在设置里选 **Contour-Nord**。
+把 `themes/Nord.json` 放进 SillyTavern 的 `data/<用户>/themes/`，在设置里选 **Nord**。

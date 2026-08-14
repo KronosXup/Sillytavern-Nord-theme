@@ -4,13 +4,13 @@
 
 ## 这是什么
 
-SillyTavern 主题，Nord 配色（暗版）。主线成品是 `themes/Contour-Nord.json`。
+SillyTavern 主题，Nord 配色（暗版）。主线成品是 `themes/Nord.json`。
 
 ## 构建（唯一入口）
 
 ```bash
 npm install        # 仅首次，装 sass
-npm run build      # 构建 + 语义对账 + 写入 themes/Contour-Nord.json
+npm run build      # 构建 + 语义对账 + 写入 themes/Nord.json
 npm run verify     # 只对账不写入
 ```
 
@@ -29,8 +29,8 @@ npm run verify     # 只对账不写入
   - `08-a-fixes.scss`：A 档纯修复（A2~A18，源自 Gruvbox 移植清单）
 - `scripts/build.js` — 构建链：拼接 → sass 编译（占位符旁路 ATTR_RE/RGBA1_RE）→ 纹理/logo 注入 → 调 `build-material-icons.js` 追加图标包 → 语义对账 → 写回。
 - `build-material-icons.js` — Material Symbols Sharp 图标包生成器（452K data-uri）。**一般不单独跑**，由 build.js 调用；单独跑仅调试图标块（要求 JSON 已有手写 CSS）。
-- `src/contour-base.json` — **元数据模板**：ST 主题的非 custom_css 字段（颜色/开关等）的唯一源。其 `custom_css` 字段是占位注释（真 CSS 在 parts）。
-- `themes/Contour-Nord.json` — **产物**，勿手改。
+- `src/nord-base.json` — **元数据模板**：ST 主题的非 custom_css 字段（颜色/开关等）的唯一源。其 `custom_css` 字段是占位注释（真 CSS 在 parts）。
+- `themes/Nord.json` — **产物**，勿手改。
 
 ## 改样式的正确姿势
 
@@ -38,7 +38,7 @@ npm run verify     # 只对账不写入
 2. `npm run build`（图标源不在默认位置就 `MS_SVG_BASE=<路径> npm run build`）。
 3. 对账失败 = sass 改写了你的语法 → 在 build.js 的占位符旁路加规则（参照 ATTR_RE/RGBA1_RE）。
 4. **有意改样式**（对账必然失败）时用 `npm run build -- --force` 跳过对账。
-5. 部署：把 `themes/Contour-Nord.json` 拷到 ST 的 `data/<用户>/themes/`。
+5. 部署：把 `themes/Nord.json` 拷到 ST 的 `data/<用户>/themes/`。
 
 ## 关键坑（踩过的）
 
