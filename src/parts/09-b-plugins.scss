@@ -63,8 +63,8 @@
 }
 /* 编辑态钉底按钮排窄屏绕两行约 86px，44px 装不下->双 :has 提特异性把留白提到 92px */
 #chat .mes:has(.bbs-fp-host) .mes_block:has(.edit_textarea) { padding-bottom: 92px !important; }
-/* 构画盒住 mes_text 内末尾、bbs 卡是兄弟跟在后面：夹在中间的正文 62px 底留白成空档，
- * 后面有 bbs 卡时归零（按钮排留白已由卡下 44/92px 接管）；无 bbs 卡的普通消息不碰 */
+/* 构画盒住 mes_text 内末尾、bbs 卡是兄弟跟在后面：夹在中间的正文底留白成空档，
+ * 后面有 bbs 卡时归零（按钮排留白已由卡下 78/96px 接管）；无 bbs 卡的普通消息不碰 */
 #chat .mes:has(.bbs-fp-host) .mes_text:has(> .sp-inline-box:last-child) { padding-bottom: 0 !important; }
 /* 注：Gruvbox 的移动端负外边距对齐（-6px/-2px）不搬——那是补 Gruvbox 正文不对称 padding 的，
  * Nord 移动端正文已通栏零 padding，负边距只会把构画盒推出 overflow 裁剪线导致两边被截 */
