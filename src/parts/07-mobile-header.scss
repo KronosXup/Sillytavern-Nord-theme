@@ -77,9 +77,9 @@
   }
   #chat .mes .ch_name .timestamp-icon {
     position: static !important; top: auto !important; left: auto !important;
-    width: 12px !important; height: calc(var(--mb-row) * 0.8) !important; flex: none !important;
-    display: inline-flex !important; align-items: center !important;
-    opacity: 0.7 !important; color: var(--text-dim) !important;
+    width: 12px !important; height: calc(var(--mb-row) * 0.8) !important;
+    display: inline !important; margin-left: 4px !important;
+    opacity: 0.7 !important;
   }
   /* 操作按钮：钉消息底部右下角（ch_name top+bottom 双锚延伸到消息底，钮排 bottom 相对 ch_name 底=消息底） */
   #chat .mes .ch_name .mes_buttons {
