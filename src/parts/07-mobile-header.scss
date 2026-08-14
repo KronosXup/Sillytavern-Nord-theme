@@ -80,17 +80,24 @@
   }
   /* 操作按钮：钉消息底部右下角（ch_name top+bottom 双锚延伸到消息底，钮排 bottom 相对 ch_name 底=消息底） */
   #chat .mes .ch_name .mes_buttons {
-    position: absolute !important; top: auto !important; bottom: 50px !important; right: 0 !important;
+    position: absolute !important; top: auto !important; bottom: 42px !important; right: 0 !important;
     left: auto !important; width: auto !important; max-width: none !important; height: auto !important;
     display: flex !important; flex-wrap: nowrap !important; align-items: center !important;
     justify-content: flex-end !important; gap: 4px !important; margin: 0 !important;
     overflow: visible !important; z-index: 8 !important; pointer-events: auto !important;
   }
   #chat .mes .ch_name .mes_buttons .extraMesButtons { flex-wrap: wrap !important; overflow: visible !important; max-width: none !important; }
+  /* 展开排浮窗小菜单（照 Gruvbox：absolute 浮在钮排上方，Nord 令牌配色） */
   #chat .mes .ch_name .mes_buttons .extraMesButtons.visible {
     display: flex !important; position: absolute !important; top: auto !important;
-    bottom: calc(100% + 6px) !important; right: 0 !important; left: auto !important;
-    width: max-content !important; flex-wrap: wrap !important; justify-content: flex-end !important; gap: 4px !important;
+    bottom: calc(100% + 6px) !important; right: -0.5em !important; left: auto !important;
+    width: max-content !important; max-width: 92vw !important; height: 4.6em !important;
+    flex-direction: column !important; flex-wrap: wrap !important; align-content: flex-end !important;
+    justify-content: center !important; align-items: center !important; gap: 4px !important;
+    padding: 6px !important; border-radius: var(--radius) !important;
+    border: 1px solid var(--line-1) !important;
+    background: color-mix(in srgb, var(--bg-1) 96%, #000 4%) !important;
+    box-shadow: var(--shadow-float) !important; z-index: 999 !important; overflow: visible !important;
   }
   #chat .mes .ch_name .mes_buttons .mes_button,
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
@@ -102,8 +109,8 @@
   #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
-  /* 正文常态底留白 96px（swipe上行50px+钮排下行6px+两排高~80px），编辑态 92px */
-  #chat .mes .mes_text { padding-bottom: 96px !important; }
+  /* 正文常态底留白 88px（钮排42px+swipe6px+两排高），编辑态 92px */
+  #chat .mes .mes_text { padding-bottom: 88px !important; }
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 92px !important; }
   /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 编辑态隐藏 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
@@ -113,7 +120,7 @@
    * 方钮统一 order 排序；不钉死排高（防滚动条） */
   #chat .mes .mes_edit_buttons {
     float: none !important; clear: both !important;
-    position: absolute !important; bottom: 50px !important; right: 0 !important; z-index: 30 !important;
+    position: absolute !important; bottom: 42px !important; right: 0 !important; z-index: 30 !important;
     display: none;
     flex-direction: row !important; flex-wrap: wrap !important; justify-content: flex-end !important; align-items: center !important;
     gap: 6px !important; width: max-content !important; max-width: 100% !important;
