@@ -89,14 +89,8 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   font-family: var(--font-sans) !important;
   align-items: center !important;
 }
-/* 光学修正（照 Gruvbox）：文字行盒下方给下伸字母留余量，字形视觉重心偏盒中心上方，
- * 数学居中的图标看起来偏高——图标下移 1px 补偿观感（用 relative 不碰 transform，免与 hover 动效冲突） */
-#options .options-content a i.fa-solid,
-#extensionsMenu .fa-solid,
-#extensionsMenu .extensionsMenuExtensionButton {
-  position: relative !important;
-  top: 1px !important;
-}
+/* 注：不做光学下降补偿——Gruvbox 的 top:1px 是给 Phosphor fill 图标的重心补偿，
+ * Nord 用 Material Symbols 描边图标，重心不同不需要 */
 /* 图标槽宽统一：酒馆基础规则只给 i 元素定字号（mainFontSize*1.1），插件用 div 当图标时
  * 字号小 10%，叠加 SVG 视觉宽差异，各行文字左边沿错行约 3px；统一槽宽与字号后严格对齐 */
 #extensionsMenu .fa-solid,
