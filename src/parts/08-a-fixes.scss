@@ -49,6 +49,13 @@ input[list]::-webkit-calendar-picker-indicator { display: none !important; }
 /* A14 推理块限高+内容滚动（全端 55vh）：长推理不再无限撑开顶满消息流，编辑框同款。 */
 #chat .mes_reasoning { max-height: 55vh !important; overflow-y: auto !important; overscroll-behavior: contain !important; }
 #chat .mes_reasoning_details .reasoning_edit_textarea { max-height: 55vh !important; overflow-y: auto !important; resize: none !important; }
+/* A15 欢迎页/小系统消息隐藏语义补回：ST 原版语义被顶掉，按原版补回。
+ * assistant_message（欢迎页）：编辑/操作按钮组本就该藏；
+ * smallSysMes（welcome_prompt 等）：头像区 + 非编辑态名字藏掉。 */
+#chat .mes[type="assistant_message"] .mes_buttons,
+#chat .mes[type="assistant_message"] .mes_edit_buttons { display: none !important; }
+#chat .mes.smallSysMes .mesAvatarWrapper,
+#chat .mes.smallSysMes:not(:has(.edit_textarea)) .ch_name { display: none !important; }
 /* A16 删除模式勾选框钉右上：批量删除时勾框不进文档流，不挤消息头名字/计数器。容器 pointer-events 穿透，input 可点。 */
 .mes .for_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; width: auto !important; height: auto !important; z-index: 30 !important; pointer-events: none !important; }
 .mes input[type="checkbox"].del_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; margin: 0 !important; z-index: 31 !important; pointer-events: auto !important; }
