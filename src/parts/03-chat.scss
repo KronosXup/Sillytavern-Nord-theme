@@ -213,11 +213,12 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
 @media screen and (min-width: 900px) {
   /* mes_block 兼做定位上下文（ch_name 原生静态，无需改） */
   #chat .mes .mes_block { position: relative !important; }
-  /* 正文常态底留白 86px：底部两层——钮排（6..31px）+ swipe 行（37..82px）；媒体/文件包装同抬 */
-  #chat .mes .mes_text { padding-bottom: 86px !important; }
+  /* 正文常态底留白 62px 给钉底单行（钮排+swipe 同行）让位，同 Gruvbox；媒体/文件包装同抬 */
+  #chat .mes .mes_text { padding-bottom: 62px !important; }
   #chat .mes .mes_media_wrapper:not(:empty),
   #chat .mes .mes_file_wrapper:not(:empty) { padding-bottom: 36px !important; }
-  /* 普通操作钮排：钉底部右下角 */
+  /* 普通操作钮排：钉底部右下角；swipe 在场时左移给横排 swipe 块让位
+   * （块宽≈箭头 25px+counter 45px 钉 mes 右缘，铰到钮排右缘上就是叠） */
   #chat .mes .ch_name .mes_buttons {
     position: absolute !important;
     top: auto !important;
@@ -226,6 +227,7 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
     left: auto !important;
     z-index: 30 !important;
   }
+  #chat .mes:is(.last_swipe, .swipes_visible) .ch_name .mes_buttons { right: calc(80px + 0.5em) !important; }
   /* 编辑态按钮排：同位钉底 */
   #chat .mes .mes_edit_buttons {
     float: none !important;
@@ -235,12 +237,20 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
     margin: 0 !important;
     z-index: 30 !important;
   }
-  /* 编辑态：名字行普通按钮让位（ST 用内联 style 藏，这里兜底）；
-   * 正文留白无需再加——编辑行单排 ~36px 仍在钮排层内，86px 常态留白已含 swipe 层 */
+  /* 编辑态：名字行普通按钮让位（ST 用内联 style 藏，这里兜底） */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
-  /* swipe 分两角回归：钮排占底部 6..31px，swipe 行浮在其上一层（37px 起），
-   * 左箭头回左角、counter+右箭头回右角；两箭头底缘都是 57px（左钉 57 / 右块 37+counter 20）仍同高 */
-  #chat .mes .swipeRightBlock { bottom: 37px !important; right: 0 !important; left: auto !important; }
-  #chat .mes .swipe_left { bottom: 57px !important; }
+  /* swipe 与钮排同一行（照抄 Gruvbox 04-chat 的横排机关，替换早先双层堆叠的臭棋）：
+   * 右块 row-reverse 横排→[箭头][counter] 并排同底缘钉右角 bottom:6px，
+   * 钮排在 swipe 在场时左移让位（见上）——底部一行：[<] … [钮排] [>][3/3] */
+  #chat .mes .swipeRightBlock {
+    flex-direction: row-reverse !important;
+    align-items: flex-end !important; justify-content: flex-start !important;
+    bottom: 6px !important; right: 0 !important; left: auto !important;
+  }
+  #chat .mes .swipe_left { bottom: 6px !important; }
+  /* counter 横排同底缘（桌面限定，文件序在 08 全局定高规则之后、同特异性靠序取胜） */
+  #chat .mes .swipes-counter { height: auto !important; margin: 0 !important; padding: 2px 5px !important; }
+  /* 编辑态钮排同同样左移让位（编辑钮排钉同位） */
+  #chat .mes:is(.last_swipe, .swipes_visible) .mes_edit_buttons { right: calc(80px + 0.5em) !important; }
 }
 
