@@ -1,6 +1,6 @@
 // Nord Material Symbols(Sharp 描边) 图标追加构建器
 // 从 build-eva-icons.js 换源而来：结构/管线一致，图标源改 @material-symbols/svg-400/sharp。
-// Sharp 细描边+尖角收尾，贴合 Nord 冰/棱角气质；非填充（描边）风格。
+// Sharp 描边（非填充）风格。
 // MS 没有品牌图标（discord/github）与个别杂项，保留 FA 原生兜底。
 // 用法：一般不单独跑——由 scripts/build.js 在 sass 编译后调用（读 themes/Nord.json、追加图标块、写回）。
 //       单独跑仅用于调试图标块本身（要求 JSON 里已有手写 CSS）。
@@ -304,7 +304,7 @@ console.log('CSS rules:', blocks.length);
 
 const msCSS = '/* ============================================================\n' +
 ' * Material Symbols Sharp 图标替换（' + Object.keys(M).length + ' FA 类名 → mask-image SVG）\n' +
-' * 细描边+尖角收尾，贴合 Nord 冰/棱角气质；960 网格 viewBox\n' +
+' * 960 网格 viewBox；描边（非填充）风格\n' +
 ' * 颜色=父级 currentColor 贯穿；未映射 FA 类（品牌/杂项）保留 FA 原生\n' +
 ' * hover 边界：普通按钮/顶栏/抽屉→var(--accent)；active/selected/red_button/tag 不染\n' +
 ' * 令牌化：hover 合并为末尾一条共享规则（原 247 条 per-icon 重复声明收敛），accent 单点可换\n' +
