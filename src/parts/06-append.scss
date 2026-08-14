@@ -90,8 +90,10 @@ body.PWA #sheld { padding-bottom: 0 !important; }
 .recentChat:hover, .character_select:hover, .inline-drawer-header:hover, .toast:hover {
   box-shadow: 0 10px 20px 2px rgba(0,0,0,0.2) !important;
 }
-/* 标题hover去高亮：覆盖酒馆原生 style.css 5437 行的 brightness(150%) */
-.inline-drawer-header:hover { filter: brightness(100%) !important; }
+/* 标题hover去高亮：覆盖酒馆原生 style.css 5437 行的 brightness(150%)；
+ * 原生还有一层 5% 白雾 hover 底（style.css 5796），Nord 标题已有 nord2 亮条 + 抬影，
+ * 白纱多余且部分面板里会漏出来——hover 时钉死 nord2 压掉它 */
+.inline-drawer-header:hover { filter: brightness(100%) !important; background: var(--bg-2) !important; }
 .inline-drawer-header:hover .inline-drawer-icon { color: var(--text-dim) !important; }
 /* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color)；
    边界：active/selected（已是冰青底，再染图标会融底）与 red_button（红底）不参与 */
