@@ -298,6 +298,10 @@ const aFixes = `
   #WIMultiSelector #world_info { flex: 1 1 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; }
   #WIMultiSelector .select2-container { max-width: 100% !important; }
 }
+/* A8 双滑块圆球可见：input 的 filter:brightness 会建 stacking context，thumb 的 z-index:2 失效，
+ * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
+.doubleRangeInputContainer > input[type="range"],
+.doubleRangeInputContainer > input[type="range"]:hover { filter: none !important; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
