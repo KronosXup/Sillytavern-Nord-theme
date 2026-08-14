@@ -88,7 +88,7 @@ body {
 #chat { background-color: transparent !important; background-image: none !important; border: none !important; box-shadow: none !important; }
 /* sheld 整体罩 85% bg-0 一层纱：消息卡/输入栏浮在同一层底上，纹理只剩边缘隐约；
    浓度够高，换自定义背景图也不会把杂色透进聊天区 */
-#sheld { background-color: color-mix(in srgb, var(--bg-0) 70%, transparent) !important; background-image: none !important; border: none !important; box-shadow: none !important; }
+#sheld { background-color: color-mix(in srgb, var(--bg-0) 50%, transparent) !important; background-image: none !important; border: none !important; box-shadow: none !important; }
 .welcomePanel { background-color: transparent !important; }
 .mes, .mes.last_mes {
   background-color: color-mix(in srgb, var(--bg-0) 45%, transparent) !important;
