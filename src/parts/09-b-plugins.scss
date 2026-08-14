@@ -55,8 +55,8 @@
 }
 
 /* ---B1 柏宝书（BaiBai-Book）：楼内摘要面板留白/对齐（不装插件零命中）--- */
-/* host 在场消息底留 44px，防编辑按钮/swipe 浮在面板上 */
-#chat .mes:has(.bbs-fp-host) .mes_block { padding-bottom: 44px !important; }
+/* host 在场消息底留 96px，给 swipe(上行50px)+钮排(下行6px)两行腾空间，防浮在面板上 */
+#chat .mes:has(.bbs-fp-host) .mes_block { padding-bottom: 96px !important; }
 /* 编辑态钉底按钮排窄屏绕两行约 86px，44px 装不下→双 :has 提特异性把留白提到 92px */
 #chat .mes:has(.bbs-fp-host) .mes_block:has(.edit_textarea) { padding-bottom: 92px !important; }
 /* 构画盒住 mes_text 内末尾、bbs 卡是兄弟跟在后面：夹在中间的正文 62px 底留白成空档，
