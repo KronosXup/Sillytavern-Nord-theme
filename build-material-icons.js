@@ -231,7 +231,7 @@ const selFor = (fa) => fa.startsWith('fa-brands.fa-') ? '.fa-brands.fa-' + fa.sl
 // 1) 收集唯一图标文件 → :root 变量（--ms-<iconname>）
 const varNames = {};   // iconname -> var 名
 const varDecls = [];
-for (const ms of new Set([...Object.values(M), 'star-fill', 'wifi'])) {
+for (const ms of new Set([...Object.values(M), 'star-fill', 'wifi', 'flag-fill'])) {
   const vname = '--ms-' + ms;
   const svg = fs.readFileSync(path.join(MS_BASE, ms + '.svg'), 'utf8');
   const uri = 'data:image/svg+xml,' + encodeURIComponent(svg);
@@ -280,6 +280,10 @@ blocks.push('.fa-star.fav_on::before,.ch_fav_icon.fa-star::before,.group_fav_ico
 // wifi 断开状态红色
 blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:var(--danger)!important;' +
   'mask-image:var(' + varNames['wifi'] + ')!important;-webkit-mask-image:var(' + varNames['wifi'] + ')!important;}');
+
+// 创建检查点：ST 点击后加 fa-solid（与 fa-regular 共存）做状态反馈——solid 态换实心旗子
+// （特异性 (0,2,0) 压过公共块/基础引用的 (0,1,0)；fa-regular 态保持描边 flag）
+blocks.push('.fa-solid.fa-flag-checkered::before{mask-image:var(' + varNames['flag-fill'] + ')!important;-webkit-mask-image:var(' + varNames['flag-fill'] + ')!important;}');
 
 // hover 收集：映射图标（发送键不共享）+ undo 别名
 for (const fa in M) if (fa !== 'fa-paper-plane') hoverSels.push(selFor(fa));
