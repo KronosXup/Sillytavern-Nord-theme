@@ -218,69 +218,72 @@ if (missing.length) {
   process.exit(1);
 }
 
-// ── 生成 CSS ──
+// ── 生成 CSS（瘦身结构：唯一 SVG 收进 :root 变量 → 公共声明一条选择器列表 → 每条只写 mask 引用）──
 const blocks = [];
 const hoverSels = [];   // 收集所有图标 ::before 选择器，末尾合并成一条共享 hover 规则
-for (const fa in M) {
-  const ms = M[fa];
+
+// fa-undo 别名组（FA 同一字形多个别名 class）——公共声明/引用/hover 全并进共享池
+const undoAliases = ['.fa-arrow-left-rotate::before', '.fa-arrow-rotate-back::before', '.fa-arrow-rotate-backward::before', '.fa-arrow-rotate-left::before'];
+
+// 选择器生成（fa-brands 特殊拼接保留）
+const selFor = (fa) => fa.startsWith('fa-brands.fa-') ? '.fa-brands.fa-' + fa.slice(13) + '::before' : '.' + fa + '::before';
+
+// 1) 收集唯一图标文件 → :root 变量（--ms-<iconname>）
+const varNames = {};   // iconname -> var 名
+const varDecls = [];
+for (const ms of new Set([...Object.values(M), 'star-fill', 'wifi'])) {
+  const vname = '--ms-' + ms;
   const svg = fs.readFileSync(path.join(MS_BASE, ms + '.svg'), 'utf8');
   const uri = 'data:image/svg+xml,' + encodeURIComponent(svg);
-
-  let color = 'currentColor';
-  if (fa === 'fa-paper-plane') color = 'var(--accent)'; // 发送键 ghost 化：frost 描边图标
-  if (fa === 'fa-plug-circle-exclamation') color = 'var(--danger)'; // 未连接：power 变红
-
-  let sel;
-  if (fa.startsWith('fa-brands.fa-')) {
-    sel = '.fa-brands.fa-' + fa.slice(13) + '::before';
-  } else {
-    sel = '.' + fa + '::before';
-  }
-
-  blocks.push(sel + '{' +
-    'content:""!important;display:inline-block!important;' +
-    'width:1.1em!important;height:1.1em!important;' +
-    'background-color:' + color + '!important;' +
-    'mask-image:url("' + uri + '")!important;' +
-    '-webkit-mask-image:url("' + uri + '")!important;' +
-    'mask-size:contain!important;-webkit-mask-size:contain!important;' +
-    'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;' +
-    'mask-position:center!important;-webkit-mask-position:center!important;' +
-    'transition:background-color 200ms ease-in-out!important;}');
-
-  // fa-paper-plane 发送键常态 accent，hover 也走 accent（ghost 底上不融底），不共享 hover 规则
-  if (fa !== 'fa-paper-plane') hoverSels.push(sel);
+  varNames[ms] = vname;
+  varDecls.push('  ' + vname + ': url("' + uri + '");');
 }
+blocks.push(':root{\n' + varDecls.join('\n') + '\n}');
+
+// 2) 公共声明：全部映射 + undo 别名 + 星标激活态选择器一条列表
+// （content 清字形/图标盒/mask 渲染/hover 过渡；星标激活态另有 mask fill + warn 色覆盖，特异性更高）
+const allSels = [...Object.keys(M).map(selFor), ...undoAliases, '.fa-star.fav_on::before', '.ch_fav_icon.fa-star::before', '.group_fav_icon.fa-star::before'];
+blocks.push(allSels.join(',\n') + '{\n' +
+  '  content:""!important;display:inline-block!important;\n' +
+  '  width:1.1em!important;height:1.1em!important;\n' +
+  '  background-color:currentColor!important;\n' +
+  '  mask-size:contain!important;-webkit-mask-size:contain!important;\n' +
+  '  mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;\n' +
+  '  mask-position:center!important;-webkit-mask-position:center!important;\n' +
+  '  transition:background-color 200ms ease-in-out!important;\n}');
+
+// 3) mask 引用：同一图标的多 class 合并一条（按图标分组）
+const groups = {};
+for (const fa in M) {
+  const ms = M[fa];
+  (groups[ms] || (groups[ms] = [])).push(selFor(fa));
+}
+for (const ms in groups) {
+  const v = varNames[ms];
+  blocks.push(groups[ms].join(',') + '{mask-image:var(' + v + ')!important;-webkit-mask-image:var(' + v + ')!important;}');
+}
+// undo 别名组引用（别名不在 M 表，单独补 mask）
+blocks.push(undoAliases.join(',') + '{mask-image:var(' + varNames['undo'] + ')!important;-webkit-mask-image:var(' + varNames['undo'] + ')!important;}');
+
+// 4) 染色特例（放公共块后，同特异性后者胜覆盖 bg）：发送键 accent / 未连接 danger
+blocks.push('.fa-paper-plane::before{background-color:var(--accent)!important}');
+blocks.push('.fa-plug-circle-exclamation::before{background-color:var(--danger)!important}');
 
 // 发送键 hover：ghost 底上图标保持 accent（底色淡染由基座 #send_but:hover 负责）
 blocks.push('#send_but:hover .fa-paper-plane::before{background-color:var(--accent)!important}');
 
 // 实心星：收藏激活态换 fill（fav_on / ch_fav_icon / group_fav_icon）
-const starFillSvg = fs.readFileSync(path.join(MS_BASE, 'star-fill.svg'), 'utf8');
-const starFillUri = 'data:image/svg+xml,' + encodeURIComponent(starFillSvg);
 blocks.push('.fa-star.fav_on::before,.ch_fav_icon.fa-star::before,.group_fav_icon.fa-star::before{' +
-  'mask-image:url("' + starFillUri + '")!important;-webkit-mask-image:url("' + starFillUri + '")!important;' +
+  'mask-image:var(' + varNames['star-fill'] + ')!important;-webkit-mask-image:var(' + varNames['star-fill'] + ')!important;' +
   'background-color:var(--warn)!important;}');
 
-// fa-undo 别名组（FA 同一字形多个别名 class）——base 规则照推，hover 选择器并进共享池
-const undoSvg = fs.readFileSync(path.join(MS_BASE, 'undo.svg'), 'utf8');
-const undoUri = 'data:image/svg+xml,' + encodeURIComponent(undoSvg);
-const undoAliases = ['.fa-arrow-left-rotate::before', '.fa-arrow-rotate-back::before', '.fa-arrow-rotate-backward::before', '.fa-arrow-rotate-left::before'];
-blocks.push(undoAliases.join(',') + '{' +
-  'content:""!important;display:inline-block!important;width:1.1em!important;height:1.1em!important;' +
-  'background-color:currentColor!important;' +
-  'mask-image:url("' + undoUri + '")!important;-webkit-mask-image:url("' + undoUri + '")!important;' +
-  'mask-size:contain!important;-webkit-mask-size:contain!important;' +
-  'mask-repeat:no-repeat!important;-webkit-mask-repeat:no-repeat!important;' +
-  'mask-position:center!important;-webkit-mask-position:center!important;' +
-  'transition:background-color 200ms ease-in-out!important;}');
-hoverSels.push(...undoAliases);
-
 // wifi 断开状态红色
-const wifiSvg = fs.readFileSync(path.join(MS_BASE, 'wifi.svg'), 'utf8');
-const wifiUri = 'data:image/svg+xml,' + encodeURIComponent(wifiSvg);
 blocks.push('.fa-wifi[style*="rgb(170"][style*="0, 0)"]::before{background-color:var(--danger)!important;' +
-  'mask-image:url("' + wifiUri + '")!important;-webkit-mask-image:url("' + wifiUri + '")!important;}');
+  'mask-image:var(' + varNames['wifi'] + ')!important;-webkit-mask-image:var(' + varNames['wifi'] + ')!important;}');
+
+// hover 收集：映射图标（发送键不共享）+ undo 别名
+for (const fa in M) if (fa !== 'fa-paper-plane') hoverSels.push(selFor(fa));
+hoverSels.push(...undoAliases);
 
 // ── 共享 hover 规则（一条替代原先 247 条 per-icon 重复声明）──
 // .interactable 分支排除菜单（#extensionsMenu/#options）——菜单项是 .interactable，hover 时
