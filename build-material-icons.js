@@ -37,6 +37,7 @@ m('fa-users', 'group'); m('fa-users-gear', 'group');
 m('fa-right-from-bracket', 'logout');
 m('fa-power-off', 'power_off');
 m('fa-grip', 'drag_indicator');
+m('fa-1', 'token');                          // 词符计数器入口（Token Counter），统计整段聊天 token 总数
 m('fa-desktop', 'desktop_windows');
 m('fa-sun', 'light_mode'); m('fa-moon', 'dark_mode');
 m('fa-circle-info', 'info'); m('fa-info-circle', 'info');
@@ -151,7 +152,7 @@ m('fa-sd-card', 'sd_card');
 m('fa-radio', 'radio');
 m('fa-truck-arrow-right', 'local_shipping');
 m('fa-circle-nodes', 'hub');
-m('fa-asterisk', 'star');
+m('fa-asterisk', 'drag_handle');           // 提示词管理器拖拽把手（星号易误读为收藏）
 m('fa-bucket', 'inbox');
 m('fa-hand-pointer', 'pan_tool');
 m('fa-font', 'title');
