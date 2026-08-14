@@ -62,7 +62,7 @@
   #chat .mes .ch_name .name_text .sp-anchor-btn {
     position: static !important; display: inline-flex !important; align-items: center !important;
     margin-left: 4px !important; width: 1em !important; height: 1em !important; flex: 0 0 auto !important;
-    line-height: 1 !important; top: auto !important; transform: none !important;
+    line-height: 1 !important;
   }
   #chat .mes .ch_name .name_text .sp-anchor-btn svg { display: block !important; }
   /* 行2：时间戳（left:0，用户消息无图标不留空）+ ?模型图标（时间戳后） */

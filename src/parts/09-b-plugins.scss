@@ -74,8 +74,10 @@
 }
 
 /* ---B2 构画（SevenDaysCal）桌面端：收藏按钮绝对定位到名字右侧，不参与行盒计算---
- * 移动端已由 07-mobile-header 三行布局接管（static 随行内联），此处只补桌面 */
-@media (hover: hover) and (pointer: fine) {
+ * 移动端已由 07-mobile-header 三行布局接管（static 随行内联），此处只补桌面。
+ * 用 min-width:900px 区分桌面/移动（与 07 的 max-width:899.98px 互补），不用 hover:pointer:fine
+ * （现代触摸设备也匹配 hover:hover，会漏进移动端把锚点 top:50%+translateY 搞乱三行布局） */
+@media screen and (min-width: 900px) {
   #chat .mes:has(.sp-anchor-btn) .name_text { position: relative !important; padding-right: 30px !important; }
   #chat .mes .sp-anchor-btn {
     position: absolute !important;
