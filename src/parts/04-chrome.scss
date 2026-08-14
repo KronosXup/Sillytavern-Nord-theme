@@ -71,8 +71,13 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
 
 /* ---选项菜单/扩展菜单统一：nord0 底 + 发丝线边 + 正文色，两菜单外观一致---
  * 边框只给内容框（.options-content / #extensionsMenu）——#options 是定位壳不带框，
- * 否则 options 菜单外层壳+内层内容双框，extensionsMenu 单框，观感不一致 */
-#options { background-color: var(--bg-0) !important; color: var(--text) !important; }
+ * 否则 options 菜单外层壳+内层内容双框，extensionsMenu 单框，观感不一致。
+ * 壳 padding 清零、内容框撑满：外层壳底色不再从边框外溢出（否则单框变"框外一圈底色"） */
+#options { background-color: var(--bg-0) !important; color: var(--text) !important; padding: 0 !important; border-radius: var(--radius) !important; }
+#options .options-content {
+  margin: 0 !important;
+  width: 100% !important; box-sizing: border-box !important;
+}
 .options-content,
 #extensionsMenu, #extensionsMenu .options-content {
   background-color: var(--bg-0) !important;
