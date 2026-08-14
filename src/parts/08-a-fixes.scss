@@ -24,6 +24,10 @@
   .world_entry .inline-drawer-header .killSwitch { flex: none !important; }
   .world_entry .inline-drawer-header select { max-width: 42% !important; text-overflow: ellipsis !important; }
 }
+/* A7 datalist 输入框去三角：带建议列表的打字框（如自定模型名）被浏览器画了下拉三角冒充选择框。
+ * Chrome 135+ 新伪元素与旧版 Chromium 选择器必须分两条写，合并整条会被弃。 */
+input[list]::picker-icon { display: none !important; }
+input[list]::-webkit-calendar-picker-indicator { display: none !important; }
 /* A8 双滑块圆球可见：input 的 filter:brightness 会建 stacking context，thumb 的 z-index:2 失效，
  * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
 .doubleRangeInputContainer > input[type="range"],
