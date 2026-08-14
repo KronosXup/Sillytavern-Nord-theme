@@ -93,10 +93,6 @@ body.PWA #sheld { padding-bottom: 0 !important; }
 /* 标题hover去高亮：覆盖酒馆原生 style.css 5437 行的 brightness(150%) */
 .inline-drawer-header:hover { filter: brightness(100%) !important; }
 .inline-drawer-header:hover .inline-drawer-icon { color: var(--text-dim) !important; }
-/* 世界书条目头不吃 Card 抬影：条目行自己已有 bg hover，抬影是重复特效；
- * 连静态轻影一起去（条目卡已有一层框，再套阴影显脏）。其它抽屉标题不受影响。 */
-.world_entry .inline-drawer-header,
-.world_entry .inline-drawer-header:hover { box-shadow: none !important; }
 /* Nord 官网小按钮 hover：边框+字色→frost8，图标过渡变色(fill→color)；
    边界：active/selected（已是冰青底，再染图标会融底）与 red_button（红底）不参与 */
 .menu_button {
