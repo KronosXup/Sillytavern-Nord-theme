@@ -322,6 +322,10 @@ const aFixes = `
 /* A16 删除模式勾选框钉右上：批量删除时勾框不进文档流，不挤消息头名字/计数器。容器 pointer-events 穿透，input 可点。 */
 .mes .for_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; width: auto !important; height: auto !important; z-index: 30 !important; pointer-events: none !important; }
 .mes input[type="checkbox"].del_checkbox { position: absolute !important; top: 6px !important; right: 6px !important; margin: 0 !important; z-index: 31 !important; pointer-events: auto !important; }
+/* A17 swipe 计数器与箭头视觉中线对齐：counter 不再撑高块，自身相对箭头居中。 */
+.swipeRightBlock { align-items: center !important; justify-content: flex-end !important; }
+.swipes-counter { height: auto !important; line-height: 1 !important; margin: 0 !important; padding: 2px 5px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; align-self: center !important; }
+.swipe_right { align-self: center !important; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
