@@ -133,13 +133,11 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   align-items: center !important;
   justify-content: center !important;
 }
-/* 菜单图标不参与共享 hover 染 accent（build-material-icons 的 .interactable:hover 分支会命中
- * 菜单项 .list-group-item.interactable，hover 时图标全变冰青——菜单图标跟随文字色即可）。
- * 只对 MS mask 图标（.extensionsMenuExtensionButton）生效；FA 字形图标（fa-ghost 等）不设
- * background-color，否则字形渲染异常时露出色块 */
-#extensionsMenu .extensionsMenuExtensionButton::before {
-  background-color: currentColor !important;
-}
+/* 菜单图标 hover 防染 accent：已由 build-material-icons 共享规则的 .interactable 分支
+ * :not(:is(#extensionsMenu *, #options *)) 在源头排除，无需再钉 background-color。
+ * 残留钉色规则会误伤未映射的 FA 字形图标（词符计数器 fa-1——带 extensionsMenuExtensionButton
+ * 但无 mask，细数字字形盖不住 currentColor 色块，露出"被长方形覆盖"） */
+
 /* 部分插件（如词汇映射）插裸 div 行，不走 list-group-item，酒馆基础样式只给它们
  * align-items:baseline——SVG 替换图标无字体基线会相对文字上浮；统一改居中对齐。
  * 且裸 div 也有 ST 原生 opacity:0.5 hover 才 1，一并钉死 */
