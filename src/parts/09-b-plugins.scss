@@ -1,0 +1,94 @@
+/* ============================================================
+ * B 档插件适配（源自 Gruvbox 移植清单，结构照搬、色走 Nord 令牌）
+ * 全部按插件类名/容器限定，插件不在场零命中
+ * ============================================================ */
+
+/* ---B4 Luker 专有：luker-action-select2 下拉拆变形（类名仅 Luker 有，普通 ST 零命中）--- */
+/* 常态去外投影与 inset 高光，四角不溢光 */
+.select2-container.luker-action-select2 .select2-selection--single { box-shadow: none !important; }
+/* 焦点/展开态只留边框染 frost，不加光环 */
+.select2-container.luker-action-select2.select2-container--focus .select2-selection--single,
+.select2-container.luker-action-select2.select2-container--open .select2-selection--single {
+  border-color: var(--accent) !important;
+  box-shadow: none !important;
+}
+/* 弹层回落到扁平列表：小圆角 + 面板底 + 发丝线 + 淡影（Nord 投影收淡） */
+.select2-dropdown.luker-action-select2-dropdown {
+  border-radius: var(--radius) !important;
+  background: var(--bg-1) !important;
+  border: 1px solid var(--line-2) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+}
+.luker-action-select2-dropdown .select2-search__field {
+  min-height: 0 !important;
+  padding: 4px 8px !important;
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--line-2) !important;
+  background: var(--bg-2) !important;
+  box-shadow: none !important;
+}
+/* 选项去卡片化：无圆角/无位移/无底，hover 与选中染 frost 18% */
+.luker-action-select2-dropdown .select2-results__option { padding: 4px 8px !important; border-radius: 0 !important; background: transparent !important; }
+.luker-action-select2-dropdown .select2-results__option--selectable { opacity: 1 !important; transform: none !important; transition: background-color .12s var(--ease-out) !important; }
+.luker-action-select2-dropdown .select2-results__option--highlighted.select2-results__option--selectable { background: color-mix(in srgb, var(--accent) 18%, transparent) !important; transform: none !important; }
+.luker-action-select2-dropdown .select2-results__option--selected { font-weight: 600 !important; background: color-mix(in srgb, var(--accent) 18%, transparent) !important; box-shadow: none !important; }
+
+/* ---B4/B6 提示词管理器：条目 hover 高亮 + 分组缩进 + 激活行控制图标实色--- */
+/* 条目：面板底 + Nord 圆角；hover/focus 边染 frost、底染 frost 15% */
+#completion_prompt_manager #completion_prompt_manager_list li.completion_prompt_manager_prompt {
+  border-radius: var(--radius) !important;
+  background-color: var(--bg-1) !important;
+}
+#completion_prompt_manager #completion_prompt_manager_list li.completion_prompt_manager_prompt:hover,
+#completion_prompt_manager #completion_prompt_manager_list li.completion_prompt_manager_prompt:focus {
+  border-color: var(--accent) !important;
+  background-color: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+}
+/* 分组：子项缩进不越界，组标题间距胶囊化（圆角按 Nord 3px） */
+#completion_prompt_manager #completion_prompt_manager_list li.prompt-manager-group-child { margin-left: 6px !important; padding-left: 0.65em !important; }
+#completion_prompt_manager #completion_prompt_manager_list li.prompt-manager-group { border-radius: var(--radius) !important; margin-top: 4px !important; margin-bottom: 4px !important; }
+#completion_prompt_manager #completion_prompt_manager_list li.prompt-manager-group.expanded { border-radius: var(--radius) !important; }
+/* 激活行控制图标实色：ST 写死 opacity:0.4+黑 drop-shadow 激活未激活一样淡；未激活行保持原淡化 */
+#completion_prompt_manager #completion_prompt_manager_list li.completion_prompt_manager_prompt:not(.completion_prompt_manager_prompt_disabled) span span span {
+  opacity: 1;
+  filter: none;
+}
+
+/* ---B1 柏宝书（BaiBai-Book）：楼内摘要面板留白/对齐（不装插件零命中）--- */
+/* host 在场消息底留 44px，防编辑按钮/swipe 浮在面板上 */
+#chat .mes:has(.bbs-fp-host) .mes_block { padding-bottom: 44px !important; }
+/* 编辑态钉底按钮排窄屏绕两行约 86px，44px 装不下→双 :has 提特异性把留白提到 92px */
+#chat .mes:has(.bbs-fp-host) .mes_block:has(.edit_textarea) { padding-bottom: 92px !important; }
+/* 构画盒住 mes_text 内末尾、bbs 卡是兄弟跟在后面：夹在中间的正文 62px 底留白成空档，
+ * 后面有 bbs 卡时归零（按钮排留白已由卡下 44/92px 接管）；无 bbs 卡的普通消息不碰 */
+#chat .mes:has(.bbs-fp-host) .mes_text:has(> .sp-inline-box:last-child) { padding-bottom: 0 !important; }
+/* 移动端两卡对齐：正文不对称 padding 让构画盒窄 8px，负外边距撑到正文边缘与 bbs 卡同宽
+ * （复刻 PC 观感；无 relative/transform 无裁切风险） */
+@media screen and (max-width: 1000px) {
+  #chat .mes:has(.bbs-fp-host) .mes_text > .sp-inline-box:last-child {
+    margin-left: -6px !important;
+    margin-right: -2px !important;
+  }
+}
+
+/* ---B2 构画（SevenDaysCal）桌面端：收藏按钮绝对定位到名字右侧，不参与行盒计算---
+ * 移动端已由 07-mobile-header 三行布局接管（static 随行内联），此处只补桌面 */
+@media (hover: hover) and (pointer: fine) {
+  #chat .mes:has(.sp-anchor-btn) .name_text { position: relative !important; padding-right: 30px !important; }
+  #chat .mes .sp-anchor-btn {
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 22px !important;
+    height: 22px !important;
+    margin: 0 !important;
+    flex: none !important;
+  }
+  #chat .mes .sp-anchor-btn:hover { transform: translateY(calc(-50% - 1px)) !important; }
+  #chat .mes .sp-anchor-btn .sp-anchor-btn-svg { width: 15px !important; height: 15px !important; }
+}
+/* 移动端 acu 面板下移 30px：给 last_mes 的 swipe(-30px) 让出显示区 */
+@media screen and (max-width: 1000px) {
+  .acu-wrapper { margin-top: 30px !important; }
+}
