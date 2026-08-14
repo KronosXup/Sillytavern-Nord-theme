@@ -302,6 +302,8 @@ const aFixes = `
  * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
 .doubleRangeInputContainer > input[type="range"],
 .doubleRangeInputContainer > input[type="range"]:hover { filter: none !important; }
+/* A9 滑条帽子圆角补全：ST 默认 7px 7px 0 0 只有上圆角，补成四角全圆（按 Nord 3px）。 */
+.neo-range-slider { border-radius: 3px !important; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
