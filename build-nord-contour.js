@@ -111,6 +111,16 @@ body {
 /* 输入区：发送栏整条垫 bg-1 面板实底（浮起托底），输入框在其上用 bg-2——两阶明度差拉开边界。
    面板不画边框，靠 bg-1 底色+轻影与 chat 区分界；顶边发丝线贴 chat 下缘会横成一道突兀亮线（“缺一块”观感） */
 #send_form { background-color: var(--bg-1) !important; border: none !important; border-radius: var(--radius) !important; box-shadow: var(--shadow-raised) !important; }
+/* textarea：下沉底 bg-sunken + 全周发丝包边（bg-2 与面板明度差太小、边界看不见）；
+   ST 原生 clip-path（脚本进度条）会裁掉顶边 5px、顶框永远"不封口"，必须关掉；
+   输入行下补 6px，包边不贴 form 底缘 */
+#send_textarea {
+  background-color: var(--bg-sunken) !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: var(--radius) !important;
+  clip-path: none !important;
+}
+#nonQRFormItems { padding: 4px 0 6px 0 !important; box-sizing: content-box !important; }
 #top-settings-holder { background-color: color-mix(in srgb, var(--bg-1) 38%, transparent) !important; border: 1px solid color-mix(in srgb, var(--text) 6%, transparent) !important; }
 #character_popup, #dialogue_popup, .popup, .draggable, #floatingPrompt {
   background-color: var(--bg-1) !important;
