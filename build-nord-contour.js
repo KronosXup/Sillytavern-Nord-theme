@@ -280,7 +280,17 @@ const mobileHeader = `
 }
 `;
 
-const css = base.custom_css + append + mobileHeader;
+/* A 档移植（源自 Gruvbox 实战修复，见 Nord-移植清单.md）：
+ * 纯 ST 原生 bug 修复，与设计语言无关。颜色走 SmartTheme/Nord 变量，圆角按 Nord 0-3px。 */
+const aFixes = `
+/* A2 世界书标题防截断：从角色卡跳转时条目在抽屉隐藏半动画态渲染，JS 量 scrollHeight 得零，长标题锁死单行。
+ * @supports 包裹，不支持的浏览器静默降级。height:auto 洗掉 JS 隐藏态测量的内联死高。 */
+@supports (field-sizing: content) {
+  .world_entry textarea[name="comment"] { field-sizing: content; height: auto !important; }
+}
+`;
+
+const css = base.custom_css + append + mobileHeader + aFixes;
 const out = { ...base, name: 'Contour-Nord', custom_css: css };
 fs.writeFileSync(OUT, JSON.stringify(out, null, 2), 'utf8');
 const chk = JSON.parse(fs.readFileSync(OUT, 'utf8'));
