@@ -115,6 +115,12 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   opacity: 1 !important;
   transition: background-color 120ms var(--ease-out), color 120ms var(--ease-out) !important;
 }
+/* 菜单里保留 FA 原生的图标（如 fa-ghost 幽灵）不被 font-sans 覆盖成方框 */
+#extensionsMenu .fa-solid, #extensionsMenu .fa-regular,
+#extensionsMenu .fa-brands, #options .fa-solid {
+  font-family: "Font Awesome 6 Free" !important;
+  font-family: var(--fa-style-family, "Font Awesome 6 Free") !important;
+}
 /* 注：不做光学下降补偿——Gruvbox 的 top:1px 是给 Phosphor fill 图标的重心补偿，
  * Nord 用 Material Symbols 描边图标，重心不同不需要 */
 /* 图标槽宽统一：酒馆基础规则只给 i 元素定字号（mainFontSize*1.1），插件用 div 当图标时
