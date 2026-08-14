@@ -63,6 +63,7 @@
     position: static !important; display: inline-flex !important; align-items: center !important;
     margin-left: 4px !important; width: 1em !important; height: 1em !important; flex: 0 0 auto !important;
   }
+  #chat .mes .ch_name .name_text .sp-anchor-btn svg { display: block !important; }
   /* 行2：时间戳（left:0，用户消息无图标不留空）+ ?模型图标（时间戳后） */
   #chat .mes .ch_name .timestamp {
     position: absolute !important; top: calc(var(--mb-row) + var(--mb-gap)) !important; left: 0 !important; height: var(--mb-row) !important;
@@ -92,7 +93,7 @@
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
   /* swipe：在消息内钮排上方独立一行（Nord 有消息卡背景，不能像 Gruvbox 放消息外悬空）。
      左右箭头同底缘：swipeRight 在 block 内贴底（flex-end），与 swipeLeft 同 bottom 值 */
-  #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; flex-direction: row !important; align-items: flex-end !important; }
+  #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; flex-direction: row-reverse !important; align-items: flex-end !important; }
   #chat .mes .swipe_right { align-self: flex-end !important; }
   #chat .mes .swipes-counter { align-self: flex-end !important; }
   #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; }
