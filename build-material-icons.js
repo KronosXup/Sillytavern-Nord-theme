@@ -2,7 +2,8 @@
 // 从 build-eva-icons.js 换源而来：结构/管线一致，图标源改 @material-symbols/svg-400/sharp。
 // Sharp 细描边+尖角收尾，贴合 Nord 冰/棱角气质；非填充（描边）风格。
 // MS 没有品牌图标（discord/github）与个别杂项，保留 FA 原生兜底。
-// 用法：node build-nord-contour.js && node build-material-icons.js
+// 用法：一般不单独跑——由 scripts/build.js 在 sass 编译后调用（读 themes/Contour-Nord.json、追加图标块、写回）。
+//       单独跑仅用于调试图标块本身（要求 JSON 里已有手写 CSS）。
 const fs = require('fs');
 const path = require('path');
 

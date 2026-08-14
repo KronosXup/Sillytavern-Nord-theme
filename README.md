@@ -20,12 +20,18 @@ Nord 配色（arctic, north-bluish）的 SillyTavern 主题，暗版。
 
 ## 构建
 
-主线 **Contour-Nord**：
+主线 **Contour-Nord**，SCSS 分件结构：
 
 ```
-node build-nord-contour.js        # 基座 contour-base.json + 纹理/logo/玻璃 UI/移动端头部 → themes/Contour-Nord.json
-node build-material-icons.js      # 追加 FA→Material Symbols Sharp mask-image 图标包（图标源走 MS_SVG_BASE 环境变量）
+npm install          # 装 sass（仅首次）
+npm run build        # src/parts/*.scss → sass 编译 → 纹理/logo 注入 → Material 图标包 → 语义对账 → themes/Contour-Nord.json
+npm run verify       # 只对账不写入
 ```
+
+- 手写 CSS 在 `src/parts/*.scss`（按文件名排序拼接：`01-tokens` / `02-global` / `03-chat` / `04-chrome` / `05-modern-ui` / `06-append` / `07-mobile-header` / `08-a-fixes`），改样式直接编辑对应文件。
+- 等高线纹理 / logo 是 `scripts/build.js` 里的 SVG data-uri 生成器（JS 逻辑），在 `06-append.scss` 里以 `__TEXTURE_TR__`/`__TEXTURE_BL__`/`__LOGO_URI__` 占位符注入。
+- Material 图标包（452K data-uri）由 `build-material-icons.js` 从 `@material-symbols/svg-400/sharp` 生成，图标源路径走环境变量 `MS_SVG_BASE`（默认 `node_modules/@material-symbols/svg-400/sharp/`）。
+- 构建带语义对账：sass 重排格式后，新旧产物按「规则集合」比对，不一致拒绝写入。
 
 ## 安装
 

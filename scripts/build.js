@@ -127,12 +127,18 @@ function ruleSet(css) {
   return set;
 }
 
-/* ---------- 主流程 ---------- */
+/* ---------- 主流程 ----------
+ * 元数据模板：src/contour-base.json 提供 ST 主题的全部非 custom_css 字段（颜色/开关等），
+ * 其 custom_css 字段已弃用（CSS 源在 src/parts/*.scss），构建时以 parts 编译结果覆盖。 */
+const TEMPLATE = path.join(ROOT, 'src', 'contour-base.json');
 const handCSS = injectAssets(compile(loadParts()));
 
-// 基准（写入前的旧产物），对账要用
-const baseJson = JSON.parse(fs.readFileSync(OUT, 'utf8'));
-const oldCss = baseJson.custom_css;
+// 基准（写入前的旧产物原文），对账与恢复都要用
+const oldRaw = fs.readFileSync(OUT, 'utf8');
+const oldCss = JSON.parse(oldRaw).custom_css;
+
+// 元数据取自模板（custom_css 用新编译的覆盖）
+const baseJson = JSON.parse(fs.readFileSync(TEMPLATE, 'utf8'));
 
 // 写临时 JSON（手写 CSS），跑图标包脚本追加 Material 块（它读 OUT、追加、写回 OUT）
 fs.writeFileSync(OUT, JSON.stringify({ ...baseJson, name: 'Contour-Nord', custom_css: handCSS }, null, 2), 'utf8');
@@ -146,7 +152,7 @@ const onlyOld = [...a].filter(x => !b.has(x));
 const onlyNew = [...b].filter(x => !a.has(x));
 console.log(`对账：旧 ${a.size} 条 / 新 ${b.size} 条`);
 
-const restore = () => fs.writeFileSync(OUT, JSON.stringify(baseJson, null, 2), 'utf8');
+const restore = () => fs.writeFileSync(OUT, oldRaw, 'utf8');
 if (onlyOld.length || onlyNew.length) {
   console.error('对账失败：');
   onlyOld.slice(0, 8).forEach(x => console.error('  仅旧(丢失): ' + x.slice(0, 100)));
