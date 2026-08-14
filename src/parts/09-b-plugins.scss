@@ -72,7 +72,7 @@
  * margin 不参与块布局，直接写 margin-right 内收无效（前两版误修的根因）；
  * 先恢复 block，再按正文右留白同量内收，卡右缘对齐构画盒/正文内容缘。
  * 断点与 07 移动端正文清零(max-width:899.98px)互补 */
-#chat .mes .bbs-fp-host { display: block !important; }
+#chat .mes .bbs-fp-host { display: block !important; cursor: pointer !important; }
 @media screen and (min-width: 900px) {
   #chat .mes .bbs-fp-host { margin-right: var(--mes-right-spacing) !important; }
 }

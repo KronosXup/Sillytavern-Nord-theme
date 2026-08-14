@@ -44,12 +44,14 @@
   #chat .mes .mes_block { display: block !important; width: 100% !important; position: relative !important; padding: var(--mb-head) 0 0 0 !important; box-sizing: border-box !important; }
   /* 正文右侧不留空：覆盖原生/JS 算出来的 padding-right:30px，文字真正通栏 */
   #chat .mes .mes_text { padding-left: 0 !important; padding-right: 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
-  /* ch_name：行1+行2 定位上下文；top+bottom 双锚让框延伸到消息底，钮排 bottom 相对这里→钉消息底 */
+  /* ch_name：行1+行2 定位上下文；top+bottom 双锚让框延伸到消息底，钮排 bottom 相对这里→钉消息底。
+   * pointer-events:none 穿透不挡 bbs/构画点击，钮排单独 pe:auto 接回 */
   #chat .mes .ch_name {
     position: absolute !important; top: 10px !important; bottom: 0 !important;
     left: calc(12px + var(--mb-avatar) + 10px) !important; right: 12px !important;
     display: block !important;
     overflow: visible !important; border: none !important; margin: 0 !important; padding: 0 !important;
+    pointer-events: none !important;
   }
   #chat .mes .ch_name > .flex-container.flex1, #chat .mes .ch_name > .flex1 { position: static !important; display: block !important; height: 100% !important; }
   #chat .mes .ch_name .alignItemsBaseline { display: contents !important; }
@@ -82,7 +84,7 @@
     left: auto !important; width: auto !important; max-width: none !important; height: auto !important;
     display: flex !important; flex-wrap: nowrap !important; align-items: center !important;
     justify-content: flex-end !important; gap: 4px !important; margin: 0 !important;
-    overflow: visible !important; z-index: 8 !important;
+    overflow: visible !important; z-index: 8 !important; pointer-events: auto !important;
   }
   #chat .mes .ch_name .mes_buttons .extraMesButtons { flex-wrap: wrap !important; overflow: visible !important; max-width: none !important; }
   #chat .mes .ch_name .mes_buttons .extraMesButtons.visible {
