@@ -44,11 +44,11 @@
   #chat .mes .mes_block { display: block !important; width: 100% !important; position: relative !important; padding: var(--mb-head) 0 0 0 !important; box-sizing: border-box !important; }
   /* 正文右侧不留空：覆盖原生/JS 算出来的 padding-right:30px，文字真正通栏 */
   #chat .mes .mes_text { padding-left: 0 !important; padding-right: 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
-  /* ch_name：行1+行2 定位上下文 */
+  /* ch_name：行1+行2 定位上下文；top+bottom 双锚让框延伸到消息底，钮排 bottom 相对这里→钉消息底 */
   #chat .mes .ch_name {
-    position: absolute !important; top: 10px !important;
+    position: absolute !important; top: 10px !important; bottom: 0 !important;
     left: calc(12px + var(--mb-avatar) + 10px) !important; right: 12px !important;
-    height: var(--mb-avatar) !important; display: block !important;
+    display: block !important;
     overflow: visible !important; border: none !important; margin: 0 !important; padding: 0 !important;
   }
   #chat .mes .ch_name > .flex-container.flex1, #chat .mes .ch_name > .flex1 { position: static !important; display: block !important; height: 100% !important; }
@@ -74,15 +74,27 @@
     width: 12px !important; display: inline-flex !important; align-items: center !important;
     opacity: 0.7 !important; color: var(--text-dim) !important;
   }
-  /* 操作按钮：右上 */
+  /* 操作按钮：钉消息底部右下角（ch_name top+bottom 双锚延伸到消息底，钮排 bottom 相对 ch_name 底=消息底） */
   #chat .mes .ch_name .mes_buttons {
-    position: absolute !important; top: 0 !important; right: 0 !important;
-    display: flex !important; align-items: center !important; height: var(--mb-avatar) !important; z-index: 6 !important;
+    position: absolute !important; top: auto !important; bottom: 6px !important; right: 0 !important;
+    left: auto !important; width: auto !important; max-width: none !important; height: auto !important;
+    display: flex !important; flex-wrap: nowrap !important; align-items: center !important;
+    justify-content: flex-end !important; gap: 4px !important; margin: 0 !important;
+    overflow: visible !important; z-index: 8 !important;
   }
+  #chat .mes .ch_name .mes_buttons .extraMesButtons { flex-wrap: wrap !important; overflow: visible !important; max-width: none !important; }
+  #chat .mes .ch_name .mes_buttons .extraMesButtons.visible {
+    display: flex !important; position: absolute !important; top: auto !important;
+    bottom: calc(100% + 6px) !important; right: 0 !important; left: auto !important;
+    width: max-content !important; flex-wrap: wrap !important; justify-content: flex-end !important; gap: 4px !important;
+  }
+  #chat .mes .ch_name .mes_buttons .mes_button,
+  #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
   /* swipe 保持原生绝对定位（左下/右下角，锚 .mes）：之前隐藏属误设计，移动端没有 swipe 切换不合理 */
 
-  /* ---编辑态钉底钮排·移动端（移植 Gruvbox）：只放编辑钮，普通钮留三行头部右上（Nord 结构决定）--- */
-  /* 编辑态正文底留白 92px（方钮排窄屏可绕两行 ~86px） */
+  /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
+  /* 正文常态底留白 44px（一排钮 ~36px+间距），编辑态 92px（方钮排窄屏可绕两行 ~86px） */
+  #chat .mes .mes_text { padding-bottom: 44px !important; }
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 92px !important; }
   /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 暂挪到消息外不压方钮排 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
