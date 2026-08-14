@@ -316,6 +316,9 @@ const aFixes = `
   ::picker(select)::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 3px; }
   ::picker(select)::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 }
+/* A14 推理块限高+内容滚动（全端 55vh）：长推理不再无限撑开顶满消息流，编辑框同款。 */
+#chat .mes_reasoning { max-height: 55vh !important; overflow-y: auto !important; overscroll-behavior: contain !important; }
+#chat .mes_reasoning_details .reasoning_edit_textarea { max-height: 55vh !important; overflow-y: auto !important; resize: none !important; }
 `;
 
 const css = base.custom_css + append + mobileHeader + aFixes;
