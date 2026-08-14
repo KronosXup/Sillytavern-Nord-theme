@@ -216,14 +216,14 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   #chat .mes .mes_text { padding-bottom: 78px !important; }
   #chat .mes .mes_media_wrapper:not(:empty),
   #chat .mes .mes_file_wrapper:not(:empty) { padding-bottom: 52px !important; }
-  /* 普通操作钮排：swipe 行（6~31px）之上，bottom:39px 留 8px 间距 */
+  /* 普通操作钮排：swipe 行（6~31px）之上，bottom:35px */
   #chat .mes .ch_name .mes_buttons {
-    position: absolute !important; top: auto !important; bottom: 39px !important;
+    position: absolute !important; top: auto !important; bottom: 35px !important;
     right: calc(2px + 0.5em) !important; left: auto !important; z-index: 30 !important;
   }
   /* 编辑态钮排：同位；默认藏（ST 写内联 display:flex 时属性选择器接回） */
   #chat .mes .mes_edit_buttons {
-    float: none !important; position: absolute !important; bottom: 39px !important;
+    float: none !important; position: absolute !important; bottom: 35px !important;
     right: calc(2px + 0.5em) !important; margin: 0 !important; z-index: 30 !important;
     display: none;
   }
