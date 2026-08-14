@@ -116,7 +116,8 @@
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
   #chat .mes:has(.edit_textarea) .swipeRightBlock { display: none !important; }
   #chat .mes:has(.edit_textarea) .swipe_left { display: none !important; }
-  /* 编辑钮排：贴消息底（bottom:6px），展开往上撑不压 bbs（编辑态 swipe 已藏不撞） */
+  /* 编辑钮排：贴消息底（bottom:6px），展开往上撑不压 bbs（编辑态 swipe 已藏不撞）。
+   * pe:auto 接回（ch_name 整体 pe:none 穿透不挡 bbs，编辑钮排单独可点） */
   #chat .mes .mes_edit_buttons {
     float: none !important; clear: both !important;
     position: absolute !important; bottom: 6px !important; right: 0 !important; z-index: 30 !important;
@@ -124,6 +125,7 @@
     flex-direction: row !important; flex-wrap: wrap !important; justify-content: flex-end !important; align-items: center !important;
     gap: 6px !important; width: max-content !important; max-width: 100% !important;
     margin: 0 !important; padding: 4px 4px 4px 0 !important; box-sizing: border-box !important; overflow: visible !important;
+    pointer-events: auto !important;
   }
   #chat .mes .mes_edit_buttons[style*="flex"],
   #chat .mes .mes_edit_buttons[style*="inline-flex"] { display: flex !important; }
