@@ -90,13 +90,13 @@
   }
   #chat .mes .ch_name .mes_buttons .mes_button,
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
-  /* swipe：在消息外下方独立一行（不与钮排同行），定位上下文=mes */
-  #chat .mes .swipeRightBlock { bottom: -30px !important; pointer-events: auto !important; z-index: 10 !important; }
-  #chat .mes .swipe_left { bottom: -30px !important; pointer-events: auto !important; z-index: 10 !important; }
+  /* swipe：在消息内钮排上方独立一行（Nord 有消息卡背景，不能像 Gruvbox 放消息外悬空） */
+  #chat .mes .swipeRightBlock { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; }
+  #chat .mes .swipe_left { bottom: 50px !important; pointer-events: auto !important; z-index: 10 !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
-  /* 正文常态底留白 62px（钮排留位），编辑态 92px（方钮排窄屏绕两行 ~86px） */
-  #chat .mes .mes_text { padding-bottom: 62px !important; }
+  /* 正文常态底留白 96px（swipe上行50px+钮排下行6px+两排高~80px），编辑态 92px */
+  #chat .mes .mes_text { padding-bottom: 96px !important; }
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 92px !important; }
   /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 编辑态隐藏 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
