@@ -6,8 +6,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const MS_BASE = 'C:/temp/ms/node_modules/@material-symbols/svg-400/sharp/';
-const CONT = 'F:/sillytavern-themes/nord-theme/themes/Contour-Nord.json';
+const ROOT = __dirname;
+// 图标源：本机 @material-symbols/svg-400/sharp 目录。用环境变量覆盖，默认 ../node_modules 下找。
+const MS_BASE = process.env.MS_SVG_BASE || path.join(ROOT, 'node_modules/@material-symbols/svg-400/sharp/');
+const CONT = path.join(ROOT, 'themes/Contour-Nord.json');
 // hover 强调走语义令牌（:root --accent），不再硬编码 hex——令牌化后 accent 单点可换
 const ACCENT = 'var(--accent)';
 
