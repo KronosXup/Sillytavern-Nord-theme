@@ -31,6 +31,15 @@ input[list]::-webkit-calendar-picker-indicator { display: none !important; }
 /* 世界书条目去双框：ST 原生 .wi-card-entry 自画一圈边框+10px圆角，主题给抽屉/条目已有框，
  * 两层套着成「框套框」。去原生边圈，内框交给主题（Gruvbox 同款一行修）。 */
 .wi-card-entry { border: none !important; }
+/* B4 Luker 专有（.wi-card-entry/bulk-selected 类名仅 Luker 有，普通 ST 零命中）：
+ * hover 变色是原生边框的配套特效，框已去、条目自己有 hover，连 hover 一起清；
+ * 批量选中的 border 变色 + box-shadow 双环压掉，选中态只留勾选框自身。 */
+.wi-card-entry:hover { border-color: transparent !important; box-shadow: none !important; }
+.world_entry.bulk-selected .wi-card-entry,
+.world_entry.bulk-selected.disabledWIEntry .wi-card-entry {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
 /* A8 双滑块圆球可见：input 的 filter:brightness 会建 stacking context，thumb 的 z-index:2 失效，
  * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
 .doubleRangeInputContainer > input[type="range"],
