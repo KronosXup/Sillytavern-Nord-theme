@@ -229,9 +229,13 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   }
   #chat .mes .mes_edit_buttons[style*="flex"],
   #chat .mes .mes_edit_buttons[style*="inline-flex"] { display: flex !important; }
-  /* 编辑态：名字行普通按钮让位（ST 内联藏，这里兜底）；正文底距加大装方钮排 */
+  /* 编辑态：名字行普通按钮让位（ST 内联藏，这里兜底）；swipe 隐藏（与移动端一致，桌面漏了——
+   * 不藏的话 swipe(6~31px)+编辑钮排(31~64px)两层挤在编辑区下方）；正文底距 78px 与常态同量，
+   * 编辑钮排(bottom:31px+高~33px)下方留 14px 余量不再贴编辑区 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
-  #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 64px !important; }
+  #chat .mes:has(.edit_textarea) .swipeRightBlock,
+  #chat .mes:has(.edit_textarea) .swipe_left { display: none !important; }
+  #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 78px !important; }
   /* swipe 与钮排同一行（Gruvbox 04-chat 机关）：右块 row-reverse 横排→[箭头][counter] 并排同底缘；
    * 覆盖 08 的定高/居中：counter 改回 auto 高、子项 flex-end，两箭头底缘都是 6px 同高 */
   #chat .mes .swipeRightBlock {
