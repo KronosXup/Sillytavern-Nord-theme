@@ -74,27 +74,15 @@
     width: 12px !important; display: inline-flex !important; align-items: center !important;
     opacity: 0.7 !important; color: var(--text-dim) !important;
   }
-  /* 操作按钮：钉消息底部右下角（与编辑钮排同位），头部只留名字+时间戳+计数器 */
+  /* 操作按钮：右上 */
   #chat .mes .ch_name .mes_buttons {
-    position: absolute !important; top: auto !important; bottom: 6px !important; right: 0 !important;
-    left: auto !important; width: auto !important; max-width: none !important; height: auto !important;
-    display: flex !important; flex-wrap: nowrap !important; align-items: center !important;
-    justify-content: flex-end !important; gap: 4px !important; margin: 0 !important;
-    overflow: visible !important; z-index: 8 !important;
+    position: absolute !important; top: 0 !important; right: 0 !important;
+    display: flex !important; align-items: center !important; height: var(--mb-avatar) !important; z-index: 6 !important;
   }
-  #chat .mes .ch_name .mes_buttons .extraMesButtons { flex-wrap: wrap !important; overflow: visible !important; max-width: none !important; }
-  #chat .mes .ch_name .mes_buttons .extraMesButtons.visible {
-    display: flex !important; position: absolute !important; top: auto !important;
-    bottom: calc(100% + 6px) !important; right: 0 !important; left: auto !important;
-    width: max-content !important; flex-wrap: wrap !important; justify-content: flex-end !important; gap: 4px !important;
-  }
-  #chat .mes .ch_name .mes_buttons .mes_button,
-  #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
   /* swipe 保持原生绝对定位（左下/右下角，锚 .mes）：之前隐藏属误设计，移动端没有 swipe 切换不合理 */
 
-  /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
-  /* 正文常态底留白 44px（一排钮 ~36px+间距），编辑态 92px（方钮排窄屏可绕两行 ~86px） */
-  #chat .mes .mes_text { padding-bottom: 44px !important; }
+  /* ---编辑态钉底钮排·移动端（移植 Gruvbox）：只放编辑钮，普通钮留三行头部右上（Nord 结构决定）--- */
+  /* 编辑态正文底留白 92px（方钮排窄屏可绕两行 ~86px） */
   #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 92px !important; }
   /* 编辑态：普通钮让位（ST 内联藏，兜底）；swipe 暂挪到消息外不压方钮排 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
