@@ -241,7 +241,7 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   #chat .mes .swipe_right,
   #chat .mes .swipes-counter { align-self: center !important; }
   #chat .mes .swipes-counter { height: 25px !important; margin: 0 !important; padding: 0 5px !important; display: inline-flex !important; align-items: center !important; }
-  #chat .mes .swipe_left { bottom: 6px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+  #chat .mes .swipe_left { bottom: 6px !important; left: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; }
   #chat .mes .swipe_left::before { display: block !important; }
 }
 

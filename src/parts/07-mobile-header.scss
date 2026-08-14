@@ -20,7 +20,7 @@
     pointer-events: none !important; z-index: 5 !important;
   }
   #chat .mes .mesAvatarWrapper .avatar {
-    position: absolute !important; top: 8px !important; left: 0 !important;
+    position: absolute !important; top: 12px !important; left: 0 !important;
     width: var(--mb-avatar) !important; height: var(--mb-avatar) !important;
     min-width: 0 !important; min-height: 0 !important; margin: 0 !important; pointer-events: auto !important;
   }
@@ -106,7 +106,7 @@
   #chat .mes .swipeRightBlock { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; flex-direction: row-reverse !important; align-items: flex-end !important; }
   #chat .mes .swipe_right { align-self: flex-end !important; }
   #chat .mes .swipes-counter { align-self: flex-end !important; }
-  #chat .mes .swipe_left { bottom: 6px !important; pointer-events: auto !important; z-index: 10 !important; }
+  #chat .mes .swipe_left { bottom: 6px !important; left: 0 !important; pointer-events: auto !important; z-index: 10 !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
   /* 正文常态底留白 88px（钮排42px+swipe6px+两排高），编辑态 92px */
