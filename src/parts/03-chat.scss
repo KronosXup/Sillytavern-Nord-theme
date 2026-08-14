@@ -213,8 +213,8 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
 @media screen and (min-width: 900px) {
   /* mes_block 兼做定位上下文（ch_name 原生静态，无需改） */
   #chat .mes .mes_block { position: relative !important; }
-  /* 正文常态底留白 62px 给钉底钮排+swipe 行让位（同 Gruvbox）；媒体/文件包装同抬 */
-  #chat .mes .mes_text { padding-bottom: 62px !important; }
+  /* 正文常态底留白 86px：底部两层——钮排（6..31px）+ swipe 行（37..82px）；媒体/文件包装同抬 */
+  #chat .mes .mes_text { padding-bottom: 86px !important; }
   #chat .mes .mes_media_wrapper:not(:empty),
   #chat .mes .mes_file_wrapper:not(:empty) { padding-bottom: 36px !important; }
   /* 普通操作钮排：钉底部右下角 */
@@ -235,14 +235,12 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
     margin: 0 !important;
     z-index: 30 !important;
   }
-  /* 编辑态：名字行普通按钮让位（ST 用内联 style 藏，这里兜底） */
+  /* 编辑态：名字行普通按钮让位（ST 用内联 style 藏，这里兜底）；
+   * 正文留白无需再加——编辑行单排 ~36px 仍在钮排层内，86px 常态留白已含 swipe 层 */
   #chat .mes .mes_block:has(.edit_textarea) .ch_name .mes_buttons { display: none !important; }
-  /* 编辑态正文底距加大：方钮排（~46px）不压正文框 */
-  #chat .mes .mes_text:has(.edit_textarea) { padding-bottom: 64px !important; }
-  /* swipe 避让钉底钮排：右下角已被钮排占，整行迁到左下角空余处：
-   * 左箭头留原生 left:20px，右块排在它右侧（counter+箭头堆叠），
-   * 两箭头底缘都是 26px（左钉 26 / 右块 6+counter 20）仍同高 */
-  #chat .mes .swipeRightBlock { bottom: 6px !important; left: 56px !important; right: auto !important; }
-  #chat .mes .swipe_left { bottom: 26px !important; }
+  /* swipe 分两角回归：钮排占底部 6..31px，swipe 行浮在其上一层（37px 起），
+   * 左箭头回左角、counter+右箭头回右角；两箭头底缘都是 57px（左钉 57 / 右块 37+counter 20）仍同高 */
+  #chat .mes .swipeRightBlock { bottom: 37px !important; right: 0 !important; left: auto !important; }
+  #chat .mes .swipe_left { bottom: 57px !important; }
 }
 
