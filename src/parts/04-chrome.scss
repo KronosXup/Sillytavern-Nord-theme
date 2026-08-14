@@ -136,7 +136,9 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !impor
   opacity: 1 !important;
 }
 #options .options-content a:hover,
-#extensionsMenu .list-group-item:not(.sp-btn-generating):hover {
+#extensionsMenu .list-group-item:not(.sp-btn-generating):hover,
+#extensionsMenu > .extension_container > div:hover,
+#extensionsMenu > div:not(.extension_container):hover {
   background-color: var(--bg-2) !important;
   color: var(--accent) !important;
   text-decoration: none !important; /* 盖掉全局 a:hover underline（菜单项是 a 元素会被命中） */
