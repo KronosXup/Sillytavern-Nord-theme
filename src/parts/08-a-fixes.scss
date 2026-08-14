@@ -28,6 +28,9 @@
  * Chrome 135+ 新伪元素与旧版 Chromium 选择器必须分两条写，合并整条会被弃。 */
 input[list]::picker-icon { display: none !important; }
 input[list]::-webkit-calendar-picker-indicator { display: none !important; }
+/* 世界书条目去双框：ST 原生 .wi-card-entry 自画一圈边框+10px圆角，主题给抽屉/条目已有框，
+ * 两层套着成「框套框」。去原生边圈，内框交给主题（Gruvbox 同款一行修）。 */
+.wi-card-entry { border: none !important; }
 /* A8 双滑块圆球可见：input 的 filter:brightness 会建 stacking context，thumb 的 z-index:2 失效，
  * 两个圆球被容器 ::after 高亮条盖住。去 filter 即可。 */
 .doubleRangeInputContainer > input[type="range"],
