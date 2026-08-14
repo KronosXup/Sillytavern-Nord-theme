@@ -1,13 +1,27 @@
 /* ============================================================
  * modern-ui 插件适配（body.th-modern-enabled 限定，纯 ST 零命中）
  * ============================================================ */
-body.th-modern-enabled .th-modern-wi-entry,
-body.th-modern-enabled .th-modern-wi-list,
-body.th-modern-enabled [class^="th-modern-wi"] {
+/* 外壳/列表层底色（不用 [class^="th-modern-wi"] 通配：条目行内层 row-title/stats/meta、
+ * select-dot 等也被命中，每个都套 bg-1+边框+圆角，层层叠成蒙层盖住文字/复选框） */
+body.th-modern-enabled .th-modern-wi-native-shell,
+body.th-modern-enabled .th-modern-wi-native-main,
+body.th-modern-enabled .th-modern-wi-native-list {
   background-color: var(--bg-1) !important;
   border: 1px solid var(--line-1) !important;
   border-radius: var(--radius) !important;
   color: var(--text) !important;
+}
+/* 世界书条目行：底色 + 发丝线，hover/选中染 accent 淡色 */
+body.th-modern-enabled .world_entry {
+  background-color: var(--bg-1) !important;
+  border: 1px solid var(--line-1) !important;
+  border-radius: var(--radius) !important;
+}
+body.th-modern-enabled .world_entry:hover,
+body.th-modern-enabled .world_entry.th-modern-wi-selected,
+body.th-modern-enabled .world_entry.th-modern-wi-row-checked {
+  background-color: var(--bg-2) !important;
+  border-color: var(--accent) !important;
 }
 body.th-modern-enabled .th-modern-panel-header,
 body.th-modern-enabled .th-modern-section-title,
@@ -50,5 +64,17 @@ body.th-modern-enabled .th-modern-item:hover {
     border: 1px solid var(--line-2) !important;
     border-radius: var(--radius) !important;
   }
+}
+
+/* Modern UI 标题栏有 fullscreen/close 按钮，AI 面板问号链接 .topRightInset 原
+ * right:23px 与按钮重叠——右移 80px 避让（Gruvbox 同款） */
+body.th-modern-enabled .topRightInset {
+  right: 80px !important;
+}
+
+/* Modern UI 手机世界书选择器搜索框：Modern UI 自带 focus outline 叠在主题 focus
+ * 边框上成两层框——去掉 outline，主题边框单层即可（Gruvbox 同款） */
+body.th-modern-enabled .th-modern-mobile-world-picker-search input:focus {
+  outline: none !important;
 }
 

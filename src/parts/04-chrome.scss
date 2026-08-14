@@ -62,6 +62,16 @@ input[type="range"]::-moz-range-thumb {
 }
 input[type="checkbox"], input[type="radio"] { accent-color: var(--accent) !important; }
 
+/* select 箭头：ST 默认 down-arrow.svg 固定灰 #888，Modern UI 下更是直接丢箭头——
+ * 自画同形三角（nord4）全局钉死，纯 ST / Modern UI 一致；no-repeat/position 必须
+ * 同层（Gruvbox 经验：原在 hover 媒体里，触屏不匹配导致三角铺满倒三角） */
+select {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7'><polygon points='0,0 10,0 5,7' fill='%23d8dee9'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.5em center !important;
+  background-size: 8px 5px !important; /* 钉死与 ST 默认同尺寸：Modern UI 若设 background-size:100% 会把三角拉伸铺满 */
+}
+
 /* ---浮层微阴影--- */
 #character_popup, #dialogue_popup, .popup, .draggable,
 .toast, .toast-container .toast,
