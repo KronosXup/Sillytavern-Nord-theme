@@ -20,7 +20,7 @@
     pointer-events: none !important; z-index: 5 !important;
   }
   #chat .mes .mesAvatarWrapper .avatar {
-    position: absolute !important; top: 4px !important; left: 0 !important;
+    position: absolute !important; top: 8px !important; left: 0 !important;
     width: var(--mb-avatar) !important; height: var(--mb-avatar) !important;
     min-width: 0 !important; min-height: 0 !important; margin: 0 !important; pointer-events: auto !important;
   }
@@ -57,7 +57,7 @@
   #chat .mes .ch_name .name_text {
     position: absolute !important; top: 0 !important; left: 0 !important; height: var(--mb-row) !important;
     display: flex !important; align-items: center !important;
-    max-width: calc(100% - 6em) !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;
+    max-width: 100% !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important;
   }
   #chat .mes .ch_name .name_text .sp-anchor-btn {
     position: static !important; display: inline-flex !important; align-items: center !important;
@@ -90,7 +90,9 @@
   }
   #chat .mes .ch_name .mes_buttons .mes_button,
   #chat .mes .ch_name .mes_buttons .menu_button { flex: 0 0 auto !important; opacity: 0.8 !important; }
-  /* swipe 保持原生绝对定位（左下/右下角，锚 .mes）：之前隐藏属误设计，移动端没有 swipe 切换不合理 */
+  /* swipe：下移到消息外底部（不压钉底钮排），恢复 pointer-events 可点 */
+  #chat .mes .swipeRightBlock { bottom: -30px !important; pointer-events: auto !important; }
+  #chat .mes .swipe_left { bottom: -30px !important; pointer-events: auto !important; }
 
   /* ---钉底钮排·移动端：普通钮+编辑钮同钉底部，头部三行结构不动（计数器=用户精调值）--- */
   /* 正文常态底留白 44px（一排钮 ~36px+间距），编辑态 92px（方钮排窄屏可绕两行 ~86px） */
