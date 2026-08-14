@@ -164,10 +164,11 @@ body {
 const mobileHeader = `
 @media (max-width: 899.98px) {
   #chat .mes {
-    --mb-avatar: 40px;   /* 头像边长 */
-    --mb-row: 20px;      /* 名字/时间戳行高 */
+    --mb-avatar: 40px;   /* 头像边长（= 2×--mb-row + --mb-gap，正好覆盖行1+行2） */
+    --mb-row: 18px;      /* 名字/时间戳行高 */
     --mb-meta: 16px;     /* 计数器行高 */
-    --mb-head: calc(var(--mb-avatar) + 4px + var(--mb-meta));  /* 头部总高 */
+    --mb-gap: 4px;       /* 三行统一行间距 */
+    --mb-head: calc(var(--mb-avatar) + var(--mb-gap) + var(--mb-meta));  /* 头部总高 */
     position: relative !important;
     display: block !important;
     padding: 10px 12px !important;
@@ -179,7 +180,7 @@ const mobileHeader = `
     top: 10px !important; left: 12px !important; right: 12px !important;
     width: auto !important; min-width: 0 !important; height: var(--mb-head) !important;
     display: flex !important; flex-direction: row !important; align-items: flex-start !important; column-gap: 8px !important;
-    padding: calc(var(--mb-avatar) + 4px) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
+    padding: calc(var(--mb-avatar) + var(--mb-gap)) 0 0 calc(var(--mb-avatar) + 10px) !important; box-sizing: border-box !important;
     pointer-events: none !important; z-index: 5 !important;
   }
   #chat .mes .mesAvatarWrapper .avatar {
@@ -225,12 +226,12 @@ const mobileHeader = `
   }
   /* 行2：时间戳（left:0，用户消息无图标不留空）+ ?模型图标（时间戳后） */
   #chat .mes .ch_name .timestamp {
-    position: absolute !important; top: var(--mb-row) !important; left: 0 !important; height: var(--mb-row) !important;
+    position: absolute !important; top: calc(var(--mb-row) + var(--mb-gap)) !important; left: 0 !important; height: var(--mb-row) !important;
     display: inline-flex !important; align-items: center !important;
     font-size: calc(var(--mainFontSize) * 0.8) !important; opacity: 0.7 !important; white-space: nowrap !important;
   }
   #chat .mes .ch_name .timestamp-icon {
-    position: absolute !important; top: var(--mb-row) !important; left: 118px !important; height: var(--mb-row) !important;
+    position: absolute !important; top: calc(var(--mb-row) + var(--mb-gap)) !important; left: 118px !important; height: var(--mb-row) !important;
     width: 12px !important; display: inline-flex !important; align-items: center !important;
     opacity: 0.7 !important; color: var(--text-dim) !important;
   }
