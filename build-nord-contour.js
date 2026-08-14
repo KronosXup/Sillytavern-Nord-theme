@@ -126,12 +126,14 @@ body {
    ST 原生 clip-path（脚本进度条）会裁顶边 5px，一并关 */
 #send_textarea {
   background-color: var(--bg-sunken) !important;
-  border: none !important;
+  border: 1px solid transparent !important;  /* 占位防聚焦抖动 */
   border-radius: var(--radius) !important;
   clip-path: none !important;
+  transition: border-color .14s var(--ease-out) !important;
 }
+/* 聚焦发丝线：只转 frost 细边，不要光环/outline */
 #send_textarea:focus, #send_textarea:focus-visible {
-  border: none !important;
+  border-color: var(--accent) !important;
   box-shadow: none !important;
   outline: none !important;
 }
