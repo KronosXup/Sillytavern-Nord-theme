@@ -50,9 +50,9 @@
 .mes_text blockquote, .mes_text blockquote p, .mes_text blockquote span {
   color: var(--nord7) !important;
 }
-/* 标题分级：h1/h2 带发丝底线，h3 纯字，h4+ 降一档 */
+/* 标题分级：h1/h2 带发丝底线，h3 纯字，h4+ 降一档。
+ * 不设 color——Gruvbox 不给标题钉色，角色卡前端的彩色标题（如 #dc2626/#16a34a）才能生效 */
 .mes_text h1, .mes_text h2 {
-  color: var(--text-hi) !important;
   font-weight: 700 !important;
   border-bottom: 1px solid var(--line-0) !important;
   padding-bottom: 4px !important;
@@ -61,13 +61,11 @@
 .mes_text h1 { font-size: 1.45em !important; }
 .mes_text h2 { font-size: 1.25em !important; font-weight: 600 !important; }
 .mes_text h3 {
-  color: var(--text-hi) !important;
   font-size: 1.12em !important;
   font-weight: 600 !important;
   margin: 0.9em 0 0.4em !important;
 }
 .mes_text h4, .mes_text h5, .mes_text h6 {
-  color: var(--text-hover) !important;
   font-weight: 600 !important;
   margin: 0.8em 0 0.35em !important;
 }
