@@ -256,3 +256,21 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
   #chat .mes .swipe_left::before { display: block !important; }
 }
 
+/* ---角色卡正则前端白底兜底：自设不透明白/浅底（rgb 255+ 或接近白）的容器，文字让前端自设色生效。
+ * Nord 的 body/.mes_text 全局 !important 会把文字钉成 nord4 白，前端设了浅底时白底+白字不可见。
+ * 这类卡片通常设 background-color: rgb(255,255,255) 或接近白的浅灰——属性选择器粗匹配，
+ * 只要元素自设了 background/background-color 且值是白/浅灰(>=240)，文字和链接用深灰还原可读性 */
+#chat .mes_text [style*='background-color: rgb(255, 255, 255)'],
+#chat .mes_text [style*='background-color:rgb(255,255,255)'],
+#chat .mes_text [style*='background: rgb(255, 255, 255)'],
+#chat .mes_text [style*='background:rgb(255,255,255)'],
+#chat .mes_text [style*='background-color: rgb(248,'],
+#chat .mes_text [style*='background-color: rgb(250,'],
+#chat .mes_text [style*='background-color: rgb(244,'],
+#chat .mes_text [style*='background-color: rgb(240,'],
+#chat .mes_text [style*='background-color: #fff'],
+#chat .mes_text [style*='background-color:#fff'],
+#chat .mes_text [style*='background: #fff'],
+#chat .mes_text [style*='background:#fff'] {
+  color: var(--nord0) !important;
+}
