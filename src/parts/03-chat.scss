@@ -10,10 +10,8 @@
   background-color: var(--bg-2) !important;
   border-radius: var(--radius) !important;
 }
-.mes_text { color: var(--text) !important; }
-.mes_block, .mes_text p, .mes_text li { color: var(--text) !important; }
-.last_mes .mes_text { color: var(--text) !important; }
-
+/* 正文文字色不钉死——Gruvbox 不给 mes_text/mes_text p 全局 !important，
+ * 角色卡前端自设内联色才能生效；主题的默认色由 body 继承 */
 /* ---正文格式：frost 阶梯给层级，正文不单调---
    加粗=亮白 / 斜体=雾蓝 / 加粗斜体=冰绿 / 删除=灰字红线 / 引用=冰绿+淡青底 */
 .mes_text strong, .mes_text b {
