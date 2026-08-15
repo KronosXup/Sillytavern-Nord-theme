@@ -109,7 +109,7 @@ code.hljs[class*="custom-language-"]::before {
   font-size: 11px !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: var(--text-dim) !important;
+  color: var(--code-label) !important;
   border-bottom: 1px solid var(--line-0) !important;
   white-space: normal !important;
 }

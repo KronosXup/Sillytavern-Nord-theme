@@ -49,7 +49,8 @@
   --icon-hover:  var(--accent);   /* 图标 hover 染色：亮版保持浅青（用户指定亮色，实测可见性由用户确认） */
   --quote-text:  var(--nord10);   /* 引用块/引号对话/加粗斜体文字：亮版=深蓝（nord9 雾蓝仍淡） */
   --accent-body: var(--accent-3); /* 正文强调标记（world_set 等）：亮版=深蓝（浅青在雪底上太浅） */
-  --code-bg:     var(--nord3);    /* 代码块底：亮版用蓝灰（nord0 纯黑突兀；nord3 够深容纳语法亮色又柔和） */
+  --code-bg:     var(--nord1);    /* 代码块底：亮版用深蓝灰（nord3 上语法色对比度不足，nord0 纯黑突兀，nord1 折中） */
+  --code-label:  var(--nord4);     /* 代码块语言标签：亮版=雪白（nord1 底上清晰） */
   --danger:      var(--nord11);
   --warn:        var(--nord13);
   --success:     var(--nord14);
