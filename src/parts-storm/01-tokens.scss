@@ -42,13 +42,13 @@
   --text-dim:    var(--nord2);   /* 次要文字 */
   --text-faint:  var(--nord3);   /* 最淡文字 */
   --comment:     color-mix(in srgb, var(--nord4) 70%, var(--nord1) 30%);  /* 代码注释：亮版淡灰白——nord3 在 nord1 深底上同色不可见 */
-  --accent:      var(--nord8);   /* ★ 主强调：亮版用 nord8 浅青（与暗版一致，雪底上柔和） */
+  --accent:      var(--nord10);   /* ★ 主强调：nord10 深蓝（亮底对比度；雪青高亮累眼，用户妥协回深蓝） */
   --accent-2:    var(--nord9);
-  --accent-3:    var(--nord10);   /* hover 增亮用深蓝 */
-  --on-accent:   var(--nord0);
-  --icon-hover:  var(--accent);   /* 图标 hover 染色：亮版保持浅青（用户指定亮色，实测可见性由用户确认） */
+  --accent-3:    var(--nord8);    /* hover 增亮用浅青 */
+  --on-accent:   var(--nord6);
+  --icon-hover:  var(--accent);   /* 图标 hover 染色：跟随 accent（深蓝） */
   --quote-text:  var(--nord10);   /* 引用块/引号对话/加粗斜体文字：亮版=深蓝（nord9 雾蓝仍淡） */
-  --accent-body: var(--accent-3); /* 正文强调标记（world_set 等）：亮版=深蓝（浅青在雪底上太浅） */
+  --accent-body: var(--accent);   /* 正文强调标记（world_set 等）：跟随 accent（深蓝） */
   --code-bg:     var(--nord1);    /* 代码块底：亮版用深蓝灰（nord3 上语法色对比度不足，nord0 纯黑突兀，nord1 折中） */
   --code-label:  var(--nord4);     /* 代码块语言标签：亮版=雪白（nord1 底上清晰） */
   --code-text:   var(--nord4);     /* 代码块正文文字：亮版=雪白（深底上必须亮，--text 是深色） */
