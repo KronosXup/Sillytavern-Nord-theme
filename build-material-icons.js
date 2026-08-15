@@ -12,8 +12,9 @@ const ROOT = __dirname;
 const MS_BASE = process.env.MS_SVG_BASE || path.join(ROOT, 'node_modules/@material-symbols/svg-400/sharp/');
 // 目标产物：build.js 通过 THEME_OUT 指定（暗版 Nord.json / 亮版 Nord-Storm.json）
 const CONT = process.env.THEME_OUT || path.join(ROOT, 'themes/Nord.json');
-// hover 强调走语义令牌（:root --accent），不再硬编码 hex——令牌化后 accent 单点可换
-const ACCENT = 'var(--accent)';
+// hover 强调走语义令牌（:root --icon-hover）——暗版=accent(nord8浅青)，亮版=accent-3(nord10深蓝，
+// 浅青在雪色底上对比度低)；变体只改 tokens 单点
+const ACCENT = 'var(--icon-hover)';
 
 // 读当前产物(已含 Nord-Dark base + 纹理/hover/logo，不含旧图标块)
 const cont = JSON.parse(fs.readFileSync(CONT, 'utf8'));
