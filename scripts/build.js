@@ -11,10 +11,19 @@ const path = require('path');
 const sass = require('sass');
 const { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'themes', 'Nord.json');
 
 const WRITE = !process.argv.includes('--verify');
 const FORCE = process.argv.includes('--force');
+
+// 双主题构建：Nord（暗）+ Nord Storm（亮）
+// --storm 只构建亮版；默认构建暗版
+const BUILD_STORM = process.argv.includes('--storm');
+const OUT = path.join(ROOT, 'themes', BUILD_STORM ? 'Nord-Storm.json' : 'Nord.json');
+const PARTS_DIR = BUILD_STORM ? 'parts-storm' : 'parts';
+const TEMPLATE = path.join(ROOT, 'src', BUILD_STORM ? 'nord-storm-base.json' : 'nord-base.json');
+const THEME_NAME = BUILD_STORM ? 'Nord Storm' : 'Nord';
+
+console.log(BUILD_STORM ? '=== 构建 Nord Storm（亮版）===' : '=== 构建 Nord（暗版）===');
 
 /* ---------- 纹理 / logo 的 SVG data-uri 生成器（从 build-nord-contour.js 抽来，逻辑原样） ---------- */
 const makeSmooth = (cx, cy, r, seed) => {
@@ -74,10 +83,26 @@ const TEXTURES = {
 
 /* ---------- 读 parts 拼接（纯文本连接，编译输入与拆分前一致） ---------- */
 function loadParts() {
-  const dir = path.join(ROOT, 'src', 'parts');
+  const dir = path.join(ROOT, 'src', PARTS_DIR);
   const files = fs.readdirSync(dir).filter(f => f.endsWith('.scss')).sort();
-  if (!files.length) throw new Error('src/parts 为空');
+  if (!files.length) throw new Error(`src/${PARTS_DIR} 为空`);
   return files.map(f => fs.readFileSync(path.join(dir, f), 'utf8').replace(/\r\n/g, '\n')).join('');
+}
+
+/* Storm 亮版：01-tokens 从 parts-storm 读（映射翻转），02~09 复用暗版 parts（变量引用不变，
+ * 令牌映射翻转后颜色自动换）。若 parts-storm 只有 01-tokens 一个文件，其余从 parts 读。 */
+function loadStormParts() {
+  const stormDir = path.join(ROOT, 'src', 'parts-storm');
+  const darkDir = path.join(ROOT, 'src', 'parts');
+  const stormFiles = fs.readdirSync(stormDir).filter(f => f.endsWith('.scss')).sort();
+  const darkFiles = fs.readdirSync(darkDir).filter(f => f.endsWith('.scss')).sort();
+  // 以暗版为基准：暗版有但亮版没有的文件从暗版补
+  const allFiles = darkFiles.map(f => {
+    const stormPath = path.join(stormDir, f);
+    const darkPath = path.join(darkDir, f);
+    return fs.existsSync(stormPath) ? fs.readFileSync(stormPath, 'utf8') : fs.readFileSync(darkPath, 'utf8');
+  });
+  return allFiles.map(f => f.replace(/\r\n/g, '\n')).join('');
 }
 
 /* ---------- sass 编译（占位符旁路：属性选择器带引号值 + rgba alpha=1，防 sass 剥引号/简化 rgb） ---------- */
@@ -128,10 +153,9 @@ function ruleSet(css) {
 }
 
 /* ---------- 主流程 ----------
- * 元数据模板：src/nord-base.json 提供 ST 主题的全部非 custom_css 字段（颜色/开关等），
- * 其 custom_css 字段已弃用（CSS 源在 src/parts/*.scss），构建时以 parts 编译结果覆盖。 */
-const TEMPLATE = path.join(ROOT, 'src', 'nord-base.json');
-const handCSS = injectAssets(compile(loadParts()));
+ * 元数据模板：src/nord-base.json / nord-storm-base.json 提供 ST 主题的全部非 custom_css 字段（颜色/开关等），
+ * 其 custom_css 字段已弃用（CSS 源在 src/parts*.scss），构建时以 parts 编译结果覆盖。 */
+const handCSS = injectAssets(compile(BUILD_STORM ? loadStormParts() : loadParts()));
 
 // 基准（写入前的旧产物原文），对账与恢复都要用；首次构建/改名后文件不存在时容错为空
 const oldRaw = (() => { try { return fs.readFileSync(OUT, 'utf8'); } catch { return ''; } })();
@@ -140,9 +164,9 @@ const oldCss = oldRaw ? JSON.parse(oldRaw).custom_css : '';
 // 元数据取自模板（custom_css 用新编译的覆盖）
 const baseJson = JSON.parse(fs.readFileSync(TEMPLATE, 'utf8'));
 
-// 写临时 JSON（手写 CSS），跑图标包脚本追加 Material 块（它读 OUT、追加、写回 OUT）
-fs.writeFileSync(OUT, JSON.stringify({ ...baseJson, name: 'Nord', custom_css: handCSS }, null, 2), 'utf8');
-execFileSync('node', [path.join(ROOT, 'build-material-icons.js')], { stdio: 'inherit', env: process.env });
+// 写临时 JSON（手写 CSS），跑图标包脚本追加 Material 块（它读 THEME_OUT、追加、写回）
+fs.writeFileSync(OUT, JSON.stringify({ ...baseJson, name: THEME_NAME, custom_css: handCSS }, null, 2), 'utf8');
+execFileSync('node', [path.join(ROOT, 'build-material-icons.js')], { stdio: 'inherit', env: { ...process.env, THEME_OUT: OUT } });
 const finalCss = JSON.parse(fs.readFileSync(OUT, 'utf8')).custom_css;
 
 if (FORCE) { console.log('[force] 跳过对账，已写入。'); process.exit(0); }

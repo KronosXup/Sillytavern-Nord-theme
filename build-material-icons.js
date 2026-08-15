@@ -10,7 +10,8 @@ const path = require('path');
 const ROOT = __dirname;
 // 图标源：本机 @material-symbols/svg-400/sharp 目录。用环境变量覆盖，默认 ../node_modules 下找。
 const MS_BASE = process.env.MS_SVG_BASE || path.join(ROOT, 'node_modules/@material-symbols/svg-400/sharp/');
-const CONT = path.join(ROOT, 'themes/Nord.json');
+// 目标产物：build.js 通过 THEME_OUT 指定（暗版 Nord.json / 亮版 Nord-Storm.json）
+const CONT = process.env.THEME_OUT || path.join(ROOT, 'themes/Nord.json');
 // hover 强调走语义令牌（:root --accent），不再硬编码 hex——令牌化后 accent 单点可换
 const ACCENT = 'var(--accent)';
 
@@ -311,7 +312,8 @@ const msCSS = '/* ============================================================\n
 ' * ============================================================ */\n' + blocks.join('\n');
 
 const finalCSS = baseCSS + '\n\n' + msCSS;
-const out = { ...cont, name: 'Nord', custom_css: finalCSS };
+// 保留 JSON 里已有的 name（构建脚本已写 THEME_NAME，这里不覆盖）
+const out = { ...cont, custom_css: finalCSS };
 fs.writeFileSync(CONT, JSON.stringify(out, null, 2), 'utf8');
 
 const chk = JSON.parse(fs.readFileSync(CONT, 'utf8'));
