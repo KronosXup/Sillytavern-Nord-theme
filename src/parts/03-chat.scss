@@ -71,11 +71,11 @@
 }
 
 /* ---代码块：IDE 风——编辑器卡片 + 语言标签栏 + 官方语法色--- */
-/* 编辑器卡片：nord0 底（比聊天沉层亮一阶），等宽，横向滚动不换行 */
+/* 编辑器卡片：深底（暗版=bg-0 nord0；亮版=--code-bg 保持深色，语法色 nord4 白等在深底才可见） */
 code.hljs {
   display: block !important;
   position: relative !important;
-  background-color: var(--bg-0) !important;
+  background-color: var(--code-bg) !important;
   color: var(--text) !important;
   border: 1px solid var(--line-1) !important;
   border-radius: var(--radius) !important;
