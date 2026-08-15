@@ -28,6 +28,13 @@
 .mes_text b em, .mes_text em b {
   color: var(--nord7) !important;
 }
+/* 删除消息模式：选中消息红底——ST 原生 #chat .mes.selected 无 !important，
+ * 在主题变量背景（body.bubblechat .mes 的 BotMesBlurTintColor）下真机不生效，钉死；
+ * 连带 .mes_block 一起（防止内部层透出盖红） */
+#chat .mes.selected,
+#chat .mes.selected .mes_block {
+  background-color: rgb(102, 0, 0) !important;
+}
 /* 删除线：文字压灰，线留一丝 aurora 红（语义：移除） */
 .mes_text del, .mes_text s {
   color: var(--comment) !important;
