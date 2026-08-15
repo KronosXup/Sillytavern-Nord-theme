@@ -24,7 +24,7 @@
 .mes_text strong em, .mes_text em strong,
 .mes_text strong i, .mes_text b i,
 .mes_text b em, .mes_text em b {
-  color: var(--nord7) !important;
+  color: var(--quote-text) !important;
 }
 /* 删除消息模式：选中消息红底——ST 原生 #chat .mes.selected 无 !important，
  * 在主题变量背景（body.bubblechat .mes 的 BotMesBlurTintColor）下真机不生效，钉死；
@@ -48,7 +48,7 @@
   margin: 8px 0 !important;
 }
 .mes_text blockquote, .mes_text blockquote p, .mes_text blockquote span {
-  color: var(--nord7) !important;
+  color: var(--quote-text) !important;
 }
 /* 标题分级：h1/h2 带发丝底线，h3 纯字，h4+ 降一档。
  * 不设 color——Gruvbox 不给标题钉色，角色卡前端的彩色标题（如 #dc2626/#16a34a）才能生效 */

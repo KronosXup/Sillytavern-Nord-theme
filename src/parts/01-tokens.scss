@@ -49,6 +49,8 @@
   --accent-3:    var(--nord10);
   --on-accent:   var(--nord0);
   --icon-hover:  var(--accent);   /* 图标 hover 染色：暗版=accent（深底上浅青明显） */
+  --quote-text:  var(--nord7);    /* 引用块/引号对话/加粗斜体文字：暗版=浅青绿 */
+  --accent-body: var(--accent);   /* 正文强调标记（world_set 等）：暗版=accent */
   --danger:      var(--nord11);
   --warn:        var(--nord13);
   --success:     var(--nord14);

@@ -97,7 +97,7 @@ input[type="button"]:active, input[type="submit"]:active {
 /* ---ST 原生状态色恢复：扁平化别压掉语义态---
    收藏=aurora 黄(ST fav_on 的 golden)、世界书/角色书已链接=冰青(world_set/toggleEnabled)、删除=aurora 红底(red_button) */
 .fav_on { color: var(--nord13) !important; }
-.world_set, .toggleEnabled, .bulk_edit_overlay_active { color: var(--accent) !important; }
+.world_set, .toggleEnabled, .bulk_edit_overlay_active { color: var(--accent-body) !important; }
 .menu_button.red_button, .red_button {
   background-color: var(--danger) !important;
   color: var(--nord6) !important;
