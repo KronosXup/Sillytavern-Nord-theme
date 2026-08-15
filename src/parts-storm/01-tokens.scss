@@ -46,7 +46,7 @@
   --accent-2:    var(--nord9);
   --accent-3:    var(--nord10);   /* hover 增亮用深蓝 */
   --on-accent:   var(--nord0);
-  --icon-hover:  var(--accent-3);   /* 图标 hover 染色：亮版=accent-3(nord10 深蓝)——浅青在雪底上对比度低 */
+  --icon-hover:  var(--accent);   /* 图标 hover 染色：亮版保持浅青（用户指定亮色，实测可见性由用户确认） */
   --danger:      var(--nord11);
   --warn:        var(--nord13);
   --success:     var(--nord14);
