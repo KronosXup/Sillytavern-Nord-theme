@@ -13,8 +13,9 @@ button:not(.fa-solid):not(.fa-regular):not([class*="fa-"]),
 .mes_text, .mes_text p, .mes_text span,
 .ch_name, .mesIDDisplay, .mes_timer, .tokenCounterDisplay {
   font-family: var(--font-sans) !important;
-  color: var(--text) !important;
 }
+/* 文字色不钉死——Gruvbox 不给 mes_text 全局 !important，角色卡前端自设色才能生效；
+ * 主题的默认正文色由 body 继承即可 */
 .ch_name { color: var(--text-hi) !important; font-weight: 600 !important; letter-spacing: 0.01em !important; }
 code, pre, .hljs, .katex { font-family: var(--font-mono) !important; }
 

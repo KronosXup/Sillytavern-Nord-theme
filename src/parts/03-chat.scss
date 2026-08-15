@@ -257,8 +257,9 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
 }
 
 /* ---角色卡正则前端白底兜底：自设白/浅底（含 rgba 半透明）的容器，文字让前端自设色生效。
- * Nord 的 body/.mes_text 全局 !important 会把文字钉成 nord4 白；前端设了浅底时白底+白字不可见。
- * 收进 rgba 半透明浅色（如 rgba(255,255,255,0.6~0.9)）——叠暗底成灰卡，深色字才是设计本意 */
+ * Nord 去掉了 mes_text 全局 !important 后，前端自设色自然生效；
+ * 这条只是保险——前端没设字色的卡片，主题给个深灰保底，避免继承 body 的白。
+ * 不用 !important：前端自设了 color 时它应该优先 */
 #chat .mes_text [style*='background-color: rgb(255, 255, 255)'],
 #chat .mes_text [style*='background-color:rgb(255,255,255)'],
 #chat .mes_text [style*='background: rgb(255, 255, 255)'],
@@ -279,5 +280,5 @@ code.hljs .hljs-strong { font-weight: 700 !important; }
 #chat .mes_text [style*='background: rgba(255, 255, 255, 0.7)'],
 #chat .mes_text [style*='background: rgba(255, 255, 255, 0.8)'],
 #chat .mes_text [style*='background: rgba(255, 255, 255, 0.9)'] {
-  color: var(--nord0) !important;
+  color: var(--nord0);
 }
