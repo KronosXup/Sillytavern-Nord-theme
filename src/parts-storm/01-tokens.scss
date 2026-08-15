@@ -41,7 +41,7 @@
   --text-hover:  var(--nord0);   /* hover 增暗 */
   --text-dim:    var(--nord2);   /* 次要文字 */
   --text-faint:  var(--nord3);   /* 最淡文字 */
-  --comment:     var(--nord3);        /* 代码注释：亮版用 nord3 可读 */
+  --comment:     color-mix(in srgb, var(--nord4) 70%, var(--nord1) 30%);  /* 代码注释：亮版淡灰白——nord3 在 nord1 深底上同色不可见 */
   --accent:      var(--nord8);   /* ★ 主强调：亮版用 nord8 浅青（与暗版一致，雪底上柔和） */
   --accent-2:    var(--nord9);
   --accent-3:    var(--nord10);   /* hover 增亮用深蓝 */
