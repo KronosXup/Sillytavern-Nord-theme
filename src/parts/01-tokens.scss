@@ -53,6 +53,7 @@
   --accent-body: var(--accent);   /* 正文强调标记（world_set 等）：暗版=accent */
   --code-bg:     var(--bg-0);     /* 代码块底：暗版=画布 */
   --code-label:  var(--text-dim);  /* 代码块语言标签：暗版=次要文字 */
+  --code-text:   var(--text);     /* 代码块正文文字：暗版=正文色 */
   --danger:      var(--nord11);
   --warn:        var(--nord13);
   --success:     var(--nord14);

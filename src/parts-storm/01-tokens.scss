@@ -51,6 +51,7 @@
   --accent-body: var(--accent-3); /* 正文强调标记（world_set 等）：亮版=深蓝（浅青在雪底上太浅） */
   --code-bg:     var(--nord1);    /* 代码块底：亮版用深蓝灰（nord3 上语法色对比度不足，nord0 纯黑突兀，nord1 折中） */
   --code-label:  var(--nord4);     /* 代码块语言标签：亮版=雪白（nord1 底上清晰） */
+  --code-text:   var(--nord4);     /* 代码块正文文字：亮版=雪白（深底上必须亮，--text 是深色） */
   --danger:      var(--nord11);
   --warn:        var(--nord13);
   --success:     var(--nord14);
