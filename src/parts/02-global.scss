@@ -1,3 +1,6 @@
+/* ST 原生 .mes_button 黑 drop-shadow：暗版深底上无感，亮版雪底上重阴影明显——统一去掉 */
+.mes_button, .extraMesButtons > div { filter: none !important; }
+
 /* ---全局字体（排除图标，避免盖 FA 字形）--- */
 body {
   background-color: var(--bg-0) !important;
