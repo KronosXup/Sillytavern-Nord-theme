@@ -32,8 +32,8 @@
   --bg-3:        color-mix(in srgb, var(--nord6) 80%, var(--nord4) 20%);  /* 发丝线（比 nord6 暗一档） */
   --bg-sunken:   color-mix(in srgb, var(--nord4) 85%, #000 15%);       /* 下沉层（比画布暗一点） */
   --line-0:      color-mix(in srgb, var(--nord6) 70%, var(--nord3) 30%);  /* 画布级发丝线（淡） */
-  --line-1:      color-mix(in srgb, var(--nord6) 60%, var(--nord3) 40%);  /* 面板内发丝线 */
-  --line-2:      color-mix(in srgb, var(--nord6) 45%, var(--nord3) 55%);  /* 组件边（输入框/选择框，亮版要浅——纯nord3在雪底上太黑重） */
+  --line-1:      color-mix(in srgb, var(--nord6) 70%, var(--nord3) 30%);  /* 面板内发丝线 */
+  --line-2:      color-mix(in srgb, var(--nord6) 65%, var(--nord3) 35%);  /* 组件边（输入框/选择框，浅灰蓝） */
   --selection-bg: var(--nord10);   /* 选中条：nord10 深蓝（亮底可读性） */
   --selection-fg: var(--nord6);
   --text:        var(--nord0);   /* 正文：Polar Night 最暗 */
