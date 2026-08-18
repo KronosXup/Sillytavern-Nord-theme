@@ -66,17 +66,21 @@ body.th-modern-enabled .th-modern-item:hover {
   }
 }
 
-/* Modern UI 聊天框 focus：ST 1.18 把 outline 画在外层 #send_form（含左右按钮排），
- * 细线把按钮也圈进去 + 顶部截断。Modern UI 下压掉外层 outline，改回给 textarea
- * 自己画 frost-ring（只包文字区）。body.th-modern-enabled 限定，原版零命中 */
+/* Modern UI 聊天框 focus：内框（textarea）不发光，外框（#nonQRFormItems）发光。
+ * Modern UI 下 #nonQRFormItems 常态有 border+box-shadow（包整个输入栏含按钮），
+ * 聚焦时给外框 border 染 accent + 发光环，textarea 本身不动。
+ * body.th-modern-enabled 限定，原版零命中 */
 body.th-modern-enabled #send_form:has(#send_textarea:focus-visible) {
   outline: none !important;
 }
 body.th-modern-enabled #send_textarea:focus,
 body.th-modern-enabled #send_textarea:focus-visible {
-  border-color: var(--accent) !important;
-  box-shadow: var(--frost-ring) !important;
+  box-shadow: none !important;
   outline: none !important;
+}
+body.th-modern-enabled #send_form:has(#send_textarea:focus-visible) #nonQRFormItems {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px var(--accent), 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent) !important;
 }
 
 /* Modern UI 标题栏有 fullscreen/close 按钮，AI 面板问号链接 .topRightInset 原
