@@ -78,13 +78,6 @@ body.th-modern-enabled #send_textarea:focus-visible {
   box-shadow: var(--frost-ring) !important;
   outline: none !important;
 }
-/* Modern UI 给 #nonQRFormItems 常态加了边框+大投影（把输入框+左右按钮排整个包成卡片），
- * 视觉上输入框被裹在大框里很突兀。Modern UI 下去掉外层边框/阴影，让 textarea 自己的
- * frost-ring 成为唯一边框；body.th-modern-enabled 限定原版不动 */
-body.th-modern-enabled #nonQRFormItems {
-  border: none !important;
-  box-shadow: none !important;
-}
 
 /* Modern UI 标题栏有 fullscreen/close 按钮，AI 面板问号链接 .topRightInset 原
  * right:23px 与按钮重叠——右移 80px 避让（Gruvbox 同款） */
