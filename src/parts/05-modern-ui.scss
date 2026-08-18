@@ -75,6 +75,7 @@ body.th-modern-enabled #send_form:has(#send_textarea:focus-visible) {
 }
 body.th-modern-enabled #send_textarea:focus,
 body.th-modern-enabled #send_textarea:focus-visible {
+  border-color: transparent !important;
   box-shadow: none !important;
   outline: none !important;
 }
