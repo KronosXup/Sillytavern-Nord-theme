@@ -134,10 +134,7 @@ input[type="button"]:active, input[type="submit"]:active {
   color: var(--accent) !important;
 }
 
-/* ---输入区：nord2 底 + nord3 细边；focus frost 焦点环---
- * 聊天框(#send_textarea)除外——ST 1.18 把它的 focus 线移到外层 #send_form
- * （用 :has 检测 textarea 聚焦，画 outline 在 form 上），Nord 给 textarea 本身
- * 加 frost-ring 会和 ST 外层线叠成两层错乱。聊天框单独不画，其余输入框保持 frost-ring */
+/* ---输入区：nord2 底 + nord3 细边；focus frost 焦点环--- */
 .text_pole, textarea,
 input[type="text"], input[type="password"], input[type="number"],
 #send_textarea, select {
@@ -150,21 +147,10 @@ input[type="text"], input[type="password"], input[type="number"],
 }
 .text_pole:focus, textarea:focus,
 input[type="text"]:focus, input[type="password"]:focus,
-input[type="number"]:focus, select:focus {
+input[type="number"]:focus, #send_textarea:focus, select:focus {
   border-color: var(--accent) !important;
   box-shadow: var(--frost-ring) !important;
   outline: none !important;
-}
-/* 聊天框 focus：不在 textarea 本身画 frost-ring（ST 1.18 外层 #send_form 已画 outline），
- * 只改边框色配合；外层 form 的 outline 用 accent 加粗一档更清晰 */
-#send_textarea:focus, #send_textarea:focus-visible {
-  border-color: var(--accent) !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-#send_form:has(#send_textarea:focus-visible) {
-  outline: 1px solid var(--accent) !important;
-  outline-offset: 0 !important;
 }
 .text_pole::placeholder, textarea::placeholder, #send_textarea::placeholder {
   color: var(--text-dim) !important;
